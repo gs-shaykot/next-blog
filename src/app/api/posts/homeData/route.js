@@ -8,7 +8,7 @@ export async function GET() {
         const postsCollection = await client.db("next_Blog").collection("blogs");
 
         const featurePosts = await postsCollection.find({ isFeatured: true }).limit(3).toArray();
-        const latestPosts = await postsCollection.find().sort({ posted_date: -1 }).limit(4).toArray();
+        const latestPosts = await postsCollection.find().sort({ _id: -1 }).limit(4).toArray();
         const categoriAgg = await postsCollection.aggregate([
             {
                 $group: {
