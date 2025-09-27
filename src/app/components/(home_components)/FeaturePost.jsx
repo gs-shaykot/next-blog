@@ -23,7 +23,7 @@ export default function FeaturedPost(featurePosts) {
                     {featurePosts.featurePosts.map((post, index) => (
                         <div
                             key={post._id}
-                            className={`rounded-2xl overflow-hidden shadow hover:shadow-lg transition bg-white 
+                            className={`rounded-2xl overflow-hidden shadow hover:shadow-lg transition transform duration-300 hover:scale-105 bg-white 
                             ${index === 0 ? "md:col-span-3" : "md:col-span-1"}`}
                         >
                             {/* Image */}

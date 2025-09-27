@@ -7,7 +7,6 @@ import { CiSearch } from "react-icons/ci";
 import { TbLogin2 } from "react-icons/tb";
 import { RiLogoutBoxRLine, RiUserAddLine } from "react-icons/ri";
 import { signOut, useSession } from 'next-auth/react';
-
 const pacifico = Pacifico({
     subsets: ['latin'],
     weight: ['400'],
@@ -31,7 +30,7 @@ export default function Navbar() {
         <div className="bg-base-100 shadow-sm">
             <div className="!max-w-6xl mx-auto navbar !py-1">
                 {/* Navbar Start */}
-                <div className="navbar-start"> 
+                <div className="navbar-start">
                     <div className="dropdown lg:hidden">
                         <div tabIndex={0} role="button" className="btn btn-ghost">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -42,7 +41,7 @@ export default function Navbar() {
                             tabIndex={0}
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
                         >
-                            <NavItems /> 
+                            <NavItems />
                             <li className="lg:hidden">
                                 <label className="input input-sm rounded-lg mb-2">
                                     <CiSearch className="text-lg" />
@@ -77,8 +76,8 @@ export default function Navbar() {
                             )}
                         </ul>
                     </div>
- 
-                    <Link href="/" className={`flex text-2xl font-bold ${pacifico.className} text-[#2563eb]`}>
+
+                    <Link href="/" className={`flex text-2xl font-bold ${pacifico.className} text-black`}>
                         <Image
                             width={30}
                             height={30}
@@ -87,15 +86,15 @@ export default function Navbar() {
                         />
                         BlogCraft
                     </Link>
- 
+
                     <div className="hidden lg:flex ml-10">
                         <ul className="menu menu-horizontal px-1">
                             <NavItems />
                         </ul>
                     </div>
                 </div>
- 
-                <div className="navbar-end flex gap-2"> 
+
+                <div className="navbar-end flex gap-2">
                     <label className="input rounded-lg mr-2 hidden lg:flex">
                         <CiSearch className="text-lg" />
                         <input type="search" required placeholder="Search" />

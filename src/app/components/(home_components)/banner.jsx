@@ -25,35 +25,42 @@ export default function Banner() {
             {/* Main Content */}
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
                 <div className="animate-fade-in-up">
-                    <h1 className="text-6xl md:text-8xl font-extrabold mb-8 leading-tight">
-                        Craft Your{' '}
+                    {/* Heading */}
+                    <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold mb-6 sm:mb-8 leading-tight">
+                        Craft Your{" "}
                         <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-slate-400 bg-clip-text text-transparent animate-gradient">
                             Story
                         </span>
                     </h1>
-                    <p className="text-xl md:text-2xl mb-12 max-w-4xl mx-auto leading-relaxed opacity-90 animate-fade-in-up delay-300">
-                        Discover inspiring stories, expert insights, and creative content that sparks imagination and drives innovation in the digital age.
+
+                    {/* Subtext */}
+                    <p className="text-base sm:text-lg md:text-2xl mb-8 sm:mb-12 max-w-2xl md:max-w-4xl mx-auto leading-relaxed opacity-90 animate-fade-in-up delay-300">
+                        Discover inspiring stories, expert insights, and creative content that sparks
+                        imagination and drives innovation in the digital age.
                     </p>
-                    <div className="flex flex-col sm:flex-row gap-6 justify-center animate-fade-in-up delay-500">
-                        <Link href="" >
+
+                    {/* Buttons */}
+                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center animate-fade-in-up delay-500">
+                        <Link href="">
                             <button
                                 type="button"
-                                className="flex gap-2 items-center justify-center font-medium text-lg px-10 py-5 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-blue-500/25 text-white"
+                                className="flex gap-2 items-center justify-center font-medium text-base sm:text-lg px-6 sm:px-10 py-3 sm:py-5 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-blue-500/25 text-white w-full sm:w-auto"
                             >
-                                <FiBookOpen className='text-lg' />
+                                <FiBookOpen className="text-lg sm:text-xl" />
                                 Explore Blog
                             </button>
                         </Link>
                         <button
                             type="button"
-                            className="flex gap-2 items-center justify-center font-medium text-lg px-10 py-5 rounded-lg border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm transform hover:scale-105 transition-all duration-300 shadow-2xl"
+                            className="flex gap-2 items-center justify-center font-medium text-base sm:text-lg px-6 sm:px-10 py-3 sm:py-5 rounded-lg border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm transform hover:scale-105 transition-all duration-300 shadow-2xl w-full sm:w-auto"
                         >
-                            <GiFeather className='text-lg' />
+                            <GiFeather className="text-lg sm:text-xl" />
                             Start Writing
                         </button>
                     </div>
                 </div>
             </div>
+
 
             {/* Scroll Indicator */}
             <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">

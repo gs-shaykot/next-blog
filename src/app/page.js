@@ -1,4 +1,5 @@
-import Banner from "@/app/components/(home_components)/banner";
+import Banner from "@/app/components/(home_components)/banner"; 
+import CategorySec from "@/app/components/(home_components)/CategorySec";
 import FeaturedPost from "@/app/components/(home_components)/FeaturePost";
 import axios from "axios";
 import Image from "next/image";
@@ -16,6 +17,7 @@ export default async function Home() {
     <div>
       <Banner />
       <FeaturedPost featurePosts={featurePosts} />
+      <CategorySec categories={categories} />
     </div>
   );
 }
