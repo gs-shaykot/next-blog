@@ -1,6 +1,6 @@
 import React from 'react'
 import catBgc from '../../../../public/catBgc.jpg';
-import { FaCode, FaRegHeart, FaMapMarkedAlt } from "react-icons/fa";
+import { FaCode, FaRegHeart, FaMapMarkedAlt, FaLongArrowAltRight } from "react-icons/fa";
 import { LiaPaletteSolid } from "react-icons/lia";
 import { LuBriefcaseBusiness } from "react-icons/lu";
 
@@ -14,7 +14,7 @@ export default function CategorySec({ categories }) {
                     style={{ backgroundImage: `url(${catBgc.src})` }}
                     aria-hidden="true"
                 />
-                <div className='absolute inset-0 bg-black/60' aria-hidden="true" />
+                <div className='absolute inset-0 bg-black/80' aria-hidden="true" />
                 <div className="relative z-10 text-center my-5">
                     <div className="inline-block">
                         <h2 className="text-5xl md:text-6xl font-bold mb-1 text-white">Featured Stories</h2>
@@ -26,29 +26,42 @@ export default function CategorySec({ categories }) {
                 </div>
             </div>
             <div className='relative z-10 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-6 p-4'>
-
-                {
-                    categories.map((category, idx) => (
+                {categories.map((category, idx) => (
+                    <a
+                        key={idx}
+                        href="#"
+                        className="group cursor-pointer transform hover:scale-110 transition-all duration-500"
+                    >
                         <div
-                            key={idx}
-                            className="group glass transition-all rounded-lg transition transform duration-300 md:hover:scale-108 flex flex-col place-items-center text-center"
+                            className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-2xl p-8 text-center shadow-2xl hover:shadow-blue-500/25 transition-all duration-500 border border-white/20 hover:border-blue-400/50 overflow-hidden"
                         >
-                            <div className='p-5'>
-                                <div className="icons">
-                                    {
-                                        idx === 0 && <FaCode className='w-16 h-16 text-white bg-[#3b82f6] p-4 rounded-xl mb-2 group-hover:rotate-12  transition-all' /> ||
-                                        idx === 1 && <LiaPaletteSolid className='w-16 h-16 text-white bg-[#a855f7] p-4 rounded-xl mb-2 group-hover:rotate-12  transition-all ' /> ||
-                                        idx === 2 && <FaRegHeart className='w-16 h-16 text-white bg-[#22c55e] p-4 rounded-xl mb-2 group-hover:rotate-12  transition-all ' /> ||
-                                        idx === 3 && <LuBriefcaseBusiness className='w-16 h-16 text-white bg-[#f97316] p-4 rounded-xl mb-2 group-hover:rotate-12  transition-all ' /> ||
-                                        idx === 4 && <FaMapMarkedAlt className='w-16 h-16 text-white bg-[#ef4444] p-4 rounded-xl mb-2 group-hover:rotate-12  transition-all ' />
-                                    }
+                            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-slate-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                            <div className="relative z-10">
+                                <div className="w-16 h-16 rounded-2xl mx-auto mb-6 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+                                    {idx === 0 && <FaCode className="w-full h-full text-white bg-[#3b82f6] p-3 rounded-xl" />}
+                                    {idx === 1 && <LiaPaletteSolid className="w-full h-full text-white bg-[#a855f7] p-3 rounded-xl" />}
+                                    {idx === 2 && <FaRegHeart className="w-full h-full text-white bg-[#22c55e] p-3 rounded-xl" />}
+                                    {idx === 3 && <LuBriefcaseBusiness className="w-full h-full text-white bg-[#f97316] p-3 rounded-xl" />}
+                                    {idx === 4 && <FaMapMarkedAlt className="w-full h-full text-white bg-[#ef4444] p-3 rounded-xl" />}
                                 </div>
-                                <h1 className='font-bold text-lg text-white'>{category.name}</h1>
-                                <h1 className='text-white'>{category.count} articles</h1>
+
+                                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-300 transition-colors">
+                                    {category.name}
+                                </h3>
+
+                                <p className="text-gray-300 text-sm">{category.count} articles</p>
+
+                                <div className="mt-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                                    <div className="inline-flex place-items-center items-center justify-center text-blue-300 text-sm">
+                                        Explore <FaLongArrowAltRight className="mt-1 ml-1" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    ))
-                }
+                    </a>
+                ))}
+
 
             </div>
         </section >
