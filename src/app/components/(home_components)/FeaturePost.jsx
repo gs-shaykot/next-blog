@@ -5,12 +5,12 @@ import React from 'react'
 
 export default function FeaturedPost(featurePosts) {
     return (
-        <div>
+        <div className='max-w-7xl mx-auto px-5'>
             <div className="text-center my-10">
                 <div className="inline-block">
                     <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4 bg-gradient-to-r from-gray-900 via-blue-800 to-slate-800 bg-clip-text text-transparent">Featured Stories
                     </h2>
-                    <div className="h-1 w-36 bg-gradient-to-r from-blue-600 to-slate-700 mx-auto rounded-full animate-pulse">
+                    <div className="h-1 w-36 bg-gradient-to-r from-blue-600 to-indigo-700 mx-auto rounded-full animate-pulse">
                     </div>
                 </div>
                 <p className="text-xl text-gray-600 max-w-3xl mx-auto mt-5 leading-relaxed">
