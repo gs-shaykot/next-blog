@@ -51,7 +51,7 @@ export default function Page() {
 
 
   return (
-    <div className="bg-gradient-to-br from-gray-50 via-white to-blue-50">
+    <div className="bg-gradient-to-br from-gray-50 via-white to-blue-50 mt-18">
       <div className="text-center pt-5">
         <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-xl">
           <LuUserRoundPlus className="text-2xl text-white" />

@@ -2,11 +2,12 @@
 import { Pacifico } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { CiSearch } from "react-icons/ci";
 import { TbLogin2 } from "react-icons/tb";
 import { RiLogoutBoxRLine, RiUserAddLine } from "react-icons/ri";
 import { signOut, useSession } from 'next-auth/react';
+
 const pacifico = Pacifico({
     subsets: ['latin'],
     weight: ['400'],
@@ -26,9 +27,20 @@ export default function Navbar() {
         </>
     );
 
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 0);
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
     return (
-        <div className="bg-base-100 shadow-sm">
-            <div className="!max-w-6xl mx-auto navbar !py-1">
+        <div
+            className={`fixed top-0 left-0 w-full z-50 py-1 transition-all duration-300 ${isScrolled ? "shadow-md !py-0" : "shadow-none"} bg-base-100`}>
+            <div className="!max-w-6xl mx-auto navbar">
                 {/* Navbar Start */}
                 <div className="navbar-start">
                     <div className="dropdown lg:hidden">

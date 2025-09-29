@@ -19,12 +19,13 @@ export default function FeaturedPost(featurePosts) {
             </div>
 
             <div className="max-w-7xl mx-auto px-5">
-                <section className="grid md:grid-cols-5 gap-10">
+                <section className="grid md:grid-cols-12 gap-10">
+
                     {featurePosts.featurePosts.map((post, index) => (
                         <div
                             key={post._id}
-                            className={`rounded-2xl overflow-hidden shadow hover:shadow-lg transition transform duration-300 hover:scale-105 bg-white 
-                            ${index === 0 ? "md:col-span-3" : "md:col-span-1"}`}
+                            className={`group rounded-2xl overflow-hidden shadow hover:cursor-pointer hover:shadow-lg transition transform duration-300 hover:scale-105 bg-white 
+                            ${index === 0 ? "md:col-span-6" : "md:col-span-3"}`}
                         >
                             {/* Image */}
                             <div className="relative">
@@ -33,7 +34,7 @@ export default function FeaturedPost(featurePosts) {
                                     height={300}
                                     src={post.post_image}
                                     alt={post.title}
-                                    className={`w-full object-cover ${index === 0 ? "h-72" : "h-56"}`}
+                                    className={`transform duration-300 group-hover:scale-105 w-full object-cover ${index === 0 ? "h-72" : "h-56"}`}
                                 />
                                 <span className="absolute top-3 left-3 bg-blue-600 text-white text-sm px-3 py-1 rounded-full">
                                     {post.category}
@@ -61,8 +62,7 @@ export default function FeaturedPost(featurePosts) {
 
                                 {/* Title */}
                                 <h2
-                                    className={`leading-snug font-semibold ${index === 0 ? "text-2xl" : "text-lg"
-                                        }`}
+                                    className={`font-semibold group-hover:text-blue-700 ${index === 0 ? "text-2xl" : "text-lg"}`}
                                 >
                                     {post.title}
                                 </h2>
@@ -78,12 +78,10 @@ export default function FeaturedPost(featurePosts) {
                                         <span>👍 {post.totalLikes}</span>
                                         <span>💬 28</span>
                                     </div>
-                                    <a
-                                        href={`/posts/${post._id}`}
-                                        className="text-blue-600 hover:underline font-medium"
-                                    >
+
+                                    <button className="px-2 py-1 rounded-md group-hover:bg-blue-100 group-hover:text-[#2563eb] bg-transparent border-0 shadow-none text-gray-600">
                                         Read More →
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         </div>

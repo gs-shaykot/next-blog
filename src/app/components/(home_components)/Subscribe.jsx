@@ -1,4 +1,5 @@
 import subsBgc from '../../../../public/subsBgc.jpg';
+import { CiLocationArrow1 } from "react-icons/ci";
 
 export default function Subscribe() {
     return (
@@ -28,6 +29,7 @@ export default function Subscribe() {
                             />
                             <button className="btn bg-gray-800 border-0 shadow-none h-full text-white px-4 sm:px-6 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold">
                                 Subscribe
+                                <CiLocationArrow1 className="inline-block text-xl" />
                             </button>
                         </div>
                         <p className="text-xs sm:text-sm text-white/80 mt-4 sm:mt-6">

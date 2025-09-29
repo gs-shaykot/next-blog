@@ -1,10 +1,6 @@
-import React from 'react'
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import rehypeRaw from "rehype-raw";
-import rehypeSanitize from "rehype-sanitize";
-import removeMd from 'remove-markdown';
 import Image from 'next/image';
+import React from 'react'
+import removeMd from 'remove-markdown';
 
 export default function LatestPosts({ latestPosts }) {
     return (
@@ -24,14 +20,15 @@ export default function LatestPosts({ latestPosts }) {
                 {latestPosts.map((post, idx) => (
                     <div
                         key={idx}
-                        className={`group transition-transform duration-300 hover:scale-105 hover:shadow-xl card bg-base-100 shadow-lg relative 
-        w-full sm:w-80 md:w-96 ${idx % 2 === 0 ? 'top-0' : 'top-5'}`}
+                        className={`group transition-transform duration-300 hover:cursor-pointer hover:scale-105 hover:shadow-xl card bg-base-100 shadow-lg relative w-full sm:w-80 md:w-96 ${idx % 2 === 0 ? 'top-0' : 'top-5'}`}
                     >
                         <figure>
-                            <img
+                            <Image
+                                width={400}
+                                height={250}
                                 src={post.post_image}
                                 alt="post image"
-                                className="w-full h-48 object-cover"
+                                className={`transform duration-300 group-hover:scale-105 w-full h-48 object-cover`}
                             />
                         </figure>
 
@@ -42,7 +39,7 @@ export default function LatestPosts({ latestPosts }) {
                                 alt={post.author}
                                 width={40}
                                 height={40}
-                                className="w-10 h-10 rounded-full"
+                                className={`w-10 h-10 rounded-full`}
                             />
                             <div>
                                 <h4 className="font-medium">{post.author}</h4>
@@ -53,7 +50,7 @@ export default function LatestPosts({ latestPosts }) {
                         </div>
 
                         <div className="card-body !pt-2">
-                            <h2 className="card-title text-lg md:text-xl">{post.title}</h2>
+                            <h2 className="card-title text-lg md:text-xl group-hover:text-blue-700">{post.title}</h2>
                             <p className="text-gray-600 whitespace-pre-line">
                                 {removeMd(post.content).slice(0, 80)}...
                             </p>

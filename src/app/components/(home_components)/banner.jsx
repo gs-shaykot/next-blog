@@ -28,7 +28,7 @@ export default function Banner() {
                     {/* Heading */}
                     <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold mb-6 sm:mb-8 leading-tight">
                         Craft Your{" "}
-                        <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-slate-400 bg-clip-text text-transparent animate-gradient">
+                        <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-slate-400 bg-clip-text text-transparent animate-pulse">
                             Story
                         </span>
                     </h1>
