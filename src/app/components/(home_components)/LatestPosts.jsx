@@ -8,7 +8,7 @@ import Image from 'next/image';
 
 export default function LatestPosts({ latestPosts }) {
     return (
-        <div className='max-w-7xl mx-auto px-5 py-16'>
+        <div className='max-w-7xl mx-auto px-5 py-10'>
             <div className="text-center my-10">
                 <div className="inline-block">
                     <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4 bg-gradient-to-r from-gray-900 via-blue-800 to-slate-800 bg-clip-text text-transparent">Latest Articles
@@ -20,7 +20,7 @@ export default function LatestPosts({ latestPosts }) {
                     Our most popular and impactful articles, handpicked for you
                 </p>
             </div>
-            <div className="flex flex-wrap justify-center gap-6 md:gap-10">
+            <div className="flex flex-wrap lg:flex-nowrap justify-center gap-6 md:gap-10">
                 {latestPosts.map((post, idx) => (
                     <div
                         key={idx}
