@@ -3,7 +3,7 @@ import { CiLocationArrow1 } from "react-icons/ci";
 
 export default function Subscribe() {
     return (
-        <section className="py-12 bg-gradient-to-r from-gray-900 via-slate-900 to-gray-800 relative overflow-hidden mt-10">
+        <section className="py-12 bg-gradient-to-r from-gray-900 via-slate-900 to-gray-800 relative overflow-hidden">
             <div
                 className="absolute inset-0 bg-cover bg-center"
                 style={{ backgroundImage: `url(${subsBgc.src})` }}

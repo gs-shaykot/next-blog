@@ -5,14 +5,14 @@ import LatestPosts from "@/app/components/(home_components)/LatestPosts";
 import Subscribe from "@/app/components/(home_components)/Subscribe";
 import axios from "axios";
 import Image from "next/image";
+import { useSelector } from "react-redux";
 
 export const getHomeData = async () => {
   const res = await axios.get('http://localhost:3000/api/posts/homeData')
   return res.data
 }
 
-export default async function Home() {
-
+export default async function Home() {  
   const { featurePosts, latestPosts, categories } = await getHomeData()
 
   return (

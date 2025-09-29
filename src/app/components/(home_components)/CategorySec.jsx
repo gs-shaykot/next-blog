@@ -1,12 +1,15 @@
+"use client"
 import React from 'react'
 import catBgc from '../../../../public/catBgc.jpg';
 import { FaCode, FaRegHeart, FaMapMarkedAlt, FaLongArrowAltRight } from "react-icons/fa";
 import { LiaPaletteSolid } from "react-icons/lia";
 import { LuBriefcaseBusiness } from "react-icons/lu";
+import { useSelector } from 'react-redux';
 
-export default function CategorySec({ categories }) { 
+export default function CategorySec({ categories }) {
+    const themeMode = useSelector((mode) => mode.themeToggle.mode)
     return (
-        <section className='py-5 bg-gradient-to-r from-gray-900 via-slate-900 to-gray-800 relative overflow-hidden mt-10'>
+        <section className='py-5 bg-gradient-to-r from-gray-900 via-slate-900 to-gray-800 relative overflow-hidden '>
             <div>
                 <div
                     className='absolute inset-0 bg-cover bg-center'
@@ -16,7 +19,11 @@ export default function CategorySec({ categories }) {
                 <div className='absolute inset-0 bg-black/80' aria-hidden="true" />
                 <div className="relative z-10 text-center my-5">
                     <div className="inline-block">
-                        <h2 className="text-5xl md:text-6xl font-bold mb-1 text-white">Featured Stories</h2>
+                        <h2
+                            className={`text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-white via-blue-400 to-gray-300 bg-clip-text text-transparent `}
+                        >
+                            Explore Categories
+                        </h2>
                         <div className="h-1 w-36 bg-gradient-to-r from-blue-500 to-indigo-600 mx-auto rounded-full animate-pulse" />
                     </div>
                     <p className="text-xl text-gray-300 max-w-3xl mx-auto mt-3 leading-relaxed">

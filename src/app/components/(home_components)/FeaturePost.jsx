@@ -1,15 +1,27 @@
+"use client"
 import axios from 'axios'
 import Image from 'next/image'
 import React from 'react'
+import { useSelector } from 'react-redux';
 import removeMd from "remove-markdown";
 
 export default function FeaturedPost(featurePosts) {
+
+    const themeMode = useSelector((mode) => mode.themeToggle.mode)
     return (
-        <div className='max-w-7xl mx-auto px-5'>
-            <div className="text-center my-10">
+        <div className={`max-w-7xl mx-auto px-5 ${themeMode === "dark" ? "bg-gray-900 !text-white" : "bg-white !text-black"}`}>
+            <div className="text-center py-10">
                 <div className="inline-block">
-                    <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4 bg-gradient-to-r from-gray-900 via-blue-800 to-slate-800 bg-clip-text text-transparent">Explore Categories
+                    <h2
+                        className={`text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r bg-clip-text text-transparent
+                        ${themeMode === "dark"
+                                ? "from-white via-blue-400 to-gray-300"
+                                : "from-gray-900 via-blue-800 to-slate-800"
+                            }`}
+                    >
+                        Explore Categories
                     </h2>
+
                     <div className="h-1 w-36 bg-gradient-to-r from-blue-600 to-indigo-700 mx-auto rounded-full animate-pulse">
                     </div>
                 </div>
@@ -19,13 +31,13 @@ export default function FeaturedPost(featurePosts) {
             </div>
 
             <div className="max-w-7xl mx-auto px-5">
-                <section className="grid md:grid-cols-12 gap-10">
+                <section className="grid md:grid-cols-12 gap-10 pb-10">
 
                     {featurePosts.featurePosts.map((post, index) => (
                         <div
                             key={post._id}
-                            className={`group rounded-2xl overflow-hidden shadow hover:cursor-pointer hover:shadow-lg transition transform duration-300 hover:scale-105 bg-white 
-                            ${index === 0 ? "md:col-span-6" : "md:col-span-3"}`}
+                            className={`group rounded-2xl overflow-hidden shadow hover:cursor-pointer hover:shadow-lg transition transform duration-300 hover:scale-105 
+                            ${index === 0 ? "md:col-span-6" : "md:col-span-3"} ${themeMode === "dark" ? "bg-gray-800 text-white" : "bg-white text-black"}`}
                         >
                             {/* Image */}
                             <div className="relative">
@@ -54,7 +66,7 @@ export default function FeaturedPost(featurePosts) {
                                     />
                                     <div>
                                         <h4 className="font-medium">{post.author}</h4>
-                                        <p className="text-sm text-gray-500">
+                                        <p className={`text-sm ${themeMode === "dark" ? "text-gray-300" : "text-gray-500"}`}>
                                             {new Date(post.posted_date).toISOString().split("T")[0]} • 8 min read
                                         </p>
                                     </div>

@@ -44,7 +44,7 @@ export default function Navbar() {
 
     return (
         <div
-            className={`fixed top-0 left-0 w-full z-50 py-1 transition-all duration-300 ${isScrolled ? "shadow-md !py-0" : "shadow-none"} bg-base-100`}>
+            className={`fixed top-0 left-0 w-full z-50 py-1 transition-all duration-300 ${themeMode === "dark" ? "bg-gray-900 !text-white" : "bg-white !text-black"}  ${isScrolled ? "shadow-md !py-0" : "shadow-none"} bg-base-100`}>
             <div className="!max-w-6xl mx-auto navbar">
                 {/* Navbar Start */}
                 <div className="navbar-start">
@@ -94,7 +94,7 @@ export default function Navbar() {
                         </ul>
                     </div>
 
-                    <Link href="/" className={`flex text-2xl font-bold ${pacifico.className} text-black`}>
+                    <Link href="/" className={`flex text-2xl font-bold ${pacifico.className} `}>
                         <Image
                             width={30}
                             height={30}
@@ -111,11 +111,20 @@ export default function Navbar() {
                     </div>
                 </div>
 
-                <div className="navbar-end flex gap-2">
-                    <label className="input rounded-lg mr-2 hidden lg:flex">
-                        <CiSearch className="text-lg" />
-                        <input type="search" required placeholder="Search" />
-                    </label>
+                <div className="navbar-end flex gap-2"><label
+                    className={`input rounded-lg mr-2 hidden lg:flex ${themeMode === "dark" ? "bg-gray-800 !text-white" : "bg-white !text-black"
+                        }`}
+                >
+                    <CiSearch className="text-lg" />
+                    <input
+                        type="search"
+                        required
+                        placeholder="Search"
+                        className={`bg-transparent outline-none ${themeMode === "dark" ? "placeholder-gray-400" : "placeholder-gray-600"
+                            }`}
+                    />
+                </label>
+
 
                     {userDtl ? (
                         <div className="dropdown dropdown-end mt-1">

@@ -1,13 +1,23 @@
+"use client"
 import Image from 'next/image';
 import React from 'react'
+import { useSelector } from 'react-redux';
 import removeMd from 'remove-markdown';
 
 export default function LatestPosts({ latestPosts }) {
+    const themeMode = useSelector((mode) => mode.themeToggle.mode)
     return (
-        <div className='max-w-7xl mx-auto px-5 py-10'>
+        <div className={`max-w-7xl mx-auto px-5 py-10 ${themeMode === "dark" ? "bg-gray-900 !text-white" : "bg-white !text-black"}`}>
             <div className="text-center my-10">
                 <div className="inline-block">
-                    <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4 bg-gradient-to-r from-gray-900 via-blue-800 to-slate-800 bg-clip-text text-transparent">Latest Articles
+                    <h2
+                        className={`text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r bg-clip-text text-transparent
+                        ${themeMode === "dark"
+                                ? "from-white via-blue-400 to-gray-300"
+                                : "from-gray-900 via-blue-800 to-slate-800"
+                            }`}
+                    >
+                        Explore Categories
                     </h2>
                     <div className="h-1 w-36 bg-gradient-to-r from-blue-600 to-indigo-700 mx-auto rounded-full animate-pulse">
                     </div>
@@ -20,7 +30,7 @@ export default function LatestPosts({ latestPosts }) {
                 {latestPosts.map((post, idx) => (
                     <div
                         key={idx}
-                        className={`group transition-transform duration-300 hover:cursor-pointer hover:scale-105 hover:shadow-xl card bg-base-100 shadow-lg relative w-full sm:w-80 md:w-96 ${idx % 2 === 0 ? 'top-0' : 'top-5'}`}
+                        className={`group transition-transform duration-300 hover:cursor-pointer hover:scale-105 hover:shadow-xl card bg-base-100 shadow-lg relative w-full sm:w-80 md:w-96 ${idx % 2 === 0 ? 'top-0' : 'top-5'} ${themeMode === "dark" ? "bg-gray-800 text-white" : "bg-white text-black"}`}
                     >
                         <figure>
                             <Image
