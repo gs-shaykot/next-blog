@@ -19,7 +19,7 @@ export default function Footer() {
                         alt="feather pen with ink pot"
                     />
                     <p>
-                        <span className={`${pacifico.className}`}>BlogCraft</span>
+                        <span className={`${pacifico.className} text-2xl/10 mb-3`}>BlogCraft</span>
                         <br />
                         Providing reliable tech blogs since 2017
                     </p>
