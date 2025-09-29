@@ -4,8 +4,7 @@ import { FaCode, FaRegHeart, FaMapMarkedAlt, FaLongArrowAltRight } from "react-i
 import { LiaPaletteSolid } from "react-icons/lia";
 import { LuBriefcaseBusiness } from "react-icons/lu";
 
-export default function CategorySec({ categories }) {
-    console.log(categories)
+export default function CategorySec({ categories }) { 
     return (
         <section className='py-5 bg-gradient-to-r from-gray-900 via-slate-900 to-gray-800 relative overflow-hidden mt-10'>
             <div>

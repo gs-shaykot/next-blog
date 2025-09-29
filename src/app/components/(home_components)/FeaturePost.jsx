@@ -1,14 +1,14 @@
 import axios from 'axios'
 import Image from 'next/image'
 import React from 'react'
-
+import removeMd from "remove-markdown";
 
 export default function FeaturedPost(featurePosts) {
     return (
         <div className='max-w-7xl mx-auto px-5'>
             <div className="text-center my-10">
                 <div className="inline-block">
-                    <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4 bg-gradient-to-r from-gray-900 via-blue-800 to-slate-800 bg-clip-text text-transparent">Featured Stories
+                    <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4 bg-gradient-to-r from-gray-900 via-blue-800 to-slate-800 bg-clip-text text-transparent">Explore Categories
                     </h2>
                     <div className="h-1 w-36 bg-gradient-to-r from-blue-600 to-indigo-700 mx-auto rounded-full animate-pulse">
                     </div>
@@ -68,14 +68,14 @@ export default function FeaturedPost(featurePosts) {
                                 </h2>
 
                                 {/* Short Content */}
-                                <p className="text-gray-600 text-sm">
-                                    {post.content.slice(0, index === 0 ? 200 : 100)}...
+                                <p className="text-black-300 whitespace-pre-line">
+                                    {removeMd(post.content).slice(0, 120)}...
                                 </p>
 
                                 {/* Footer */}
                                 <div className="flex justify-between items-center text-sm text-gray-500 mt-3">
                                     <div className="flex items-center gap-2">
-                                        <span>❤️ {post.totalLikes}</span>
+                                        <span>👍 {post.totalLikes}</span>
                                         <span>💬 28</span>
                                     </div>
                                     <a
