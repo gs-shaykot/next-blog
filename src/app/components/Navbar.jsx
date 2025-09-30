@@ -27,7 +27,7 @@ export default function Navbar() {
     const NavItems = () => {
         const links = [
             { href: "/", label: "Home" },
-            { href: "/blog", label: "Blog" },
+            { href: "/blogs", label: "Blogs" },
             { href: "/categories", label: "Categories" },
             { href: "/about", label: "About" },
             { href: "/contact", label: "Contact" },
@@ -64,7 +64,7 @@ export default function Navbar() {
 
     return (
         <div
-            className={`fixed top-0 left-0 w-full z-50 py-1 transition-all duration-300 ${themeMode === "dark"
+            className={`fixed top-0 left-0 w-full z-50 py-1 transition-all duration-300 border-b border-gray-200 ${themeMode === "dark"
                 ? "bg-gray-900 !text-white"
                 : "bg-white !text-black"
                 } ${isScrolled ? "shadow-md !py-0" : "shadow-none"} bg-base-100`}
