@@ -10,6 +10,7 @@ import { signOut, useSession } from 'next-auth/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IoSunnyOutline } from "react-icons/io5";
 import { toggleTheme } from '@/app/Redux/slice';
+import { usePathname } from 'next/navigation';
 
 const pacifico = Pacifico({
     subsets: ['latin'],
@@ -17,20 +18,39 @@ const pacifico = Pacifico({
 });
 
 export default function Navbar() {
+    const pathname = usePathname();
     const { data: session } = useSession();
     const userDtl = session?.user;
-    const themeMode = useSelector((mode) => mode.themeToggle.mode)
-    const dispatch = useDispatch()
-    console.log(themeMode)
-    const NavItems = () => (
-        <>
-            <li><Link href="/" className="font-semibold">Home</Link></li>
-            <li><Link href="/" className="font-semibold">Blog</Link></li>
-            <li><Link href="/" className="font-semibold">Categories</Link></li>
-            <li><Link href="/" className="font-semibold">About</Link></li>
-            <li><Link href="/" className="font-semibold">Contact</Link></li>
-        </>
-    );
+    const themeMode = useSelector((mode) => mode.themeToggle.mode);
+    const dispatch = useDispatch();
+
+    const NavItems = () => {
+        const links = [
+            { href: "/", label: "Home" },
+            { href: "/blog", label: "Blog" },
+            { href: "/categories", label: "Categories" },
+            { href: "/about", label: "About" },
+            { href: "/contact", label: "Contact" },
+        ];
+
+        return (
+            <>
+                {links.map(({ href, label }) => (
+                    <li key={href}>
+                        <Link
+                            href={href}
+                            className={`relative font-semibold transition-colors ${pathname === href
+                                ? "text-blue-600 after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[2px] after:bg-blue-600"
+                                : "hover:text-blue-500"
+                                }`}
+                        >
+                            {label}
+                        </Link>
+                    </li>
+                ))}
+            </>
+        );
+    };
 
     const [isScrolled, setIsScrolled] = useState(false);
 
@@ -44,57 +64,21 @@ export default function Navbar() {
 
     return (
         <div
-            className={`fixed top-0 left-0 w-full z-50 py-1 transition-all duration-300 ${themeMode === "dark" ? "bg-gray-900 !text-white" : "bg-white !text-black"}  ${isScrolled ? "shadow-md !py-0" : "shadow-none"} bg-base-100`}>
+            className={`fixed top-0 left-0 w-full z-50 py-1 transition-all duration-300 ${themeMode === "dark"
+                ? "bg-gray-900 !text-white"
+                : "bg-white !text-black"
+                } ${isScrolled ? "shadow-md !py-0" : "shadow-none"} bg-base-100`}
+        >
             <div className="!max-w-6xl mx-auto navbar">
                 {/* Navbar Start */}
                 <div className="navbar-start">
+                    {/* mobile menu dropdown */}
                     <div className="dropdown lg:hidden">
-                        <div tabIndex={0} role="button" className="btn btn-ghost">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
-                            </svg>
-                        </div>
-                        <ul
-                            tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-                        >
-                            <NavItems />
-                            <li className="lg:hidden">
-                                <label className="input input-sm rounded-lg mb-2">
-                                    <CiSearch className="text-lg" />
-                                    <input type="search" required placeholder="Search" />
-                                </label>
-                            </li>
-                            {!userDtl && (
-                                <>
-                                    <li className="lg:hidden">
-                                        <Link href="/login">
-                                            <button
-                                                type="button"
-                                                className="flex items-center justify-center font-medium transition-all duration-200 cursor-pointer whitespace-nowrap rounded-lg border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-3 py-1.5 !text-sm !w-full"
-                                            >
-                                                <TbLogin2 />
-                                                Login
-                                            </button>
-                                        </Link>
-                                    </li>
-                                    <li className="lg:hidden">
-                                        <Link href="/signup">
-                                            <button
-                                                type="button"
-                                                className="flex items-center justify-center font-medium transition-all duration-200 cursor-pointer whitespace-nowrap rounded-lg border-2 border-blue-600 text-blue-600 bg-blue-600 text-white px-3 py-1.5 !text-sm !w-full mt-2"
-                                            >
-                                                <RiUserAddLine />
-                                                Sign up
-                                            </button>
-                                        </Link>
-                                    </li>
-                                </>
-                            )}
-                        </ul>
+                        ...
                     </div>
 
-                    <Link href="/" className={`flex text-2xl font-bold ${pacifico.className} `}>
+                    {/* Logo */}
+                    <Link href="/" className="flex text-2xl font-bold">
                         <Image
                             width={30}
                             height={30}
@@ -104,6 +88,7 @@ export default function Navbar() {
                         BlogCraft
                     </Link>
 
+                    {/* Desktop menu */}
                     <div className="hidden lg:flex ml-10">
                         <ul className="menu menu-horizontal px-1">
                             <NavItems />
