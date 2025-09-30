@@ -140,7 +140,7 @@ export default function Navbar() {
                             </div>
                             <ul
                                 tabIndex={0}
-                                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+                                className={`menu menu-sm dropdown-content  ${themeMode === "dark" ? "bg-gray-900 !text-white" : "bg-white !text-black"} rounded-box z-1 mt-3 w-52 p-2 shadow`}
                             >
                                 <li><Link href="/profile">Profile</Link></li>
                                 <li><Link href="/settings">Settings</Link></li>
@@ -177,7 +177,7 @@ export default function Navbar() {
 
                         {/* sun icon */}
                         <svg
-                            className="swap-off h-10 w-10 fill-current"
+                            className="swap-off h-8 w-8 fill-current"
                             onClick={() => dispatch(toggleTheme())}
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24">
@@ -187,7 +187,7 @@ export default function Navbar() {
 
                         {/* moon icon */}
                         <svg
-                            className="swap-on h-10 w-10 fill-current"
+                            className="swap-on h-8 w-8 fill-current"
                             onClick={() => dispatch(toggleTheme())}
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24">
