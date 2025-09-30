@@ -1,0 +1,19 @@
+this is my blog site's /blogs page, where I will list all my blogs. the post data will be fetched from mongodb database, i want to use SSR for this page. but not understanding some concepts. please help me to write the code for this page.
+concepts:
+1: here are categories of blogs, like web development, programming, technology, etc. I want to show these categories as buttons on the top of the page. when user clicks on any category card, it should filter the blogs and show only the blogs related to that category. but there are some facts:
+1: maximum 6posts will fetch at first time like pagination, from the first 6 post user can see categorized post using the category button. 
+you understand my idea ? now tell me how to do it ? should i use RTKQ for it or i can just do the SSR fetching logic in /blogs/page.jsx & pass the data in /blogs/postCard.jsx? suggest me sequentially what you suggest.
+
+i have my api ready:
+export async function GET() {
+    try {
+        const postsCollection = await client.db("next_Blog").collection("blogs");
+        const posts = await postsCollection.find().toArray();
+        const serialized = posts.map(p => ({ ...p, _id: String(p._id) }));
+        return NextResponse.json(serialized, { status: 200 });
+    } catch (err) {
+        return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+    }
+}
+
+--> First give the folder structure then give the code sequentially...

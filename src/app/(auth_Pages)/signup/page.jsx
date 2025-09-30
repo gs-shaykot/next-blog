@@ -7,7 +7,7 @@ import { LuUserRoundPlus } from "react-icons/lu";
 import { AiFillGooglePlusCircle } from "react-icons/ai";
 import Link from "next/link";
 import axios from "axios";
- 
+
 export default function Page() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const [isShow, setIsShow] = useState(false);
@@ -17,7 +17,7 @@ export default function Page() {
 
   const onSubmit = async (data) => {
     setLoading(true);
-    try { 
+    try {
       const file = data.photo[0];
       const formData = new FormData();
       formData.append("file", file);
@@ -37,9 +37,8 @@ export default function Page() {
         email,
         password,
         photoUrl: imageLink,
-      };
-      console.log(userData)
-      const res = await axios.post("/api/register", userData);
+      }; 
+      const res = await axios.post("/api/register", userData); 
 
       setMessage(res.data.message);
     } catch (err) {
@@ -175,6 +174,7 @@ export default function Page() {
             <AiFillGooglePlusCircle className="text-[#ff5059] text-xl" />
             Google
           </button>
+
 
           <div className="text-center text-sm text-gray-600 mt-2">
             Already have an account?{" "}
