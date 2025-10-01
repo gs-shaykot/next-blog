@@ -58,6 +58,11 @@ export default function BlogList({ initialPosts, initialTotalPages }) {
                         type="search"
                         required
                         placeholder="Search"
+                        value={searchTerm}
+                        onChange={(e) => {
+                            setSearchTerm(e.target.value);
+                            setPage(1);  
+                        }}
                         className={`bg-transparent outline-none ${themeMode === "dark" ? "placeholder-gray-400" : "placeholder-gray-600"
                             }`}
                     />

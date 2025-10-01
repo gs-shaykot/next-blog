@@ -25,7 +25,8 @@
     "rehype-raw": "^7.0.0",
     "rehype-sanitize": "^6.0.0",
     "remark-gfm": "^4.0.1",
-    "remove-markdown": "^0.6.2"
+    "remove-markdown": "^0.6.2",
+    "sweetalert2": "^11.23.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
