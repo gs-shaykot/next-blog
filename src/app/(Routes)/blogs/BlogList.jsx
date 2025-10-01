@@ -1,15 +1,21 @@
+
 "use client"
 import BlogCards from '@/app/(Routes)/blogs/BlogCards';
 import CategoryFilter from '@/app/(Routes)/blogs/CategoryFilter';
 import React, { useState, useEffect } from 'react';
+import { CiSearch } from 'react-icons/ci';
+import { useSelector } from 'react-redux';
 
 export default function BlogList({ initialPosts, initialTotalPages }) {
     const [posts, setPosts] = useState(initialPosts);
     const [category, setCategory] = useState("All");
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(initialTotalPages);
+    const [searchTerm, setSearchTerm] = useState("");
 
     const categories = ["All", "Technology", "Design", "Business", "Lifestyle", "Travel"];
+
+    const themeMode = useSelector((mode) => mode.themeToggle.mode)
 
     useEffect(() => {
         async function fetchPosts() {
@@ -22,9 +28,14 @@ export default function BlogList({ initialPosts, initialTotalPages }) {
         fetchPosts();
     }, [page, category]);
 
+    const searchedPost = posts.filter((post) =>
+        post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.excerpt?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
 
-        <div className='py-16 mt-10'>
+        <div className='py-16 mt-2'>
             {/* top banner */}
             <div className='py-20 bg-gradient-to-r from-blue-600 to-slate-700 flex flex-col justify-center items-center'>
                 <h2
@@ -35,21 +46,44 @@ export default function BlogList({ initialPosts, initialTotalPages }) {
                 <p className='text-xl text-blue-100 max-w-3xl text-center'>Discover insightful articles, expert opinions, and creative stories from our community of writers</p>
             </div>
 
-            <CategoryFilter
-                categories={categories}
-                selected={category}
-                onSelect={(cat) => {
-                    setCategory(cat);
-                    setPage(1);
-                }}
-            />
-            
+            {/* Search + Category Filter */}
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-gray-100 p-10">
+                {/* Search Bar */}
+                <label
+                    className={`input rounded-lg mr-2 hidden lg:flex ${themeMode === "dark" ? "bg-gray-800 !text-white" : "bg-white !text-black"
+                        }`}
+                >
+                    <CiSearch className="text-lg" />
+                    <input
+                        type="search"
+                        required
+                        placeholder="Search"
+                        className={`bg-transparent outline-none ${themeMode === "dark" ? "placeholder-gray-400" : "placeholder-gray-600"
+                            }`}
+                    />
+                </label>
+
+                {/* Categories */}
+                <CategoryFilter
+                    categories={categories}
+                    selected={category}
+                    onSelect={(cat) => {
+                        setCategory(cat);
+                        setPage(1);
+                    }}
+                />
+            </div>
+
             {/* Posts Grid */}
             <div className="grid md:grid-cols-3 gap-6 mt-6">
-                {posts.map((post) => (
-                    <BlogCards key={post._id} post={post} />
-                ))}
+                {searchedPost.length > 0 ? (
+                    searchedPost.map((post) => <BlogCards key={post._id} post={post} />)
+                ) : (
+                    <p className="col-span-3 text-center text-gray-500">No articles found.</p>
+                )}
             </div>
+
+
             {/* Pagination */}
             <div className="flex justify-center mt-8 gap-2">
                 {/* Prev */}

@@ -96,19 +96,20 @@ export default function Navbar() {
                     </div>
                 </div>
 
-                <div className="navbar-end flex gap-2"><label
-                    className={`input rounded-lg mr-2 hidden lg:flex ${themeMode === "dark" ? "bg-gray-800 !text-white" : "bg-white !text-black"
-                        }`}
-                >
-                    <CiSearch className="text-lg" />
-                    <input
-                        type="search"
-                        required
-                        placeholder="Search"
-                        className={`bg-transparent outline-none ${themeMode === "dark" ? "placeholder-gray-400" : "placeholder-gray-600"
+                <div className="navbar-end flex gap-2">
+                    <label
+                        className={`input rounded-lg mr-2 hidden lg:flex ${themeMode === "dark" ? "bg-gray-800 !text-white" : "bg-white !text-black"
                             }`}
-                    />
-                </label>
+                    >
+                        <CiSearch className="text-lg" />
+                        <input
+                            type="search"
+                            required
+                            placeholder="Search"
+                            className={`bg-transparent outline-none ${themeMode === "dark" ? "placeholder-gray-400" : "placeholder-gray-600"
+                                }`}
+                        />
+                    </label>
 
 
                     {userDtl ? (

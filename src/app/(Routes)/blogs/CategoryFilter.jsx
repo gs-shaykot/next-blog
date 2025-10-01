@@ -7,7 +7,7 @@ export default function CategoryFilter({ categories, selected, onSelect }) {
         <button
           key={cat}
           onClick={() => onSelect(cat)}
-          className={`px-4 py-2 rounded-full border ${selected === cat ? "bg-blue-600 text-white" : "bg-gray-100"
+          className={`btn border-gray-400 rounded-2xl ${selected === cat ? "bg-blue-600 text-white" : "bg-gray-100"
             }`}
         >
           {cat}
