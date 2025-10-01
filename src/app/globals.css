@@ -12,4 +12,8 @@
     background-color: transparent !important;
     color: #2563eb;
 }
- 
+
+.input:focus,
+.input:focus-within {
+    outline: none !important;
+}

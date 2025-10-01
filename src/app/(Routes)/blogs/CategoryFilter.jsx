@@ -2,7 +2,7 @@
 
 export default function CategoryFilter({ categories, selected, onSelect }) {
   return (
-    <div className="flex gap-3 flex-wrap">
+    <div className="flex gap-3 flex-wrap justify-center">
       {categories.map((cat) => (
         <button
           key={cat}

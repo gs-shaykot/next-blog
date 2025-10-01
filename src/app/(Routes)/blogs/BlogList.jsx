@@ -1,10 +1,10 @@
-
 "use client"
 import BlogCards from '@/app/(Routes)/blogs/BlogCards';
 import CategoryFilter from '@/app/(Routes)/blogs/CategoryFilter';
 import React, { useState, useEffect } from 'react';
 import { CiSearch } from 'react-icons/ci';
 import { useSelector } from 'react-redux';
+
 
 export default function BlogList({ initialPosts, initialTotalPages }) {
     const [posts, setPosts] = useState(initialPosts);
@@ -50,7 +50,7 @@ export default function BlogList({ initialPosts, initialTotalPages }) {
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-gray-100 p-10">
                 {/* Search Bar */}
                 <label
-                    className={`input rounded-lg mr-2 hidden lg:flex ${themeMode === "dark" ? "bg-gray-800 !text-white" : "bg-white !text-black"
+                    className={`w-full md:!w-4/12 !h-12 input rounded-lg mr-2 lg:flex ${themeMode === "dark" ? "bg-gray-800 !text-white" : "bg-white !text-black"
                         }`}
                 >
                     <CiSearch className="text-lg" />
@@ -61,7 +61,7 @@ export default function BlogList({ initialPosts, initialTotalPages }) {
                         value={searchTerm}
                         onChange={(e) => {
                             setSearchTerm(e.target.value);
-                            setPage(1);  
+                            setPage(1);
                         }}
                         className={`bg-transparent outline-none ${themeMode === "dark" ? "placeholder-gray-400" : "placeholder-gray-600"
                             }`}
@@ -80,7 +80,7 @@ export default function BlogList({ initialPosts, initialTotalPages }) {
             </div>
 
             {/* Posts Grid */}
-            <div className="grid md:grid-cols-3 gap-6 mt-6">
+            <div className="max-w-7xl place-items-center grid md:grid-cols-3 gap-6 mt-6">
                 {searchedPost.length > 0 ? (
                     searchedPost.map((post) => <BlogCards key={post._id} post={post} />)
                 ) : (
@@ -88,37 +88,42 @@ export default function BlogList({ initialPosts, initialTotalPages }) {
                 )}
             </div>
 
-
-            {/* Pagination */}
             <div className="flex justify-center mt-8 gap-2">
-                {/* Prev */}
-                <button
-                    onClick={() => setPage((p) => Math.max(p - 1, 1))}
-                    disabled={page === 1}
-                    className="px-4 py-2 rounded border bg-gray-100 disabled:opacity-50"
-                >
-                    ‹ Prev
-                </button>
-                {/* Page Numbers */}
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
+                <div className="join">
+                    {/* Prev */}
                     <button
-                        key={num}
-                        onClick={() => setPage(num)}
-                        className={`px-4 py-2 rounded border ${page === num ? "bg-blue-600 text-white" : "bg-gray-100"
-                            }`}
+                        onClick={() => setPage((p) => Math.max(p - 1, 1))}
+                        disabled={page === 1}
+                        className="join-item btn"
                     >
-                        {num}
+                        «
                     </button>
-                ))}
-                {/* Next */}
-                <button
-                    onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
-                    disabled={page === totalPages}
-                    className="px-4 py-2 rounded border bg-gray-100 disabled:opacity-50"
-                >
-                    Next ›
-                </button>
+
+                    {/* Page Numbers */}
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
+                        <button
+                            key={num}
+                            onClick={() => setPage(num)}
+                            className={`join-item btn ${page === num
+                                    ? "bg-blue-600 text-white hover:bg-blue-700" // active page styles
+                                    : "bg-gray-200 text-black hover:bg-gray-300"
+                                }`}
+                        >
+                            {num}
+                        </button>
+                    ))}
+
+                    {/* Next */}
+                    <button
+                        onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
+                        disabled={page === totalPages}
+                        className="join-item btn"
+                    >
+                        »
+                    </button>
+                </div>
             </div>
+
         </div>
     );
 }
