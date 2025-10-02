@@ -6,11 +6,13 @@ import removeMd from 'remove-markdown'
 
 export default function BlogCards({ post }) {
   const themeMode = useSelector((mode) => mode.themeToggle.mode)
- 
+
   return (
     <div
-      className={`group transition-transform duration-300 hover:cursor-pointer hover:scale-105 hover:shadow-xl card bg-base-100 shadow-lg relative w-full sm:w-80 md:w-96 ${themeMode === "dark" ? "bg-gray-800 text-white" : "bg-white text-black"}`}
+      className={`group transition-transform duration-300 hover:cursor-pointer hover:scale-105 hover:shadow-xl card bg-base-100 shadow-lg relative w-full sm:w-80 md:w-96 flex flex-col justify-between min-h-[500px] 
+    ${themeMode === "dark" ? "bg-gray-800 text-white" : "bg-white text-black"}`}
     >
+
       <figure>
         <Image
           width={400}
@@ -39,10 +41,24 @@ export default function BlogCards({ post }) {
       </div>
 
       <div className="card-body !pt-2">
+        {/* titles & contents */}
         <h2 className="card-title text-lg md:text-xl group-hover:text-blue-700">{post.title}</h2>
         <p className="text-gray-600 whitespace-pre-line">
-          {removeMd(post.content).slice(0, 80)}...
+          {removeMd(post.content).slice(0, 95)}...
         </p>
+
+        {/* Hash tags */}
+        <div>
+          {
+            post.hashtags.slice(0, 3).map((hashtag, index) => (
+              <span key={index} className="mr-2 text-gray-500 p-1 bg-gray-200 text-xs">
+                {hashtag}
+              </span>
+            ))
+          }
+        </div>
+
+        {/* like & read more buttons */}
         <div className="card-actions justify-between items-center">
           <div className="flex justify-between items-center text-sm text-gray-500 mt-3 w-full">
             <div className="flex items-center gap-2">

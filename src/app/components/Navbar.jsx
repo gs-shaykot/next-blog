@@ -64,8 +64,8 @@ export default function Navbar() {
 
     return (
         <div
-            className={`fixed top-0 left-0 w-full z-50 py-1 transition-all duration-300 border-b border-gray-200 ${themeMode === "dark"
-                ? "bg-gray-900 !text-white"
+            className={`fixed top-0 left-0 w-full z-50 py-1 transition-all duration-300 ${themeMode === "dark"
+                ? "bg-gray-900 !text-white border-b-2 border-gray-800"
                 : "bg-white !text-black"
                 } ${isScrolled ? "shadow-md !py-0" : "shadow-none"} bg-base-100`}
         >
