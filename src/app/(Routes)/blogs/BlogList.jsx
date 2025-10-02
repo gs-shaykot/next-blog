@@ -47,7 +47,7 @@ export default function BlogList({ initialPosts, initialTotalPages }) {
             </div>
 
             {/* Search + Category Filter */}
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-gray-100 p-10">
+            <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 bg-gray-100 p-10">
                 {/* Search Bar */}
                 <label
                     className={`w-full md:!w-4/12 !h-12 input rounded-lg mr-2 lg:flex ${themeMode === "dark" ? "bg-gray-800 !text-white" : "bg-white !text-black"
@@ -80,7 +80,7 @@ export default function BlogList({ initialPosts, initialTotalPages }) {
             </div>
 
             {/* Posts Grid */}
-            <div className="max-w-7xl place-items-center grid md:grid-cols-3 gap-6 mt-6">
+            <div className="max-w-7xl mx-auto place-items-center grid md:grid-cols-3 gap-4 mt-6">
                 {searchedPost.length > 0 ? (
                     searchedPost.map((post) => <BlogCards key={post._id} post={post} />)
                 ) : (

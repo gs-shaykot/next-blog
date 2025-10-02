@@ -69,7 +69,7 @@ export default function Navbar() {
                 : "bg-white !text-black"
                 } ${isScrolled ? "shadow-md !py-0" : "shadow-none"} bg-base-100`}
         >
-            <div className="!max-w-6xl mx-auto navbar">
+            <div className="!max-w-7xl mx-auto navbar">
                 {/* Navbar Start */}
                 <div className="navbar-start">
                     {/* mobile menu dropdown */}

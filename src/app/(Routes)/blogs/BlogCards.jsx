@@ -3,24 +3,38 @@ import Link from 'next/link'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import removeMd from 'remove-markdown'
+import { FaStar } from "react-icons/fa6";
 
 export default function BlogCards({ post }) {
   const themeMode = useSelector((mode) => mode.themeToggle.mode)
 
   return (
     <div
-      className={`group transition-transform duration-300 hover:cursor-pointer hover:scale-105 hover:shadow-xl card bg-base-100 shadow-lg relative w-full sm:w-80 md:w-96 flex flex-col justify-between min-h-[500px] 
-    ${themeMode === "dark" ? "bg-gray-800 text-white" : "bg-white text-black"}`}
+      className={`group relative top-0 transition-all duration-300 ease-out hover:-top-2 hover:shadow-xl card bg-base-100 shadow-lg w-full sm:w-80 md:w-96 min-h-[500px] ${themeMode === "dark"
+          ? "bg-gray-800 text-white"
+          : "bg-white text-black"
+        }`}
     >
-
-      <figure>
+      {/* image & badge */}
+      <figure className="relative">
         <Image
           width={400}
           height={250}
           src={post.post_image}
           alt="post image"
-          className={`transform duration-300 group-hover:scale-105 w-full h-48 object-cover`}
+          className="transform duration-300 ease-out group-hover:scale-105 w-full h-48 object-cover"
         />
+        <div>
+          <span className="absolute top-2 left-2 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+            {post.category}
+          </span>
+          {post.isFeatured && (
+            <span className="absolute top-2 right-2 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-medium flex justify-center items-center">
+              <FaStar />
+              Featured
+            </span>
+          )}
+        </div>
       </figure>
 
       {/* Author */}
@@ -30,7 +44,7 @@ export default function BlogCards({ post }) {
           alt={post.author}
           width={40}
           height={40}
-          className={`w-10 h-10 rounded-full`}
+          className="w-10 h-10 rounded-full"
         />
         <div>
           <h4 className="font-medium">{post.author}</h4>
@@ -42,20 +56,23 @@ export default function BlogCards({ post }) {
 
       <div className="card-body !pt-2">
         {/* titles & contents */}
-        <h2 className="card-title text-lg md:text-xl group-hover:text-blue-700">{post.title}</h2>
+        <h2 className="card-title text-lg md:text-xl group-hover:text-blue-700">
+          {post.title}
+        </h2>
         <p className="text-gray-600 whitespace-pre-line">
           {removeMd(post.content).slice(0, 95)}...
         </p>
 
         {/* Hash tags */}
         <div>
-          {
-            post.hashtags.slice(0, 3).map((hashtag, index) => (
-              <span key={index} className="mr-2 text-gray-500 p-1 bg-gray-200 text-xs">
-                {hashtag}
-              </span>
-            ))
-          }
+          {post.hashtags.slice(0, 3).map((hashtag, index) => (
+            <span
+              key={index}
+              className="mr-2 text-gray-500 p-1 bg-gray-200 text-xs"
+            >
+              {hashtag}
+            </span>
+          ))}
         </div>
 
         {/* like & read more buttons */}
@@ -65,12 +82,16 @@ export default function BlogCards({ post }) {
               <span>👍 {post.totalLikes}</span>
               <span>💬 28</span>
             </div>
-            <Link href={`/blogs/${post._id}`} className="px-2 py-1 rounded-md group-hover:bg-blue-100 group-hover:text-[#2563eb] bg-transparent border-0 shadow-none text-gray-600">
+            <Link
+              href={`/blogs/${post._id}`}
+              className="px-2 py-1 rounded-md group-hover:bg-blue-100 group-hover:text-[#2563eb] bg-transparent border-0 shadow-none text-gray-600"
+            >
               Read More →
             </Link>
           </div>
         </div>
       </div>
     </div>
+
   )
 }
