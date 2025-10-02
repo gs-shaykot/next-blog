@@ -1,6 +1,7 @@
 "use client"
 import axios from 'axios'
 import Image from 'next/image'
+import Link from 'next/link';
 import React from 'react'
 import { useSelector } from 'react-redux';
 import removeMd from "remove-markdown";
@@ -19,7 +20,7 @@ export default function FeaturedPost(featurePosts) {
                                 : "from-gray-900 via-blue-800 to-slate-800"
                             }`}
                     >
-                        Featured Stories 
+                        Featured Stories
                     </h2>
 
                     <div className="h-1 w-36 bg-gradient-to-r from-blue-600 to-indigo-700 mx-auto rounded-full animate-pulse">
@@ -29,15 +30,18 @@ export default function FeaturedPost(featurePosts) {
                     Our most popular and impactful articles, handpicked for you
                 </p>
             </div>
-
             <div className="max-w-7xl mx-auto px-5">
                 <section className="grid md:grid-cols-12 gap-10 pb-10">
 
                     {featurePosts.featurePosts.map((post, index) => (
                         <div
                             key={post._id}
-                            className={`group rounded-2xl overflow-hidden shadow hover:cursor-pointer hover:shadow-lg transition transform duration-300 hover:scale-105 
-                            ${index === 0 ? "md:col-span-6" : "md:col-span-3"} ${themeMode === "dark" ? "bg-gray-800 text-white" : "bg-white text-black"}`}
+                            className={`group rounded-2xl overflow-hidden shadow cursor-pointer
+                            hover:shadow-lg active:shadow-lg 
+                            transition-all transform duration-300 
+                            hover:scale-105 active:scale-[1.02]
+                            ${index === 0 ? "md:col-span-6" : "md:col-span-3"} 
+                            ${themeMode === "dark" ? "bg-gray-800 text-white" : "bg-white text-black"}`}
                         >
                             {/* Image */}
                             <div className="relative">
@@ -46,7 +50,7 @@ export default function FeaturedPost(featurePosts) {
                                     height={300}
                                     src={post.post_image}
                                     alt={post.title}
-                                    className={`transform duration-300 group-hover:scale-105 w-full object-cover ${index === 0 ? "h-72" : "h-56"}`}
+                                    className={`transform duration-300 group-hover:scale-105 group-active:scale-105 w-full object-cover ${index === 0 ? "h-72" : "h-56"}`}
                                 />
                                 <span className="absolute top-3 left-3 bg-blue-600 text-white text-sm px-3 py-1 rounded-full">
                                     {post.category}
@@ -91,9 +95,9 @@ export default function FeaturedPost(featurePosts) {
                                         <span>💬 28</span>
                                     </div>
 
-                                    <button className="px-2 py-1 rounded-md group-hover:bg-blue-100 group-hover:text-[#2563eb] bg-transparent border-0 shadow-none text-gray-600">
-                                        Read Aaro →
-                                    </button>
+                                    <Link href={`/blogs/${post._id}`} className="px-2 py-1 rounded-md group-hover:bg-blue-100 group-active:bg-blue-100 group-hover:text-[#2563eb] bg-transparent border-0 shadow-none text-gray-600">
+                                        Read More →
+                                    </Link>
                                 </div>
                             </div>
                         </div>

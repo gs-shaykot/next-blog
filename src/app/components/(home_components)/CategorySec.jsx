@@ -5,6 +5,7 @@ import { FaCode, FaRegHeart, FaMapMarkedAlt, FaLongArrowAltRight } from "react-i
 import { LiaPaletteSolid } from "react-icons/lia";
 import { LuBriefcaseBusiness } from "react-icons/lu";
 import { useSelector } from 'react-redux';
+import Link from 'next/link';
 
 export default function CategorySec({ categories }) {
     const themeMode = useSelector((mode) => mode.themeToggle.mode)
@@ -33,15 +34,15 @@ export default function CategorySec({ categories }) {
             </div>
             <div className='relative z-10 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-6 p-4'>
                 {categories.map((category, idx) => (
-                    <a
+                    <Link
                         key={idx}
-                        href="#"
-                        className="group cursor-pointer transform hover:scale-110 transition-all duration-500"
+                        href={`/categories`}
+                        className="group cursor-pointer transform hover:scale-110 active:scale-[1.02] transition-all duration-500"
                     >
                         <div
-                            className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-2xl p-8 text-center shadow-2xl hover:shadow-blue-500/25 transition-all duration-500 border border-white/20 hover:border-blue-400/50 overflow-hidden"
+                            className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-2xl p-8 text-center shadow-2xl hover:shadow-blue-500/25 active:shadow-blue-500/25 transition-all duration-500 border border-white/20 hover:border-blue-400/50 active:border-blue-400/50 overflow-hidden"
                         >
-                            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-slate-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-slate-600/20 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300"></div>
 
                             <div className="relative z-10">
                                 <div className="w-16 h-16 rounded-2xl mx-auto mb-6 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
@@ -56,16 +57,15 @@ export default function CategorySec({ categories }) {
                                     {category.name}
                                 </h3>
 
-                                <p className="text-gray-300 text-sm">{category.count} articles</p>
-
-                                <div className="mt-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                                <p className="text-gray-300 text-sm">{category.count} articles</p> 
+                                <div className="mt-4 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-300 transform translate-y-0 lg:translate-y-2 lg:group-hover:translate-y-0">
                                     <div className="inline-flex place-items-center items-center justify-center text-blue-300 text-sm">
                                         Explore <FaLongArrowAltRight className="mt-1 ml-1" />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </Link>
                 ))}
 
 

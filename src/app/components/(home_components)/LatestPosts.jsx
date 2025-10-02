@@ -1,5 +1,6 @@
 "use client"
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react'
 import { useSelector } from 'react-redux';
 import removeMd from 'remove-markdown';
@@ -70,9 +71,9 @@ export default function LatestPosts({ latestPosts }) {
                                         <span>👍 {post.totalLikes}</span>
                                         <span>💬 28</span>
                                     </div>
-                                    <button className="px-2 py-1 rounded-md group-hover:bg-blue-100 group-hover:text-[#2563eb] bg-transparent border-0 shadow-none text-gray-600">
+                                    <Link href={`/blogs/${post._id}`} className="px-2 py-1 rounded-md group-hover:bg-blue-100 group-hover:text-[#2563eb] bg-transparent border-0 shadow-none text-gray-600">
                                         Read More →
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
