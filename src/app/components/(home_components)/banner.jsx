@@ -13,8 +13,6 @@ export default function Banner() {
         >
             {/* Background Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 via-gray-800/20 to-slate-900/20 animate-pulse" />
-
-            {/* Floating Geometric Shapes */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full blur-xl opacity-30 animate-bounce" />
                 <div className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-r from-gray-500 to-slate-600 rounded-full blur-lg opacity-40 animate-pulse" />
@@ -26,7 +24,7 @@ export default function Banner() {
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
                 <div className="animate-fade-in-up">
                     {/* Heading */}
-                    <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold mb-6 sm:mb-8 leading-tight">
+                    <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold mb-6 sm:mb-8 leading-tight">
                         Craft Your{" "}
                         <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-slate-400 bg-clip-text text-transparent animate-pulse">
                             Story
@@ -62,7 +60,7 @@ export default function Banner() {
             </div>
 
 
-            {/* Scroll Indicator */}
+            {/* Scroll symbol */}
             <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
                 <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
                     <div className="w-1 h-3 bg-white/70 rounded-full mt-2 animate-pulse" />

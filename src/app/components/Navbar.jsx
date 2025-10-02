@@ -74,8 +74,54 @@ export default function Navbar() {
                 <div className="navbar-start">
                     {/* mobile menu dropdown */}
                     <div className="dropdown lg:hidden">
-                        ...
+                        <div tabIndex={0} role="button" className="btn btn-ghost">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
+                            </svg>
+                        </div>
+
+                        {/* make dropdown a bit wider if you want, or keep w-52 */}
+                        <ul
+                            tabIndex={0}
+                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 p-2 shadow w-52"
+                        >
+                            <NavItems />
+
+                            {/* SEARCH */}
+                            <li className="lg:hidden w-full">
+                                <label className="input input-sm rounded-lg mb-2 w-full flex items-center">
+                                    <CiSearch className="text-lg mr-2" />
+                                    <input className="flex-1 bg-transparent outline-none" type="search" required placeholder="Search" />
+                                </label>
+                            </li>
+
+                            {/* AUTH BUTTONS — make the <Link> itself the button */}
+                            {!userDtl && (
+                                <>
+                                    <li className="lg:hidden w-full">
+                                        <Link
+                                            href="/login"
+                                            className="btn btn-outline w-full justify-center gap-2 border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                                        >
+                                            <TbLogin2 />
+                                            Login
+                                        </Link>
+                                    </li>
+
+                                    <li className="lg:hidden w-full mt-2">
+                                        <Link
+                                            href="/signup"
+                                            className="btn w-full justify-center gap-2 border-2 border-blue-600 text-blue-600 bg-blue-600 text-white"
+                                        >
+                                            <RiUserAddLine />
+                                            Sign up
+                                        </Link>
+                                    </li>
+                                </>
+                            )}
+                        </ul>
                     </div>
+
 
                     {/* Logo */}
                     <Link href="/" className="flex text-2xl font-bold">

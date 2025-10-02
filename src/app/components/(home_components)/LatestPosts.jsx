@@ -17,7 +17,7 @@ export default function LatestPosts({ latestPosts }) {
                                 : "from-gray-900 via-blue-800 to-slate-800"
                             }`}
                     >
-                        Explore Categories
+                        Latest Articles
                     </h2>
                     <div className="h-1 w-36 bg-gradient-to-r from-blue-600 to-indigo-700 mx-auto rounded-full animate-pulse">
                     </div>

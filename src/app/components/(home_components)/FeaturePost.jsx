@@ -19,7 +19,7 @@ export default function FeaturedPost(featurePosts) {
                                 : "from-gray-900 via-blue-800 to-slate-800"
                             }`}
                     >
-                        Explore Categories
+                        Featured Stories 
                     </h2>
 
                     <div className="h-1 w-36 bg-gradient-to-r from-blue-600 to-indigo-700 mx-auto rounded-full animate-pulse">
@@ -92,7 +92,7 @@ export default function FeaturedPost(featurePosts) {
                                     </div>
 
                                     <button className="px-2 py-1 rounded-md group-hover:bg-blue-100 group-hover:text-[#2563eb] bg-transparent border-0 shadow-none text-gray-600">
-                                        Read More →
+                                        Read Aaro →
                                     </button>
                                 </div>
                             </div>

@@ -5,6 +5,7 @@ import ProvidersWrapper from "@/app/ProvidersWrapper/ProvidersWrapper";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import Footer from "@/app/components/Footer";
+import { Analytics } from "@vercel/analytics/next"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
         <ProvidersWrapper>
           <Navbar />
           {children}
+          <Analytics />
           <Footer />
         </ProvidersWrapper>
       </body>
