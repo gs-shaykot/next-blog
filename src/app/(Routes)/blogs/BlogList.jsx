@@ -35,7 +35,7 @@ export default function BlogList({ initialPosts, initialTotalPages }) {
 
     return (
 
-        <div className='py-16 mt-2'>
+        <div className='pt-16 mt-2'>
             {/* top banner */}
             <div className='py-20 bg-gradient-to-r from-blue-600 to-slate-700 flex flex-col justify-center items-center'>
                 <h2
@@ -47,11 +47,10 @@ export default function BlogList({ initialPosts, initialTotalPages }) {
             </div>
 
             {/* Search + Category Filter */}
-            <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 bg-gray-100 p-10">
+            <div className={`max-w-7xl mx-auto ${themeMode === "dark" ? "bg-[#16202C] !text-white" : "bg-white !text-black"} flex flex-col md:flex-row justify-between items-center gap-4 p-10`}>
                 {/* Search Bar */}
                 <label
-                    className={`w-full md:!w-4/12 !h-12 input rounded-lg mr-2 lg:flex ${themeMode === "dark" ? "bg-gray-800 !text-white" : "bg-white !text-black"
-                        }`}
+                    className={`w-full md:!w-4/12 !h-12 input rounded-lg mr-2 lg:flex ${themeMode === "dark" ? "bg-gray-800 !text-white" : "bg-white !text-black"}`}
                 >
                     <CiSearch className="text-lg" />
                     <input
@@ -80,21 +79,25 @@ export default function BlogList({ initialPosts, initialTotalPages }) {
             </div>
 
             {/* Posts Grid */}
-            <div className="max-w-7xl mx-auto place-items-center grid md:grid-cols-3 gap-4 mt-6">
+            <div className={`max-w-7xl mx-auto ${themeMode === "dark" ? "bg-gray-900 !text-white" : "bg-white !text-black"} place-items-center grid md:grid-cols-3 gap-4 pt-6`}>
                 {searchedPost.length > 0 ? (
                     searchedPost.map((post) => <BlogCards key={post._id} post={post} />)
                 ) : (
                     <p className="col-span-3 text-center text-gray-500">No articles found.</p>
                 )}
             </div>
-
-            <div className="flex justify-center mt-8 gap-2">
+            <div
+                className={`${themeMode === "dark"
+                    ? "bg-gray-900 text-white"
+                    : "bg-white text-black"
+                    } flex justify-center py-8 gap-2`}
+            >
                 <div className="join">
                     {/* Prev */}
                     <button
                         onClick={() => setPage((p) => Math.max(p - 1, 1))}
                         disabled={page === 1}
-                        className="join-item btn"
+                        className={`${themeMode === "dark" ? "bg-[#16202c] text-white" : ""} join-item btn !shadow-none`}
                     >
                         «
                     </button>
@@ -104,8 +107,10 @@ export default function BlogList({ initialPosts, initialTotalPages }) {
                         <button
                             key={num}
                             onClick={() => setPage(num)}
-                            className={`join-item btn ${page === num
-                                    ? "bg-blue-600 text-white hover:bg-blue-700" // active page styles
+                            className={`join-item btn !shadow-none ${page === num
+                                ? "bg-blue-600 text-white hover:bg-blue-700"
+                                : themeMode === "dark"
+                                    ? "bg-gray-800 text-white hover:bg-gray-600"
                                     : "bg-gray-200 text-black hover:bg-gray-300"
                                 }`}
                         >
@@ -117,12 +122,13 @@ export default function BlogList({ initialPosts, initialTotalPages }) {
                     <button
                         onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
                         disabled={page === totalPages}
-                        className="join-item btn"
+                        className={`${themeMode === "dark" ? "bg-[#16202c] text-white" : ""} join-item btn !shadow-none`}
                     >
                         »
                     </button>
                 </div>
             </div>
+
 
         </div>
     );

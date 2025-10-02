@@ -11,8 +11,8 @@ export default function BlogCards({ post }) {
   return (
     <div
       className={`group relative top-0 transition-all duration-300 ease-out hover:-top-2 hover:shadow-xl card bg-base-100 shadow-lg w-full sm:w-80 md:w-96 min-h-[500px] ${themeMode === "dark"
-          ? "bg-gray-800 text-white"
-          : "bg-white text-black"
+        ? "bg-gray-800 text-white"
+        : "bg-white text-black"
         }`}
     >
       {/* image & badge */}
@@ -68,7 +68,7 @@ export default function BlogCards({ post }) {
           {post.hashtags.slice(0, 3).map((hashtag, index) => (
             <span
               key={index}
-              className="mr-2 text-gray-500 p-1 bg-gray-200 text-xs"
+              className={`${themeMode === "dark" ? "bg-gray-900 text-white" : ""} mr-2 text-gray-500 px-2 py-1 rounded-lg text-xs`}
             >
               {hashtag}
             </span>
