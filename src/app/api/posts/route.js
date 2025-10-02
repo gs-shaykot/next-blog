@@ -7,8 +7,8 @@ const client = await clientPromise
 export async function GET(req) {
     try {
         const { searchParams } = new URL(req.url);
-        const limit = parseInt(searchParams.get("limit")) || 6;
-        const page = parseInt(searchParams.get("page")) || 1;
+        const limit = parseInt(searchParams.get("limit")) || 100;
+        const page = parseInt(searchParams.get("page"));
         const category = searchParams.get("category");
 
         const data = await getPaginatedPosts(limit, page, category)
