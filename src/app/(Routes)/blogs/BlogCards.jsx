@@ -10,7 +10,7 @@ export default function BlogCards({ post }) {
 
   return (
     <div
-      className={`group relative top-0 transition-all duration-300 ease-out hover:-top-2 hover:shadow-xl card bg-base-100 shadow-lg w-full sm:w-80 md:w-96 min-h-[500px] ${themeMode === "dark"
+      className={`group relative top-0 transition-all duration-300 ease-out hover:-top-2 hover:shadow-xl card bg-base-100 shadow-lg w-full sm:w-80 md:w-96 min-h-[480px] ${themeMode === "dark"
         ? "bg-gray-800 text-white"
         : "bg-white text-black"
         }`}
