@@ -14,7 +14,7 @@ export default function BlogDetails({ post }) {
 
     return (
         <div className={`${themeMode === "dark" ? "bg-gray-900 !text-white" : "bg-white !text-black"}`}>
-            <div className="max-w-4xl mx-auto mt-18 px-6">
+            <div className="max-w-4xl mx-auto mt-18 p-6">
 
                 {/* Breadcrumb */}
                 <div className="text-sm text-gray-500 font-semibold py-5">
@@ -115,12 +115,12 @@ export default function BlogDetails({ post }) {
                 </div>
 
                 {/* author info */}
-                <div className="bg-gray-50 rounded-xl p-8 mb-12">
+                <div className={`${themeMode === 'dark' ? 'bg-gray-800' : 'bg-gray-50'} rounded-xl p-8 mb-12`}>
                     <div className="flex items-start space-x-6">
                         <Image width={80} height={80} alt="Sarah Johnson" className="rounded-full object-cover object-top" src="https://i.pravatar.cc/40" />
                         <div className="flex-1">
-                            <h3 className="text-xl font-bold text-gray-900 mb-2">About {post.author}</h3>
-                            <p className="text-gray-600 mb-4">Senior Web Developer and Technology Writer with over 8 years of experience in building scalable web applications. Passionate about sharing knowledge and helping developers stay current with the latest trends and best practices.</p>
+                            <h3 className={`${themeMode === 'dark' ? 'text-white' : 'text-gray-900'} text-xl font-bold mb-2`}>About {post.author}</h3>
+                            <p className={`${themeMode === 'dark' ? 'text-gray-400':'text-gray-600'} mb-4`}>Senior Web Developer and Technology Writer with over 8 years of experience in building scalable web applications. Passionate about sharing knowledge and helping developers stay current with the latest trends and best practices.</p>
                             <div className="flex items-center space-x-4">
                                 <button className="text-blue-600 hover:text-blue-700 cursor-pointer">
                                     <i className="ri-twitter-line mr-1"></i>Follow on Twitter
