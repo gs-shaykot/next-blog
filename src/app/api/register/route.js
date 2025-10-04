@@ -5,36 +5,85 @@ import { hashPass } from "../../../../utils/hash";
 const client = await clientPromise
 export async function POST(req) {
     try {
-        const { fullname, email, password, photoUrl } = await req.json()
+        const { fullname, email, password, photoUrl } = await req.json();
         const usersCollection = await client.db("next_Blog").collection("users");
-        const isUserExist = await usersCollection.findOne({ email })
+        const isUserExist = await usersCollection.findOne({ email });
+
         if (isUserExist) {
-            return NextResponse.json({ message: "User Already Existed" }, { status: 400 });
+            return NextResponse.json(
+                { message: "User Already Existed" },
+                { status: 400 }
+            );
         }
+
         const hashed = await hashPass(password);
-        const data = {
-            fullname, email, password: hashed, photoUrl
-        }
-        console.log(data, "unEncrypted Pass: ", password)
-        const res = await usersCollection.insertOne(data)
-        return NextResponse.json({ message: "User saved to DB successfully" }, { status: 201 });
-    }
-    catch (err) {
-        return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+        const data = { fullname, email, password: hashed, photoUrl, likedPosts: [], savedPosts: [] };
+        const res = await usersCollection.insertOne(data);
+        return NextResponse.json(
+            { message: "User saved to DB successfully" },
+            { status: 201 }
+        );
+    } catch (err) {
+        return NextResponse.json(
+            { message: "Internal server error" },
+            { status: 500 }
+        );
     }
 }
-export async function GET() {
+
+export async function PATCH(req) {
     try {
+        const { email, postId, isLiked, isSaved } = await req.json();
+
         const usersCollection = await client.db("next_Blog").collection("users");
+        console.log(postId, isSaved)
+        let updateOp = {};
 
-        const users = await usersCollection.find().toArray();
+        if (isLiked !== undefined) {
+            updateOp = isLiked
+                ? { $addToSet: { likedPosts: postId } }
+                : { $pull: { likedPosts: postId } };
+        }
 
-        return NextResponse.json(users, { status: 200 });
+        if (isSaved !== undefined) {
+            updateOp = isSaved
+                ? { $addToSet: { savedPosts: postId } }
+                : { $pull: { savedPosts: postId } };
+        }
 
-    } catch (error) {
-        console.error('Error fetching users:', error);
+        const result = await usersCollection.updateOne({ email }, updateOp);
+
         return NextResponse.json(
-            { error: 'Failed to fetch users' },
+            { success: true, modifiedCount: result.modifiedCount },
+            { status: 200 }
+        );
+    } catch (error) {
+        console.error("User update error:", error);
+        return NextResponse.json(
+            { message: "Internal server error" },
+            { status: 500 }
+        );
+    }
+}
+
+export async function GET(req) {
+    try {
+        const { searchParams } = new URL(req.url);
+        const email = searchParams.get("email");
+
+        const usersCollection = await client.db("next_Blog").collection("users");
+        const user = await usersCollection.findOne({ email });
+
+        if (!user) {
+            return NextResponse.json({ message: "User not found" }, { status: 404 });
+        }
+
+        return NextResponse.json(user, { status: 200 });
+
+    } catch (err) {
+        console.error("GET /api/register error:", err);
+        return NextResponse.json(
+            { message: "Internal server error" },
             { status: 500 }
         );
     }

@@ -5,7 +5,7 @@ import { FaRegHeart, FaRegBookmark, FaShareAlt } from "react-icons/fa";
 import { FaXTwitter, FaFacebookF, FaLinkedinIn } from "react-icons/fa6";
 import SavePostButton from "./SavePostButton";
 import SharePostButton from "@/app/(Routes)/blogs/[id]/SharePostButton";
-import { useSelector } from "react-redux"; 
+import { useSelector } from "react-redux";
 import LikePostButton from '@/app/(Routes)/blogs/[id]/LikePostButton';
 
 export default function BlogDetails({ post }) {
@@ -51,18 +51,11 @@ export default function BlogDetails({ post }) {
                             {new Date(post.posted_date).toDateString()} • 8 min read
                         </p>
                     </div>
+
                     <div className={`ml-auto flex items-center gap-5 ${themeMode === 'dark' ? 'text-gray-400' : 'text-gray-600'} text-sm`}>
                         <LikePostButton postId={post._id} initialLikes={post.totalLikes} />
 
-                        <SavePostButton post={{
-                            title: post.title,
-                            post_image: post.post_image,
-                            category: post.category,
-                            author: post.author,
-                            posted_date: post.posted_date,
-                            totalLikes: post.totalLikes,
-                            content: post.content,
-                        }} />
+                        <SavePostButton id={post._id} />
 
                         <SharePostButton />
                     </div>

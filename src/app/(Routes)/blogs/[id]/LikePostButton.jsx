@@ -1,32 +1,81 @@
-"use client"
-import axios from 'axios'
-import React, { useState } from 'react'
-import { FaRegHeart } from 'react-icons/fa'
+"use client";
+
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
+import { useSession } from "next-auth/react";
 
 export default function LikePostButton({ postId, initialLikes }) {
-    const [likes, setLikes] = useState(initialLikes)
-    const [isLiked, setIsLiked] = useState(false)
+    const { data: session } = useSession();
+    const userEmail = session?.user?.email;
+    // user email available. correct.
+
+    const [likes, setLikes] = useState(initialLikes);
+    const [isLiked, setIsLiked] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        const fetchUserLikedPosts = async () => {
+            if (!userEmail) return;
+            try {
+                const res = await axios.get(`/api/register?email=${userEmail}`);
+                const liked = res.data?.likedPosts?.includes(postId);
+                setIsLiked(liked);
+            } catch (error) {
+                console.error("Failed to fetch liked posts:", error);
+            }
+        };
+        fetchUserLikedPosts();
+    }, [userEmail, postId]);
+    // useEffect api okay.
 
     const handleLike = async () => {
-        const updatedLikes = likes + (!isLiked ? 1 : -1)
-        setIsLiked(!isLiked)
-        setLikes(updatedLikes)
-        try {
-            const res = await axios.patch('/api/posts', { id: postId, totalLikes: updatedLikes })
-            if (res.data.modifiedCount === 1) {
-                
-            }
-
-        } catch (error) {
-            console.error("error: ", error)
+        if (!userEmail) {
+            alert("Please login to like this post!");
+            return;
         }
-    }
+
+        const newLikedState = !isLiked;
+        const updatedLikes = likes + (newLikedState ? 1 : -1);
+        console.log(newLikedState, updatedLikes);
+
+        setIsLiked(newLikedState);
+        setLikes(updatedLikes);
+        setIsLoading(true);
+
+        try {
+            const res = await axios.patch("/api/posts", {
+                id: postId,
+                totalLikes: updatedLikes,
+            });
+            console.log(res)
+
+            await axios.patch("/api/register", {
+                email: userEmail,
+                postId,
+                isLiked: newLikedState,
+            });
+        } catch (error) {
+            console.error("Error updating like:", error);
+            setIsLiked(!newLikedState);
+            setLikes(likes);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     return (
         <button
             onClick={handleLike}
-            className="flex justify-center items-center gap-2 cursor-pointer hover:text-blue-600">
-            <FaRegHeart /> {likes}
+            disabled={isLoading}
+            className="flex justify-center items-center gap-2 cursor-pointer transition-colors duration-200"
+        >
+            {isLiked ? (
+                <FaHeart className="text-red-500" />
+            ) : (
+                <FaRegHeart className="text-gray-500 hover:text-red-400" />
+            )}
+            <span>{likes}</span>
         </button>
-    )
+    );
 }
