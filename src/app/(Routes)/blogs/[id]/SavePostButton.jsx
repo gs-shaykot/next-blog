@@ -3,12 +3,25 @@
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { FaRegBookmark } from 'react-icons/fa';
+import { useSession } from 'next-auth/react';
 
-export default function SavePostButton({ post }) { 
+export default function SavePostButton({ post }) {
+
+  const { data: session } = useSession();
+  const userDtl = session?.user;
 
   const handleSavePost = async () => {
-    try { 
-      const res = await axios.post('/api/savedPosts', post);
+    try {
+      if (!userDtl) {
+        return
+      }
+
+      const postDtl = {
+        ...post,
+        userEmail: userDtl?.email,
+      }
+
+      const res = await axios.post('/api/savedPosts', postDtl);
       if (res.status === 200) {
         Swal.fire({
           icon: 'success',

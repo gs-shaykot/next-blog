@@ -11,14 +11,14 @@ export async function POST(req) {
         return new Response(
             JSON.stringify({ success: true, id: String(result.insertedId) }),
             {
-                status: 200 
+                status: 200
             }
         );
     } catch (error) {
         return new Response(
             JSON.stringify({ message: "Internal Server Error" }),
             {
-                status: 500 
+                status: 500
             }
         );
     }
