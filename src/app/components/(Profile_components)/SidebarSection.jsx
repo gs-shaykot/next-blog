@@ -1,11 +1,14 @@
 "use client";
+import { useSelector } from "react-redux";
 import { Tooltip } from "react-tooltip";
 
 export default function ProfileSidebar() {
+
+  const themeMode = useSelector((mode) => mode.themeToggle.mode);
   return (
-    <>
+    <div>
       {/* Statistics */}
-      <div className="bg-white rounded-xl shadow p-5 relative group">
+      <div className={`${themeMode === 'dark' ? 'bg-gray-800 text-gray-400' : 'bg-white'} mb-4 rounded-xl shadow p-5 relative group`}>
         <h3 className="text-lg font-semibold mb-4">Statistics</h3>
 
         {/* Tooltip */}
@@ -24,9 +27,9 @@ export default function ProfileSidebar() {
               <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center">
                 <span className="text-orange-600">📋</span>
               </div>
-              <span className="text-sm text-gray-700">Published</span>
+              <span className="text-sm  ">Published</span>
             </div>
-            <span className="font-semibold text-gray-900">47</span>
+            <span className="font-semibold  ">47</span>
           </div>
 
           <div className="flex items-center justify-between">
@@ -34,9 +37,9 @@ export default function ProfileSidebar() {
               <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
                 <span className="text-green-600">👁️</span>
               </div>
-              <span className="text-sm text-gray-700">Total Views</span>
+              <span className="text-sm  ">Total Views</span>
             </div>
-            <span className="font-semibold text-gray-900">125K</span>
+            <span className="font-semibold  ">125K</span>
           </div>
 
           <div className="flex items-center justify-between">
@@ -44,9 +47,9 @@ export default function ProfileSidebar() {
               <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center">
                 <span className="text-purple-600">👥</span>
               </div>
-              <span className="text-sm text-gray-700">Followers</span>
+              <span className="text-sm  ">Followers</span>
             </div>
-            <span className="font-semibold text-gray-900">2.3K</span>
+            <span className="font-semibold  ">2.3K</span>
           </div>
 
           <div className="flex items-center justify-between">
@@ -54,15 +57,15 @@ export default function ProfileSidebar() {
               <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
                 <span className="text-blue-600">🔖</span>
               </div>
-              <span className="text-sm text-gray-700">Saved Posts</span>
+              <span className="text-sm  ">Saved Posts</span>
             </div>
-            <span className="font-semibold text-gray-900">89</span>
+            <span className="font-semibold  ">89</span>
           </div>
         </div>
       </div>
 
       {/* Achievements */}
-      <div className="bg-white rounded-xl shadow p-5 relative group">
+      <div className={`${themeMode === 'dark' ? 'bg-gray-800 text-gray-400' : 'bg-white'} mb-4 rounded-xl shadow p-5 relative group`}>
         <h3 className="text-lg font-semibold mb-4">Achievements</h3>
 
         {/* Tooltip */}
@@ -81,7 +84,7 @@ export default function ProfileSidebar() {
               <span className="text-xl">🏆</span>
             </div>
             <div>
-              <h4 className="text-sm font-semibold text-gray-900">Top Writer</h4>
+              <h4 className={`${themeMode === 'dark' ? 'text-white' : 'text-gray-900'} text-sm font-semibold `}>Top Writer</h4>
               <p className="text-xs text-gray-500">Technology category</p>
             </div>
           </div>
@@ -91,7 +94,7 @@ export default function ProfileSidebar() {
               <span className="text-xl">✓</span>
             </div>
             <div>
-              <h4 className="text-sm font-semibold text-gray-900">Verified Author</h4>
+              <h4 className={`${themeMode === 'dark' ? 'text-white' : 'text-gray-900'} text-sm font-semibold `}>Verified Author</h4>
               <p className="text-xs text-gray-500">Trusted contributor</p>
             </div>
           </div>
@@ -101,7 +104,7 @@ export default function ProfileSidebar() {
               <span className="text-xl">📊</span>
             </div>
             <div>
-              <h4 className="text-sm font-semibold text-gray-900">Community Leader</h4>
+              <h4 className={`${themeMode === 'dark' ? 'text-white' : 'text-gray-900'} text-sm font-semibold `}>Community Leader</h4>
               <p className="text-xs text-gray-500">1000+ helpful comments</p>
             </div>
           </div>
@@ -109,7 +112,7 @@ export default function ProfileSidebar() {
       </div>
 
       {/* Quick Actions */}
-      <div className="bg-white rounded-xl shadow p-5 relative group">
+      <div className={`${themeMode === 'dark' ? 'bg-gray-800 text-gray-400' : 'bg-white'} mb-4 rounded-xl shadow p-5 relative group`}>
         <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
 
         {/* Tooltip */}
@@ -123,22 +126,22 @@ export default function ProfileSidebar() {
         </div>
 
         <div className="space-y-3">
-          <button className="w-full flex items-center gap-3 px-4 py-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors text-left">
+          <button className={`${themeMode === 'dark' ? 'bg-gray-600 text-gray-400' : 'bg-blue-50 hover:bg-blue-100 text-gray-900'} w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-left`}>
             <span className="text-blue-600">➕</span>
-            <span className="text-sm font-medium text-gray-900">Create New Post</span>
+            <span className="text-sm font-medium">Create New Post</span>
           </button>
 
-          <button className="w-full flex items-center gap-3 px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors text-left">
+          <button className={`${themeMode === 'dark' ? 'bg-gray-600 text-gray-400' : 'bg-gray-50 hover:bg-gray-100'} w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-left`}>
             <span className="text-green-600">📝</span>
-            <span className="text-sm font-medium text-gray-900">View Drafts</span>
+            <span className="text-sm font-medium">View Drafts</span>
           </button>
 
-          <button className="w-full flex items-center gap-3 px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors text-left">
+          <button className={`${themeMode === 'dark' ? 'bg-gray-600 text-gray-400' : 'bg-gray-50 hover:bg-gray-100'} w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-left`}>
             <span className="text-purple-600">⚙️</span>
-            <span className="text-sm font-medium text-gray-900">Account Settings</span>
+            <span className="text-sm font-medium">Account Settings</span>
           </button>
         </div>
       </div>
-    </>
+    </div >
   )
-}
+} 

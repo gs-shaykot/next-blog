@@ -1,8 +1,10 @@
 import Image from "next/image";
+import { useSelector } from "react-redux";
 
 export default function ProfileBanner({ userDtl }) {
+  const themeMode = useSelector((mode) => mode.themeToggle.mode);
   return (
-    <div className="relative w-full z-2">
+    <div className={`relative w-full z-2`}>
       {/* Banner Image */}
       <div className="relative w-full h-48 md:h-56">
         <Image
@@ -21,7 +23,7 @@ export default function ProfileBanner({ userDtl }) {
       </div>
 
       {/* Profile Details Section */}
-      <div className="bg-white px-6 md:px-10 py-6 relative z-10">
+      <div className={`${themeMode === 'dark' ? 'bg-gray-800 !text-gray-400' : 'bg-white text-gray-600'} px-6 md:px-10 py-6 relative z-10`}>
         <div className="flex flex-col md:flex-row gap-6">
           {/* Profile Image */}
           <div className="-mt-16 md:-mt-20">
@@ -36,16 +38,16 @@ export default function ProfileBanner({ userDtl }) {
 
           {/* User Info */}
           <div className="flex-1 md:mt-4">
-            <h1 className="text-sm md:text-sm font-bold text-gray-600">{userDtl?.email || "Your Email should be here"}</h1>
-            <p className="text-gray-600 text-sm mb-1">
+            <h1 className="text-sm md:text-sm font-bold">{userDtl?.email || "Your Email should be here"}</h1>
+            <p className="text-sm mb-1">
               Senior Content Editor & Publisher
             </p>
-            <p className="text-gray-500 text-sm mb-4">
+            <p className="text-sm mb-4">
               Cumilla, Bangladesh • Joined March 2023
             </p>
 
             {/* Bio */}
-            <p className="text-gray-700 text-sm leading-relaxed mb-4 max-w-3xl">
+            <p className="text-sm leading-relaxed mb-4 max-w-3xl">
               Passionate about technology, innovation, and storytelling. I write about the latest trends in AI, web development, and digital transformation. Always exploring new ways to craft compelling narratives that inspire and educate.
             </p>
 
