@@ -5,12 +5,15 @@ import Swal from 'sweetalert2';
 import { FaBookmark, FaRegBookmark } from 'react-icons/fa';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 
 export default function SavePostButton({ id }) {
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
   const [isSaved, setIsSaved] = useState(false);
-  
+  const router = useRouter();
+  const pathname = usePathname();
+
   useEffect(() => {
     const fetchUserSavedPosts = async () => {
       if (!userEmail) return;
@@ -28,10 +31,8 @@ export default function SavePostButton({ id }) {
   const handleSavePost = async () => {
     try {
       if (!userEmail) {
-        Swal.fire({
-          icon: 'warning',
-          title: 'Please login to save posts',
-        });
+        const redirectUrl = `/login?callbackUrl=${pathname}`;
+        router.push(redirectUrl);
         return;
       }
 

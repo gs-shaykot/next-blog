@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import clientPromise from "../../../../../lib/mongo";
 import { verifyPass } from "../../../../../utils/hash";
 
+// explain the code sequentially. which part is for what, what authorize do, specifically the callbacks part.
 export const authOptions = {
     providers: [
         GoogleProvider({
@@ -25,8 +26,7 @@ export const authOptions = {
 
                 const isValid = await verifyPass(credentials.password, user.password);
                 if (!isValid) return null;
-
-                // ✅ Include role here
+ 
                 return { 
                     id: user._id.toString(), 
                     email: user.email, 
@@ -43,8 +43,7 @@ export const authOptions = {
     pages: {
         signIn: "/login",
     },
-    callbacks: {
-        // ✅ Ensure Google sign-in also gets role
+    callbacks: { 
         async signIn({ user, account }) {
             const client = await clientPromise;
             const usersCollection = client.db("next_Blog").collection("users");
@@ -66,14 +65,11 @@ export const authOptions = {
 
             return true;
         },
-
-        // ✅ Add role from DB for Google users
+ 
         async jwt({ token, user }) {
-            if (user) {
-                // When user logs in for first time
+            if (user) { 
                 token.role = user.role || token.role;
-            } else if (!token.role) {
-                // When JWT already exists (e.g. Google user)
+            } else if (!token.role) { 
                 const client = await clientPromise;
                 const usersCollection = client.db("next_Blog").collection("users");
                 const dbUser = await usersCollection.findOne({ email: token.email });

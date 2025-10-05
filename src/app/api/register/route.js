@@ -17,7 +17,7 @@ export async function POST(req) {
         }
 
         const hashed = await hashPass(password);
-        const data = { fullname, email, password: hashed, photoUrl, likedPosts: [], savedPosts: [] };
+        const data = { fullname, email, password: hashed, photoUrl, likedPosts: [], savedPosts: [], role: "user" };
         const res = await usersCollection.insertOne(data);
         return NextResponse.json(
             { message: "User saved to DB successfully" },

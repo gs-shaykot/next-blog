@@ -179,7 +179,7 @@ export default function Navbar() {
                                 <li><Link href="/dashboard">Dashboard</Link></li>
                                 <li><Link href="/settings">Settings</Link></li>
                                 <li>
-                                    <button onClick={() => signOut()}>Sign out</button>
+                                    <button onClick={() => signOut({ callbackUrl: "/" })}>Sign out</button>
                                 </li>
                             </ul>
                         </div>

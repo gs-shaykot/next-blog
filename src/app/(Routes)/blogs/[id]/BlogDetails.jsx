@@ -34,7 +34,7 @@ export default function BlogDetails({ post }) {
                 {/* Subtitle */}
                 <p className={`${themeMode === "dark" ? "!text-gray-400" : "!text-gray-600"} mt-2 text-lg `}>{post.subtitle}</p>
 
-                {/* Author Info + Meta */}
+                {/* Author Info + like-share-save */}
                 <div className={`flex items-center border-y ${themeMode === "dark" ? "border-gray-700" : "border-gray-200"}  gap-3 my-6 py-5`}>
                     <div className="w-10 h-10 rounded-full overflow-hidden">
                         <Image

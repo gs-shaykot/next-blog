@@ -4,15 +4,18 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useSession } from "next-auth/react";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function LikePostButton({ postId, initialLikes }) {
     const { data: session } = useSession();
     const userEmail = session?.user?.email;
-    // user email available. correct.
 
     const [likes, setLikes] = useState(initialLikes);
     const [isLiked, setIsLiked] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
+    const pathname = usePathname();
+
 
     useEffect(() => {
         const fetchUserLikedPosts = async () => {
@@ -27,11 +30,12 @@ export default function LikePostButton({ postId, initialLikes }) {
         };
         fetchUserLikedPosts();
     }, [userEmail, postId]);
-    // useEffect api okay.
+
 
     const handleLike = async () => {
         if (!userEmail) {
-            alert("Please login to like this post!");
+            const redirectUrl = `/login?callbackUrl=${pathname}`;
+            router.push(redirectUrl);
             return;
         }
 

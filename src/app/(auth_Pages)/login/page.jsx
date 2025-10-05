@@ -1,7 +1,7 @@
 "use client"
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { AiFillGooglePlusCircle } from 'react-icons/ai';
@@ -13,17 +13,22 @@ export default function page() {
   const [isShow, setIsShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const rebackUrl = searchParams.get("callbackUrl") || "/";
 
   const onSubmit = async (data) => {
     const { email, password } = data
-    console.log(email, password)
     const res = await signIn('credentials', {
       redirect: false,
       email,
       password,
     });
+
+    setLoading(false);
+
     if (res?.ok) {
-      router.push('/');
+      router.push(rebackUrl);
     } else {
       alert('Invalid credentials');
     }

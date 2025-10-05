@@ -8,6 +8,7 @@ import { AiFillGooglePlusCircle } from "react-icons/ai";
 import Link from "next/link";
 import axios from "axios";
 import { signIn } from 'next-auth/react';
+import { redirect, useRouter } from "next/navigation";
 
 export default function Page() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -15,6 +16,7 @@ export default function Page() {
   const [isConfirm, setIsConfirm] = useState(false);
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -40,7 +42,9 @@ export default function Page() {
         photoUrl: imageLink,
       };
       const res = await axios.post("/api/register", userData);
-
+      if (res.status === 201) {
+        router.push('/login');
+      }
       setMessage(res.data.message);
     } catch (err) {
       setMessage(err.response?.data?.message || "Error");
