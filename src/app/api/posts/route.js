@@ -24,8 +24,7 @@ export async function POST(req) {
 
 export async function GET(req) {
     try {
-        const { searchParams } = new URL(req.url);
-        console.log(searchParams)
+        const { searchParams } = new URL(req.url); 
         const limit = parseInt(searchParams.get("limit")) || 100;
         const page = parseInt(searchParams.get("page"));
         const category = searchParams.get("category");
@@ -38,11 +37,10 @@ export async function GET(req) {
         return NextResponse.json({ message: "Internal server error" }, { status: 500 });
     }
 }
-// look up the PATCH method, when i call the api/posts with patch method, it should update the post with the given id and update field in the body. i consoled the id & updateFields to check if they are coming correctly or not. i am recieving *undefined { _id: '68dee7c91c063e493d2b24dd', totalLikes: 163 } PATCH /api/posts 200 in 624ms* 
+
 export async function PATCH(req) {
     try {
-        const { id, ...updateFields } = await req.json();
-        console.log(id, updateFields)
+        const { id, ...updateFields } = await req.json(); 
 
         const result = await postsCollection.updateOne(
             { _id: new ObjectId(id) },

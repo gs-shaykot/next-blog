@@ -21,8 +21,6 @@ export default function Navbar() {
     const pathname = usePathname();
     const { data: session } = useSession();
     const userDtl = session?.user;
-    console.log(session)
-
     const themeMode = useSelector((mode) => mode.themeToggle.mode);
     const dispatch = useDispatch();
 

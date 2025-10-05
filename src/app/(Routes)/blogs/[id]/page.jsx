@@ -1,12 +1,4 @@
-import Image from "next/image";
-import { getSinglePost } from "../../../../../lib/posts";
-import { FaRegHeart, FaRegBookmark, FaShareAlt } from "react-icons/fa";
-import { FaXTwitter, FaFacebookF, FaLinkedinIn } from "react-icons/fa6";
-import axios from "axios";
-import Swal from "sweetalert2";
-import SavePostButton from "./SavePostButton";
-import SharePostButton from "@/app/(Routes)/blogs/[id]/SharePostButton";
-import { useSelector } from "react-redux";
+import { getSinglePost } from "../../../../../lib/posts"; 
 import BlogDetails from "@/app/(Routes)/blogs/[id]/BlogDetails";
 
 export default async function SinglePostPage({ params }) {
