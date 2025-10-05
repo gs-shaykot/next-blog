@@ -7,6 +7,7 @@ import { LuUserRoundPlus } from "react-icons/lu";
 import { AiFillGooglePlusCircle } from "react-icons/ai";
 import Link from "next/link";
 import axios from "axios";
+import { signIn } from 'next-auth/react';
 
 export default function Page() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -37,8 +38,8 @@ export default function Page() {
         email,
         password,
         photoUrl: imageLink,
-      }; 
-      const res = await axios.post("/api/register", userData); 
+      };
+      const res = await axios.post("/api/register", userData);
 
       setMessage(res.data.message);
     } catch (err) {
@@ -170,7 +171,10 @@ export default function Page() {
 
           <div className="divider">Or sign up with</div>
 
-          <button type="button" className="btn btn-outline w-full">
+          <button
+            onClick={() => signIn("google", { callbackUrl: "/" })}
+            type="button"
+            className="btn btn-outline w-full">
             <AiFillGooglePlusCircle className="text-[#ff5059] text-xl" />
             Google
           </button>

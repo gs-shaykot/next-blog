@@ -19,7 +19,7 @@ export const authOptions = {
             async authorize(credentials) {
                 const client = await clientPromise;
                 const usersCollection = client.db("next_Blog").collection("users");
-                const user = await usersCollection.findOne({ email: credentials.email }); 
+                const user = await usersCollection.findOne({ email: credentials.email });
                 if (!user) return null;
                 const isValid = await verifyPass(credentials.password, user.password);
                 if (!isValid) return null;
@@ -35,11 +35,33 @@ export const authOptions = {
         signIn: "/login",
     },
     callbacks: {
+        async signIn({ user, account }) {
+            if (account?.provider === "google") {
+                const client = await clientPromise;
+                const usersCollection = client.db("next_Blog").collection("users");
+
+                const existingUser = await usersCollection.findOne({ email: user.email });
+
+                if (!existingUser) {
+                    const newUser = {
+                        fullname: user.name,
+                        email: user.email,
+                        photoUrl: user.image,
+                        password: null,
+                        likedPosts: [],
+                        savedPosts: [],
+                    };
+                    await usersCollection.insertOne(newUser);
+                }
+            }
+            return true;
+        },
+
         async jwt({ token, user }) {
             if (user) token.user = user;
             return token;
         },
-        async session({ session, token }) { 
+        async session({ session, token }) {
             session.user = token.user;
             return session;
         },

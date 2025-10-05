@@ -95,7 +95,10 @@ export default function page() {
 
           <div className="divider">Or Log in with</div>
 
-          <button type="button" className="btn btn-outline w-full">
+          <button
+            onClick={() => signIn("google", { callbackUrl: "/" })}
+            type="button"
+            className="btn btn-outline w-full">
             <AiFillGooglePlusCircle className="text-[#ff5059] text-xl" />
             Google
           </button>
