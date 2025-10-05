@@ -8,11 +8,11 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { Tooltip } from "react-tooltip";
 
-export default function Page() {
+export default function UserDashboard() {
     const { data: session } = useSession();
     const userDtl = session?.user;
     const userEmail = session?.user?.email;
- 
+
     const themeMode = useSelector((mode) => mode.themeToggle.mode);
 
     const [savedPosts, setSavedPosts] = useState([]);

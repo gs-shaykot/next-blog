@@ -1,3 +1,4 @@
+// fix the pacifico font not applying to the logo text.
 "use client"
 import { Pacifico } from 'next/font/google';
 import Image from 'next/image';
@@ -21,6 +22,7 @@ export default function Navbar() {
     const pathname = usePathname();
     const { data: session } = useSession();
     const userDtl = session?.user;
+    console.log(userDtl)
     const themeMode = useSelector((mode) => mode.themeToggle.mode);
     const dispatch = useDispatch();
 
@@ -124,14 +126,14 @@ export default function Navbar() {
 
 
                     {/* Logo */}
-                    <Link href="/" className="flex text-2xl font-bold">
+                    <Link href="/" className="flex text-2xl">
                         <Image
                             width={30}
                             height={30}
                             src="https://res.cloudinary.com/dloasaxt1/image/upload/v1758462042/feather-pen_pdmaq4.png"
                             alt="feather pen with ink pot"
                         />
-                        BlogCraft
+                        <span className={`${pacifico.className}`}>BlogCraft</span>
                     </Link>
 
                     {/* Desktop menu */}
@@ -174,7 +176,7 @@ export default function Navbar() {
                                 tabIndex={0}
                                 className={`menu menu-sm dropdown-content  ${themeMode === "dark" ? "bg-gray-900 !text-white" : "bg-white !text-black"} rounded-box z-1 mt-3 w-52 p-2 shadow`}
                             >
-                                <li><Link href="/profile">Profile</Link></li>
+                                <li><Link href="/dashboard">Dashboard</Link></li>
                                 <li><Link href="/settings">Settings</Link></li>
                                 <li>
                                     <button onClick={() => signOut()}>Sign out</button>

@@ -19,12 +19,21 @@ export const authOptions = {
             async authorize(credentials) {
                 const client = await clientPromise;
                 const usersCollection = client.db("next_Blog").collection("users");
+
                 const user = await usersCollection.findOne({ email: credentials.email });
                 if (!user) return null;
+
                 const isValid = await verifyPass(credentials.password, user.password);
                 if (!isValid) return null;
 
-                return { id: user._id.toString(), name: user.fullname, email: user.email, image: user.photoUrl };
+                // ✅ Include role here
+                return { 
+                    id: user._id.toString(), 
+                    email: user.email, 
+                    name: user.fullname, 
+                    image: user.photoUrl, 
+                    role: user.role 
+                };
             },
         }),
     ],
@@ -35,39 +44,53 @@ export const authOptions = {
         signIn: "/login",
     },
     callbacks: {
+        // ✅ Ensure Google sign-in also gets role
         async signIn({ user, account }) {
-            if (account?.provider === "google") {
-                const client = await clientPromise;
-                const usersCollection = client.db("next_Blog").collection("users");
+            const client = await clientPromise;
+            const usersCollection = client.db("next_Blog").collection("users");
 
-                const existingUser = await usersCollection.findOne({ email: user.email });
+            const existingUser = await usersCollection.findOne({ email: user.email });
 
-                if (!existingUser) {
-                    const newUser = {
-                        fullname: user.name,
-                        email: user.email,
-                        photoUrl: user.image,
-                        password: null,
-                        likedPosts: [],
-                        savedPosts: [],
-                    };
-                    await usersCollection.insertOne(newUser);
-                }
+            if (!existingUser) {
+                const newUser = {
+                    fullname: user.name,
+                    email: user.email,
+                    photoUrl: user.image,
+                    password: null,
+                    likedPosts: [],
+                    savedPosts: [],
+                    role: "user",
+                };
+                await usersCollection.insertOne(newUser);
             }
+
             return true;
         },
 
+        // ✅ Add role from DB for Google users
         async jwt({ token, user }) {
-            if (user) token.user = user;
+            if (user) {
+                // When user logs in for first time
+                token.role = user.role || token.role;
+            } else if (!token.role) {
+                // When JWT already exists (e.g. Google user)
+                const client = await clientPromise;
+                const usersCollection = client.db("next_Blog").collection("users");
+                const dbUser = await usersCollection.findOne({ email: token.email });
+                token.role = dbUser?.role || "user";
+            }
             return token;
         },
+
         async session({ session, token }) {
-            session.user = token.user;
+            if (token) {
+                session.user.role = token.role;
+            }
             return session;
         },
     },
+    secret: process.env.NEXTAUTH_SECRET,
 };
 
 const handler = NextAuth(authOptions);
-
 export { handler as GET, handler as POST };
