@@ -112,7 +112,7 @@ export default function page() {
   return (
     <div className={`${themeMode === 'dark' ? '!bg-gray-900' : 'bg-white'} `}>
       {/* banner */}
-      <div className="relative w-full h-72 md:h-96 mt-18">
+      <div className="relative w-full h-screen mt-18">
         <Image
           src="/aboutBg.jpg"
           alt="Profile Banner"
@@ -315,7 +315,6 @@ export default function page() {
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
             <div>
               <h2
                 className={`text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r bg-clip-text text-transparent

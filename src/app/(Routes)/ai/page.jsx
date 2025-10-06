@@ -1,7 +1,5 @@
-"use client";
-import { useState } from "react";
-
-const STABILITY_API_KEY = process.env.NEXT_PUBLIC_STABILITY_API_KEY;  
+"use client"
+import { useState } from 'react';
 
 export default function AIContentCreator() {
   const [articleTitle, setArticleTitle] = useState('');
@@ -11,9 +9,8 @@ export default function AIContentCreator() {
 
   const [imagePrompt, setImagePrompt] = useState('');
   const [imageStyle, setImageStyle] = useState('');
-  const [aspectRatio, setAspectRatio] = useState('');
+  const [aspectRatio, setAspectRatio] = useState(''); 
   const [imageResult, setImageResult] = useState('');
-
   const [loadingArticle, setLoadingArticle] = useState(false);
   const [loadingImage, setLoadingImage] = useState(false);
 
@@ -37,43 +34,49 @@ export default function AIContentCreator() {
     setLoadingArticle(false);
   };
 
-  // Stability AI Image Generation
-  async function generateImage(promptText, style, ratio) {
-    const response = await fetch(
-      "https://api.stability.ai/v2beta/stable-image/generate/core",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${STABILITY_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          prompt: `${promptText}, style: ${style}`,
-          aspect_ratio: ratio || "1:1",
-          output_format: "png",
-        }),
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(`Stability AI API error: ${response.statusText}`);
-    }
-
-    const imageBlob = await response.blob();
-    return URL.createObjectURL(imageBlob); // Convert blob to URL for <img>
-  }
-
+  // Generate Image with Pollinations.ai
   const handleGenerateImage = async () => {
     if (!imagePrompt || !imageStyle || !aspectRatio) return alert('Please fill all fields');
     setLoadingImage(true);
+    setImageResult(''); // Clear previous image
+
     try {
-      const imgURL = await generateImage(imagePrompt, imageStyle, aspectRatio);
-      setImageResult(imgURL);
+      const res = await fetch('/api/ai/image', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          prompt: imagePrompt,
+          style: imageStyle,
+          aspectRatio: aspectRatio
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.base64Image && data.mimeType) {
+        const imgDataURL = `data:${data.mimeType};base64,${data.base64Image}`;
+        setImageResult(imgDataURL);
+      } else {
+        alert(data.message || 'Failed to generate image');
+        setImageResult('');
+      }
     } catch (err) {
       console.error(err);
       alert('Error generating image');
+      setImageResult('');
     }
     setLoadingImage(false);
+  };
+
+  // Download generated image
+  const handleDownloadImage = () => {
+    if (!imageResult) return;
+    const link = document.createElement('a');
+    link.href = imageResult;
+    link.download = `generated-image-${Date.now()}.jpg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -105,7 +108,7 @@ export default function AIContentCreator() {
         </div>
         <button
           onClick={handleGenerateArticle}
-          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 disabled:bg-blue-300 disabled:cursor-not-allowed transition-colors"
           disabled={loadingArticle}
         >
           {loadingArticle ? 'Generating...' : 'Generate Content'}
@@ -115,14 +118,17 @@ export default function AIContentCreator() {
             readOnly
             value={articleResult}
             rows={15}
-            className="w-full mt-4 border rounded p-3"
+            className="w-full mt-4 border rounded p-3 font-mono text-sm"
           />
         )}
       </div>
 
       {/* Image Section */}
       <div className="border rounded-lg p-6 shadow-sm">
-        <h2 className="text-xl font-semibold mb-4">Generate Article Images</h2>
+        <h2 className="text-xl font-semibold mb-4">
+          Generate Article Images
+          <span className="text-sm font-normal text-gray-500 ml-2">(Powered by Pollinations.ai)</span>
+        </h2>
         <input
           type="text"
           placeholder="Describe the image..."
@@ -137,23 +143,47 @@ export default function AIContentCreator() {
             <option value="illustration">Illustration</option>
             <option value="abstract">Abstract</option>
             <option value="minimalistic">Minimalistic</option>
+            <option value="cinematic">Cinematic</option>
+            <option value="anime">Anime</option>
+            <option value="digital art">Digital Art</option>
           </select>
           <select value={aspectRatio} onChange={(e) => setAspectRatio(e.target.value)} className="flex-1 border rounded px-3 py-2">
             <option value="">Aspect ratio</option>
-            <option value="1:1">1:1</option>
-            <option value="16:9">16:9</option>
-            <option value="4:3">4:3</option>
+            <option value="1:1">1:1 (Square)</option>
+            <option value="16:9">16:9 (Landscape)</option>
+            <option value="4:3">4:3 (Standard)</option>
           </select>
         </div>
         <button
           onClick={handleGenerateImage}
-          className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600"
+          className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 disabled:bg-green-300 disabled:cursor-not-allowed transition-colors"
           disabled={loadingImage}
         >
-          {loadingImage ? 'Generating...' : 'Generate Image'}
+          {loadingImage ? 'Generating Image...' : 'Generate Image'}
         </button>
-        {imageResult && (
-          <img src={imageResult} alt="Generated" className="mt-4 w-full rounded border" />
+ 
+        {loadingImage && (
+          <div className="mt-4 text-center text-gray-600">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-green-500"></div>
+            <p className="mt-2">Creating your image...</p>
+          </div>
+        )}
+ 
+        {imageResult && !loadingImage && (
+          <div className="mt-4">
+            <img
+              src={imageResult}
+              alt="Generated"
+              className="w-full rounded border shadow-lg"
+              onError={() => alert('Failed to load image')}
+            />
+            <button
+              onClick={handleDownloadImage}
+              className="mt-3 w-full bg-gray-700 text-white py-2 rounded hover:bg-gray-800 transition-colors"
+            >
+              Download Image
+            </button>
+          </div>
         )}
       </div>
     </div>

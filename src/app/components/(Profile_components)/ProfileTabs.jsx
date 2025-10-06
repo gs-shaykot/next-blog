@@ -2,8 +2,7 @@ import PostGrid from '@/app/components/(Profile_components)/PostGrid';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
-export default function ProfileTabs({ loading, savedPosts, likedPosts }) {
-  console.log(savedPosts, likedPosts)
+export default function ProfileTabs({ loading, savedPosts, likedPosts }) { 
   return (
     <div className="profile-tabs-container">
       <Tabs>

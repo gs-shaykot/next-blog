@@ -1,49 +1,48 @@
-
-
-import { GoogleGenAI } from '@google/genai';
 import { NextResponse } from 'next/server';
-
-const ai = new GoogleGenAI({});
 
 export async function POST(req) {
     try {
         const { prompt, style, aspectRatio } = await req.json();
-        console.log(prompt, style, aspectRatio);
+ 
         if (!prompt || !style || !aspectRatio) {
-            return NextResponse.json({ message: 'Missing required fields.' }, { status: 400 });
+            return NextResponse.json(
+                { message: 'Missing required fields: prompt, style, or aspectRatio.' },
+                { status: 400 }
+            );
         }
+ 
+        const enhancedPrompt = `${prompt}, ${style} style`;
+ 
+        const dimensionMap = {
+            '1:1': { width: 1024, height: 1024 },
+            '16:9': { width: 1344, height: 768 },
+            '4:3': { width: 1152, height: 896 }
+        };
+        const { width, height } = dimensionMap[aspectRatio] || { width: 1024, height: 1024 };
+ 
+        const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(enhancedPrompt)}?width=${width}&height=${height}&nologo=true&enhance=true`; 
+        const response = await fetch(imageUrl);
 
-        const fullPrompt = `Generate a high-quality blog thumbnail image based on the topic: "${prompt}". The style must be: "${style}".`;
-
-        const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash-image',
-            contents: fullPrompt,
-            config: { 
-                responseModalities: ["TEXT", "IMAGE"],
-                imageGenerationConfig: {
-                    aspectRatio: aspectRatio,  
-                    numberOfImages: 1,
-                }
-            }
-        });
-        const imagePart = response.candidates[0].content.parts.find(
-            (part) => part.inlineData && part.inlineData.mimeType.startsWith('image/')
-        );
-
-        if (!imagePart) {
-            return NextResponse.json({ message: 'AI failed to generate an image part.' }, { status: 500 });
+        if (!response.ok) {
+            return NextResponse.json(
+                { message: 'Failed to generate image from Pollinations.ai' },
+                { status: response.status }
+            );
         }
-
-        const base64Image = imagePart.inlineData.data;
-        const mimeType = imagePart.inlineData.mimeType;
+ 
+        const arrayBuffer = await response.arrayBuffer();
+        const base64Image = Buffer.from(arrayBuffer).toString('base64');
 
         return NextResponse.json({
             base64Image: base64Image,
-            mimeType: mimeType
+            mimeType: 'image/jpeg'
         }, { status: 200 });
 
     } catch (error) {
-        console.error('Nano Banana Image API Error:', error);
-        return NextResponse.json({ message: 'Failed to generate image.', error: error.message }, { status: 500 });
+        console.error('Image Generation Error:', error);
+        return NextResponse.json(
+            { message: 'Failed to generate image.', error: error.message },
+            { status: 500 }
+        );
     }
 }

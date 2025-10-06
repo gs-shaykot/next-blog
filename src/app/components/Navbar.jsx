@@ -22,10 +22,8 @@ export default function Navbar() {
     const pathname = usePathname();
     const { data: session } = useSession();
     const userDtl = session?.user;
-    console.log(userDtl)
     const themeMode = useSelector((mode) => mode.themeToggle.mode);
     const dispatch = useDispatch();
-
     const NavItems = () => {
         const links = [
             { href: "/", label: "Home" },
@@ -64,173 +62,173 @@ export default function Navbar() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    return (
-        <div
-            className={`fixed top-0 left-0 w-full z-50 py-1 transition-all duration-300 ${themeMode === "dark"
-                ? "bg-gray-900 !text-white border-b-2 border-gray-800"
-                : "bg-white !text-black"
-                } ${isScrolled ? "shadow-md !py-0" : "shadow-none"} bg-base-100`}
-        >
-            <div className="!max-w-7xl mx-auto navbar">
-                {/* Navbar Start */}
-                <div className="navbar-start">
-                    {/* mobile menu dropdown */}
-                    <div className="dropdown lg:hidden">
-                        <div tabIndex={0} role="button" className="btn btn-ghost">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
-                            </svg>
-                        </div>
-
-                        {/* make dropdown a bit wider if you want, or keep w-52 */}
-                        <ul
-                            tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 p-2 shadow w-52"
-                        >
-                            <NavItems />
-
-                            {/* SEARCH */}
-                            <li className="lg:hidden w-full">
-                                <label className="input input-sm rounded-lg mb-2 w-full flex items-center">
-                                    <CiSearch className="text-lg mr-2" />
-                                    <input className="flex-1 bg-transparent outline-none" type="search" required placeholder="Search" />
-                                </label>
-                            </li>
-
-                            {/* AUTH BUTTONS — make the <Link> itself the button */}
-                            {!userDtl && (
-                                <>
-                                    <li className="lg:hidden w-full">
-                                        <Link
-                                            href="/login"
-                                            className="btn btn-outline w-full justify-center gap-2 border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
-                                        >
-                                            <TbLogin2 />
-                                            Login
-                                        </Link>
-                                    </li>
-
-                                    <li className="lg:hidden w-full mt-2">
-                                        <Link
-                                            href="/signup"
-                                            className="btn w-full justify-center gap-2 border-2 border-blue-600 text-blue-600 bg-blue-600 text-white"
-                                        >
-                                            <RiUserAddLine />
-                                            Sign up
-                                        </Link>
-                                    </li>
-                                </>
-                            )}
-                        </ul>
-                    </div>
-
-
-                    {/* Logo */}
-                    <Link href="/" className="flex text-2xl">
-                        <Image
-                            width={30}
-                            height={30}
-                            src="https://res.cloudinary.com/dloasaxt1/image/upload/v1758462042/feather-pen_pdmaq4.png"
-                            alt="feather pen with ink pot"
-                        />
-                        <span className={`${pacifico.className}`}>BlogCraft</span>
-                    </Link>
-
-                    {/* Desktop menu */}
-                    <div className="hidden lg:flex ml-10">
-                        <ul className="menu menu-horizontal px-1">
-                            <NavItems />
-                        </ul>
-                    </div>
-                </div>
-
-                <div className="navbar-end flex gap-2">
-                    <label
-                        className={`input rounded-lg mr-2 hidden lg:flex ${themeMode === "dark" ? "bg-gray-800 !text-white" : "bg-white !text-black"
-                            }`}
-                    >
-                        <CiSearch className="text-lg" />
-                        <input
-                            type="search"
-                            required
-                            placeholder="Search"
-                            className={`bg-transparent outline-none ${themeMode === "dark" ? "placeholder-gray-400" : "placeholder-gray-600"
-                                }`}
-                        />
-                    </label>
-
-
-                    {userDtl ? (
-                        <div className="dropdown dropdown-end mt-1">
-                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                                <div className="rounded-full">
-                                    <Image
-                                        width={40}
-                                        height={40}
-                                        alt="User avatar"
-                                        src={userDtl?.image}
-                                    />
-                                </div>
+    if (!pathname.includes('AdminDashboard')) {
+        return (
+            <div
+                className={`fixed top-0 left-0 w-full z-50 py-1 transition-all duration-300 ${themeMode === "dark"
+                    ? "bg-gray-900 !text-white border-b-2 border-gray-800"
+                    : "bg-white !text-black"
+                    } ${isScrolled ? "shadow-md !py-0" : "shadow-none"} bg-base-100`}
+            >
+                <div className="!max-w-7xl mx-auto navbar">
+                    <div className="navbar-start">
+                        <div className="dropdown lg:hidden">
+                            <div tabIndex={0} role="button" className="btn btn-ghost">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
+                                </svg>
                             </div>
                             <ul
                                 tabIndex={0}
-                                className={`menu menu-sm dropdown-content  ${themeMode === "dark" ? "bg-gray-900 !text-white" : "bg-white !text-black"} rounded-box z-1 mt-3 w-52 p-2 shadow`}
+                                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 p-2 shadow w-52"
                             >
-                                <li><Link href="/dashboard">Dashboard</Link></li>
-                                <li><Link href="/settings">Settings</Link></li>
-                                <li>
-                                    <button onClick={() => signOut({ callbackUrl: "/" })}>Sign out</button>
+                                <NavItems />
+
+                                <li className="lg:hidden w-full">
+                                    <label className="input input-sm rounded-lg mb-2 w-full flex items-center">
+                                        <CiSearch className="text-lg mr-2" />
+                                        <input className="flex-1 bg-transparent outline-none" type="search" required placeholder="Search" />
+                                    </label>
                                 </li>
+
+                                {!userDtl && (
+                                    <>
+                                        <li className="lg:hidden w-full">
+                                            <Link
+                                                href="/login"
+                                                className="btn btn-outline w-full justify-center gap-2 border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                                            >
+                                                <TbLogin2 />
+                                                Login
+                                            </Link>
+                                        </li>
+
+                                        <li className="lg:hidden w-full mt-2">
+                                            <Link
+                                                href="/signup"
+                                                className="btn w-full justify-center gap-2 border-2 border-blue-600 text-blue-600 bg-blue-600 text-white"
+                                            >
+                                                <RiUserAddLine />
+                                                Sign up
+                                            </Link>
+                                        </li>
+                                    </>
+                                )}
                             </ul>
                         </div>
-                    ) : (
-                        <div className="hidden lg:flex gap-2">
-                            <Link href="/login">
-                                <button
-                                    type="button"
-                                    className="flex items-center justify-center font-medium transition-all duration-200 cursor-pointer whitespace-nowrap rounded-lg border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-3 py-1.5 !text-xs"
-                                >
-                                    <TbLogin2 />
-                                    Login
-                                </button>
-                            </Link>
-                            <Link href="/signup">
-                                <button
-                                    type="button"
-                                    className="flex items-center justify-center font-medium transition-all duration-200 cursor-pointer whitespace-nowrap rounded-lg border-2 border-blue-600 text-blue-600 bg-blue-600 text-white px-3 py-1.5 !text-xs"
-                                >
-                                    <RiUserAddLine />
-                                    Sign up
-                                </button>
-                            </Link>
+
+
+                        <Link href="/" className="flex text-2xl">
+                            <Image
+                                width={30}
+                                height={30}
+                                src="https://res.cloudinary.com/dloasaxt1/image/upload/v1758462042/feather-pen_pdmaq4.png"
+                                alt="feather pen with ink pot"
+                            />
+                            <span className={`${pacifico.className}`}>BlogCraft</span>
+                        </Link>
+
+                        <div className="hidden lg:flex ml-10">
+                            <ul className="menu menu-horizontal px-1">
+                                <NavItems />
+                            </ul>
                         </div>
-                    )}
-                    <label className="swap swap-rotate">
-                        {/* this hidden checkbox controls the state */}
-                        <input type="checkbox" className="theme-controller" value="synthwave" />
+                    </div>
 
-                        {/* sun icon */}
-                        <svg
-                            className="swap-off h-8 w-8 fill-current"
-                            onClick={() => dispatch(toggleTheme())}
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24">
-                            <path
-                                d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z" />
-                        </svg>
+                    <div className="navbar-end flex gap-2">
+                        <label
+                            className={`input rounded-lg mr-2 hidden lg:flex ${themeMode === "dark" ? "bg-gray-800 !text-white" : "bg-white !text-black"
+                                }`}
+                        >
+                            <CiSearch className="text-lg" />
+                            <input
+                                type="search"
+                                required
+                                placeholder="Search"
+                                className={`bg-transparent outline-none ${themeMode === "dark" ? "placeholder-gray-400" : "placeholder-gray-600"
+                                    }`}
+                            />
+                        </label>
 
-                        {/* moon icon */}
-                        <svg
-                            className="swap-on h-8 w-8 fill-current"
-                            onClick={() => dispatch(toggleTheme())}
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24">
-                            <path
-                                d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
-                        </svg>
-                    </label>
+
+                        {userDtl ? (
+                            <div className="dropdown dropdown-end mt-1">
+                                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                    <div className="rounded-full">
+                                        <Image
+                                            width={40}
+                                            height={40}
+                                            alt="User avatar"
+                                            src={userDtl?.image}
+                                        />
+                                    </div>
+                                </div>
+                                <ul
+                                    tabIndex={0}
+                                    className={`menu menu-sm dropdown-content  ${themeMode === "dark" ? "bg-gray-900 !text-white" : "bg-white !text-black"} rounded-box z-1 mt-3 w-52 p-2 shadow`}
+                                >
+                                    <li><Link href={`${userDtl?.role === 'admin' ? '/AdminDashboard':'/UserDashboard'}`}>Dashboard</Link></li>
+                                    <li><Link href="/settings">Settings</Link></li>
+                                    <li>
+                                        <button onClick={() => signOut({ callbackUrl: "/" })}>Sign out</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        ) : (
+                            <div className="hidden lg:flex gap-2">
+                                <Link href="/login">
+                                    <button
+                                        type="button"
+                                        className="flex items-center justify-center font-medium transition-all duration-200 cursor-pointer whitespace-nowrap rounded-lg border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-3 py-1.5 !text-xs"
+                                    >
+                                        <TbLogin2 />
+                                        Login
+                                    </button>
+                                </Link>
+                                <Link href="/signup">
+                                    <button
+                                        type="button"
+                                        className="flex items-center justify-center font-medium transition-all duration-200 cursor-pointer whitespace-nowrap rounded-lg border-2 border-blue-600 text-blue-600 bg-blue-600 text-white px-3 py-1.5 !text-xs"
+                                    >
+                                        <RiUserAddLine />
+                                        Sign up
+                                    </button>
+                                </Link>
+                            </div>
+                        )}
+                        <label className="swap swap-rotate">
+                            {/* this hidden checkbox controls the state */}
+                            <input type="checkbox" className="theme-controller" value="synthwave" />
+
+                            {/* sun icon */}
+                            <svg
+                                className="swap-off h-8 w-8 fill-current"
+                                onClick={() => dispatch(toggleTheme())}
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z" />
+                            </svg>
+
+                            {/* moon icon */}
+                            <svg
+                                className="swap-on h-8 w-8 fill-current"
+                                onClick={() => dispatch(toggleTheme())}
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
+                            </svg>
+                        </label>
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
+    else {
+        return (
+            <></>
+        )
+    }
+
 }

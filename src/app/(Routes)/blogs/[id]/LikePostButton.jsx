@@ -40,8 +40,7 @@ export default function LikePostButton({ postId, initialLikes }) {
         }
 
         const newLikedState = !isLiked;
-        const updatedLikes = likes + (newLikedState ? 1 : -1);
-        console.log(newLikedState, updatedLikes);
+        const updatedLikes = likes + (newLikedState ? 1 : -1); 
 
         setIsLiked(newLikedState);
         setLikes(updatedLikes);
@@ -51,8 +50,7 @@ export default function LikePostButton({ postId, initialLikes }) {
             const res = await axios.patch("/api/posts", {
                 id: postId,
                 totalLikes: updatedLikes,
-            });
-            console.log(res)
+            }); 
 
             await axios.patch("/api/register", {
                 email: userEmail,

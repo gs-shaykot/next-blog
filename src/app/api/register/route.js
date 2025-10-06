@@ -35,8 +35,7 @@ export async function PATCH(req) {
     try {
         const { email, postId, isLiked, isSaved } = await req.json();
 
-        const usersCollection = await client.db("next_Blog").collection("users");
-        console.log(postId, isSaved)
+        const usersCollection = await client.db("next_Blog").collection("users"); 
         let updateOp = {};
 
         if (isLiked !== undefined) {
