@@ -110,7 +110,7 @@ export default function page() {
   ];
 
   return (
-    <div>
+    <div className={`${themeMode === 'dark' ? '!bg-gray-900' : 'bg-white'} `}>
       {/* banner */}
       <div className="relative w-full h-72 md:h-96 mt-18">
         <Image
@@ -134,36 +134,37 @@ export default function page() {
       </div>
 
       {/* our mission */}
-      <div className='py-14 px-5 max-w-7xl mx-auto text-center'>
-        <div className="max-w-3xl inline-block">
-          <h2
-            className={`text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r bg-clip-text text-transparent
-                        ${themeMode === "dark"
-                ? "from-white via-blue-400 to-gray-300"
-                : "from-gray-900 via-blue-800 to-slate-800"
-              }`}
-          >
-            Our Mission
-          </h2>
+      <div className={`${themeMode === 'dark' ? '!bg-gray-900' : 'bg-white'} `}>
+        <div className={`py-14 px-5 max-w-7xl mx-auto text-center`}>
+          <div className="max-w-3xl inline-block">
+            <h2
+              className={`text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r bg-clip-text text-transparent
+                          ${themeMode === "dark"
+                  ? "from-white via-blue-400 to-gray-300"
+                  : "from-gray-900 via-blue-800 to-slate-800"
+                }`}
+            >
+              Our Mission
+            </h2>
+            <div className="h-1 w-36 bg-gradient-to-r from-blue-600 to-indigo-700 mx-auto rounded-full animate-pulse"></div>
+            <p className={`mx-auto text-lg ${themeMode === 'dark' ? 'text-gray-400' : 'text-gray-700'} leading-relaxed mb-12 mt-5`}>To democratize knowledge and inspire creativity by delivering high-quality, accessible content that empowers individuals to learn, grow, and make a positive impact in their communities and beyond.</p>
 
-          <div className="h-1 w-36 bg-gradient-to-r from-blue-600 to-indigo-700 mx-auto rounded-full animate-pulse"></div>
-          <p className="mx-auto text-lg text-gray-700 leading-relaxed mb-12 mt-5">To democratize knowledge and inspire creativity by delivering high-quality, accessible content that empowers individuals to learn, grow, and make a positive impact in their communities and beyond.</p>
-
-          <div className="bg-gradient-to-r from-blue-50 via-white to-slate-50 rounded-3xl p-12 shadow-xl border border-gray-100">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              <div className="text-left">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-                  <FaEye className="ri-eye-line text-blue-600 mr-3" />
-                  Our Vision
-                </h3>
-                <p className="text-gray-700 leading-relaxed">To become the world's most trusted platform for thoughtful, well-researched content that bridges the gap between complex ideas and practical application.</p>
-              </div>
-              <div className="text-left">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-                  <FaCompass className="ri-compass-line text-slate-600 mr-3" />
-                  Our Values
-                </h3>
-                <p className="text-gray-700 leading-relaxed">Integrity, innovation, inclusivity, and impact guide everything we do. We believe in the power of diverse perspectives and collaborative growth.</p>
+            <div className={`${themeMode === 'dark' ? 'bg-gray-800' : 'bg-gradient-to-r from-blue-50 via-white to-slate-50'} rounded-3xl p-12 shadow-xl border border-gray-100`}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div className="text-left">
+                  <h3 className={`${themeMode === 'dark' ? 'text-white' : 'text-gray-900'}  text-2xl font-bold mb-4 flex items-center`}>
+                    <FaEye className="ri-eye-line text-blue-600 mr-3" />
+                    Our Vision
+                  </h3>
+                  <p className={`${themeMode === 'dark' ? 'text-gray-400' : 'text-gray-700'} leading-relaxed`}>To become the world's most trusted platform for thoughtful, well-researched content that bridges the gap between complex ideas and practical application.</p>
+                </div>
+                <div className="text-left">
+                  <h3 className={`${themeMode === 'dark' ? 'text-white' : 'text-gray-900'}  text-2xl font-bold mb-4 flex items-center`}>
+                    <FaCompass className="ri-compass-line text-slate-600 mr-3" />
+                    Our Values
+                  </h3>
+                  <p className={`${themeMode === 'dark' ? 'text-gray-400' : 'text-gray-700'} leading-relaxed`}>Integrity, innovation, inclusivity, and impact guide everything we do. We believe in the power of diverse perspectives and collaborative growth.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -193,147 +194,148 @@ export default function page() {
       </section>
 
       {/* our goal */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          {/* Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">What Drives Us</h2>
-            <div className="h-1 w-24 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full mb-6"></div>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our core values shape every article we publish and every interaction we have with our community
-            </p>
-          </div>
-
-          {/* Core Values Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {valuesData.map((value, index) => (
-              <div
-                key={index}
-                className="group text-center transform hover:scale-105 transition-all duration-500"
-                style={{ animationDelay: value.delay }}
+      <div>
+        <section className="py-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Header */}
+            <div className="text-center mb-16">
+              <h2
+                className={`text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r bg-clip-text text-transparent
+                            ${themeMode === "dark"
+                    ? "from-white via-blue-400 to-gray-300"
+                    : "from-gray-900 via-blue-800 to-slate-800"
+                  }`}
               >
-                <div className="bg-white rounded-3xl shadow-xl p-8 hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-blue-200 relative overflow-hidden">
-
-                  {/* Hover Background Effect */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-                  <div className="relative z-10">
-
-                    {/* Icon Container */}
-                    <div className={`w-20 h-20 bg-gradient-to-r ${value.colorGradient} rounded-2xl mx-auto mb-6 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300 shadow-lg`}>
-                      {/* React Icon Component Replacement */}
-                      <value.icon className="text-white text-3xl" />
+                What Drives Us
+              </h2>
+              <div className="h-1 w-24 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full mb-6"></div>
+              <p className={`${themeMode === 'dark' ? '!text-gray-400' : 'text-gray-600'} text-xl max-w-3xl mx-auto`}>
+                Our core values shape every article we publish and every interaction we have with our community
+              </p>
+            </div>
+            {/* Core Values Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {valuesData.map((value, index) => (
+                <div
+                  key={index}
+                  className={`group text-center transform hover:scale-105 transition-all duration-500`}
+                  style={{ animationDelay: value.delay }}
+                >
+                  <div className={`${themeMode === 'dark' ? '!bg-gray-800 !text-white' : 'bg-white'} rounded-3xl shadow-xl p-8 hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-blue-200 relative overflow-hidden`}>
+                    {/* Hover Background Effect */}
+                    <div className={`${themeMode === 'dark' ? '' : 'absolute inset-0 bg-gradient-to-br from-blue-50 /50 via-white to-purple-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300'}`}></div>
+                    <div className="relative z-10">
+                      {/* Icon Container */}
+                      <div className={`w-20 h-20 bg-gradient-to-r ${value.colorGradient} rounded-2xl mx-auto mb-6 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300 shadow-lg`}>
+                        {/* React Icon Component Replacement */}
+                        <value.icon className="text-white text-3xl" />
+                      </div>
+                      {/* Content */}
+                      <h3 className={`${themeMode === 'dark' ? 'text-white' : 'text-gray-900 '} text-xl font-bold mb-4 group-hover:text-blue-600 transition-colors`}>
+                        {value.title}
+                      </h3>
+                      <p className={`${themeMode === 'dark' ? 'text-gray-400' : 'text-gray-600'}  leading-relaxed`}>{value.description}</p>
                     </div>
-
-                    {/* Content */}
-                    <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">
-                      {value.title}
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed">{value.description}</p>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section >
+      </div>
 
       {/* our team */}
-      <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          {/* Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Meet Our Team</h2>
-            <div className="h-1 w-24 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full mb-6"></div>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Passionate professionals dedicated to creating content that informs, inspires, and empowers
-            </p>
-          </div>
-
-          {/* Team Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {teamMembers.map((member, index) => (
-              <div
-                key={index}
-                className="group text-center transform hover:scale-105 transition-all duration-500"
-                style={{ animationDelay: member.delay }}
+      <div>
+        < section className={`${themeMode === 'dark' ? '!bg-gray-800' : 'bg-gradient-to-b from-gray-50 to-white'} py-24`} >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2
+                className={`text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r bg-clip-text text-transparent
+                            ${themeMode === "dark"
+                    ? "from-white via-blue-400 to-gray-300"
+                    : "from-gray-900 via-blue-800 to-slate-800"
+                  }`}
               >
-                <div className="bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-blue-200">
+                Meet our Team
+              </h2>
+              <div className="h-1 w-24 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full mb-6"></div>
 
-                  {/* Image and Hover Overlay */}
-                  <div className="relative overflow-hidden">
-                    {/* Image source updated to use the /public path */}
-                    <img
-                      alt={member.name}
-                      className="w-full h-80 object-cover object-top transform group-hover:scale-110 transition-transform duration-700"
-                      src={member.image}
-                    />
-
-                    {/* Darkening Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-                    {/* Social Icons (Appear on hover) */}
-                    <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
-                      <div className="flex justify-center space-x-4">
-
-                        {/* Twitter Icon */}
-                        <a href={member.twitter} className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all">
-                          <FaTwitter /> {/* Replaces ri-twitter-line */}
-                        </a>
-
-                        {/* LinkedIn Icon */}
-                        <a href={member.linkedin} className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all">
-                          <FaLinkedinIn /> {/* Replaces ri-linkedin-line */}
-                        </a>
-
-                        {/* Mail Icon */}
-                        <a href={`mailto:${member.email}`} className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all">
-                          <FaEnvelope /> {/* Replaces ri-mail-line */}
-                        </a>
+              <p className={`${themeMode === 'dark' ? '!text-gray-400' : 'text-gray-600'} text-xl max-w-3xl mx-auto`}>
+                Passionate professionals dedicated to creating content that informs, inspires, and empowers
+              </p>
+            </div>
+            {/* Team Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {teamMembers.map((member, index) => (
+                <div
+                  key={index}
+                  className="group text-center transform hover:scale-105 transition-all duration-500"
+                  style={{ animationDelay: member.delay }}
+                >
+                  <div className={`${themeMode === 'dark' ? 'bg-gray-700' : 'bg-white'} rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-blue-200`}>
+                    <div className="relative overflow-hidden">
+                      <img
+                        alt={member.name}
+                        className="w-full h-80 object-cover object-top transform group-hover:scale-110 transition-transform duration-700"
+                        src={member.image}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+                        <div className="flex justify-center space-x-4">
+                          <a href={member.twitter} className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all">
+                          </a>
+                          <a href={member.linkedin} className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all">
+                          </a>
+                          {/* Mail Icon */}
+                          <a href={`mailto:${member.email}`} className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all">
+                            <FaEnvelope /> {/* Replaces ri-mail-line */}
+                          </a>
+                        </div>
                       </div>
                     </div>
-                  </div>
-
-                  {/* Text Content */}
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
-                      {member.name}
-                    </h3>
-                    <p className="text-blue-600 font-semibold mb-4 text-sm">
-                      {member.title}
-                    </p>
-                    <p className="text-gray-600 text-sm leading-relaxed">
-                      {member.bio}
-                    </p>
+                    <div className="p-6">
+                      <h3 className={`${themeMode === 'dark' ? 'text-white ' : 'text-gray-900 '} text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors`}>
+                        {member.name}
+                      </h3>
+                      <p className={`${themeMode === 'dark' ? 'text-gray-400' : 'text-blue-600'} font-semibold mb-4 text-sm`}>
+                        {member.title}
+                      </p>
+                      <p className={`${themeMode === 'dark' ? 'text-gray-400' : 'text-gray-600'} text-sm leading-relaxed`}>
+                        {member.bio}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section >
+      </div>
 
-      <section className="py-24 bg-white">
+      <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
-            {/* Left Column: Text Content */}
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8">
-                Our Story
+              <h2
+                className={`text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r bg-clip-text text-transparent
+                          ${themeMode === "dark"
+                    ? "from-white via-blue-400 to-gray-300"
+                    : "from-gray-900 via-blue-800 to-slate-800"
+                  }`}
+              >
+                Our Mission
               </h2>
               <div className="h-1 w-24 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full mb-8"></div>
 
               <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
-                <p>
+                <p className={`${themeMode === 'dark' ? 'text-gray-400' : 'text-black'}`}>
                   **BlogCraft** began in 2019 with a simple idea: the internet needed a place for thoughtful, well-researched content that could bridge the gap between complex topics and everyday understanding.
                 </p>
-                <p>
+                <p className={`${themeMode === 'dark' ? 'text-gray-400' : 'text-black'}`}>
                   What started as a small blog has grown into a thriving community of writers, readers, and thinkers from around the world. We've published thousands of articles, sparked countless conversations, and helped millions of people learn something new.
                 </p>
-                <p>
+                <p className={`${themeMode === 'dark' ? 'text-gray-400' : 'text-black'}`}>
                   Today, we continue to evolve, embracing new technologies and platforms while staying true to our core mission: creating content that matters.
                 </p>
               </div>
@@ -373,6 +375,6 @@ export default function page() {
           </div>
         </div>
       </section>
-    </div>
+    </div >
   )
 }
