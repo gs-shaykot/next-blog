@@ -112,7 +112,7 @@ export default function page() {
   return (
     <div>
       {/* banner */}
-      <div className="relative w-full h-72 md:h-80 mt-18">
+      <div className="relative w-full h-72 md:h-96 mt-18">
         <Image
           src="/aboutBg.jpg"
           alt="Profile Banner"
