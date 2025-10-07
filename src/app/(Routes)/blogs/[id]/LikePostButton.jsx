@@ -5,20 +5,19 @@ import React, { useState, useEffect } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
 import { refetchAnalytics } from "lib/useAnalyticsQuery";
+import { queryClient } from "lib/reactQueryClient";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function LikePostButton({ postId, initialLikes }) {
-    const queryClient = useQueryClient();
 
     const { data: session } = useSession();
-    const userEmail = session?.user?.email;
-
+    const userEmail = session?.user?.email; 
     const [likes, setLikes] = useState(initialLikes);
     const [isLiked, setIsLiked] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
-    const pathname = usePathname(); 
+    const pathname = usePathname();
 
     useEffect(() => {
         const fetchUserLikedPosts = async () => {
@@ -32,7 +31,7 @@ export default function LikePostButton({ postId, initialLikes }) {
             }
         };
         fetchUserLikedPosts();
-    }, [userEmail, postId]); 
+    }, [userEmail, postId]);
 
     const handleLike = async () => {
         if (!userEmail) {
@@ -58,8 +57,7 @@ export default function LikePostButton({ postId, initialLikes }) {
                 email: userEmail,
                 postId,
                 isLiked: newLikedState,
-            });
-            await refetchAnalytics(queryClient)
+            }); 
         } catch (error) {
             console.error("Error updating like:", error);
             setIsLiked(!newLikedState);

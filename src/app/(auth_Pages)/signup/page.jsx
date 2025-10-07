@@ -8,12 +8,11 @@ import { AiFillGooglePlusCircle } from "react-icons/ai";
 import Link from "next/link";
 import axios from "axios";
 import { signIn } from 'next-auth/react';
-import { redirect, useRouter } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
+import { redirect, useRouter } from "next/navigation"; 
 import { refetchAnalytics } from "lib/useAnalyticsQuery";
+import { queryClient } from "lib/reactQueryClient";
 
-export default function Page() {
-  const queryClient = useQueryClient();
+export default function Page() { 
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const [isShow, setIsShow] = useState(false);

@@ -1,8 +1,10 @@
+// here is the useAnalyticsData()
 "use client";
 
 import { useAnalyticsData } from "lib/useAnalyticsQuery";
 import { FileText, Eye, Heart, Users } from "lucide-react";
 import Image from "next/image";
+import { FaThumbsUp } from "react-icons/fa";
 
 export default function AdminDashboard() {
     const { data, isLoading, refetch } = useAnalyticsData();
@@ -10,34 +12,34 @@ export default function AdminDashboard() {
     if (isLoading) return <p className="text-center mt-10">Loading analytics...</p>;
 
     const { cards, popularCategories, recentPosts } = data.data || {};
-    console.log(data)
+    console.log(data.data)
 
     const cardItems = [
         {
             title: "Total Posts",
             value: cards?.totalPosts,
-            percent: cards?.totalPostsPercent,
+            percent: cards?.totalPostsPercent.toFixed(2),
             icon: <FileText className="w-6 h-6" />,
             color: "bg-blue-600",
         },
         {
             title: "Total Views",
             value: cards?.totalViews.toLocaleString(),
-            percent: cards?.totalViewsPercent,
+            percent: cards?.totalViewsPercent.toFixed(2),
             icon: <Eye className="w-6 h-6" />,
             color: "bg-gray-700",
         },
         {
             title: "Likes",
             value: cards?.totalLikes.toLocaleString(),
-            percent: cards?.totalLikesPercent,
+            percent: cards?.totalLikesPercent.toFixed(2),
             icon: <Heart className="w-6 h-6" />,
             color: "bg-indigo-600",
         },
         {
             title: "Subscribers",
             value: cards?.totalUsers,
-            percent: cards?.totalUsersPercent,
+            percent: cards?.totalUsersPercent.toFixed(2),
             icon: <Users className="w-6 h-6" />,
             color: "bg-gray-900",
         },
@@ -93,11 +95,11 @@ export default function AdminDashboard() {
                                         <p className="text-xs text-gray-500">{cat.postCount} posts</p>
                                     </div>
                                 </div>
-                                <div className="text-right">
+                                <div className="text-right flex justify-center items-center gap-1 text-green-700">
+                                    <FaThumbsUp />
                                     <p className="text-sm font-semibold">
                                         {cat.totalLikes.toLocaleString()}
                                     </p>
-                                    <p className="text-xs text-green-500">+37%</p>
                                 </div>
                             </li>
                         ))}

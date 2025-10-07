@@ -6,13 +6,11 @@ import { FaXTwitter, FaFacebookF, FaLinkedinIn } from "react-icons/fa6";
 import SavePostButton from "./SavePostButton";
 import SharePostButton from "@/app/(Routes)/blogs/[id]/SharePostButton";
 import { useSelector } from "react-redux";
-import LikePostButton from '@/app/(Routes)/blogs/[id]/LikePostButton';
-import { useQueryClient } from '@tanstack/react-query';
+import LikePostButton from '@/app/(Routes)/blogs/[id]/LikePostButton'; 
 import { refetchAnalytics } from 'lib/useAnalyticsQuery';
+import { queryClient } from 'lib/reactQueryClient';
 
-export default function BlogDetails({ post }) {
-
-    const queryClient = useQueryClient();
+export default function BlogDetails({ post }) { 
 
     const themeMode = useSelector((mode) => mode.themeToggle.mode)
     useEffect(() => {
