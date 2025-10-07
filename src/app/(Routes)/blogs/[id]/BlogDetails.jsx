@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useEffect } from 'react'
 import Image from "next/image";
 import { FaRegHeart, FaRegBookmark, FaShareAlt } from "react-icons/fa";
 import { FaXTwitter, FaFacebookF, FaLinkedinIn } from "react-icons/fa6";
@@ -11,6 +11,21 @@ import LikePostButton from '@/app/(Routes)/blogs/[id]/LikePostButton';
 export default function BlogDetails({ post }) {
 
     const themeMode = useSelector((mode) => mode.themeToggle.mode)
+    useEffect(() => {
+        if (!post?._id) return;
+
+        const incrementView = async () => {
+            try {
+                await fetch(`/api/posts/${post._id}`, {
+                    method: "PATCH",
+                });
+            } catch (error) {
+                console.error("Error incrementing view count:", error);
+            }
+        };
+
+        incrementView();
+    }, [post?._id]);
 
     return (
         <div className={`${themeMode === "dark" ? "bg-gray-900 !text-white" : "bg-white !text-black"}`}>
@@ -57,7 +72,7 @@ export default function BlogDetails({ post }) {
 
                         <SavePostButton id={post._id} />
 
-                        <SharePostButton id={post._id} postTitle={post.title}/>
+                        <SharePostButton id={post._id} postTitle={post.title} />
                     </div>
                 </div>
 
@@ -120,7 +135,7 @@ export default function BlogDetails({ post }) {
                         <Image width={80} height={80} alt="Sarah Johnson" className="rounded-full object-cover object-top" src="https://i.pravatar.cc/40" />
                         <div className="flex-1">
                             <h3 className={`${themeMode === 'dark' ? 'text-white' : 'text-gray-900'} text-xl font-bold mb-2`}>About {post.author}</h3>
-                            <p className={`${themeMode === 'dark' ? 'text-gray-400':'text-gray-600'} mb-4`}>Senior Web Developer and Technology Writer with over 8 years of experience in building scalable web applications. Passionate about sharing knowledge and helping developers stay current with the latest trends and best practices.</p>
+                            <p className={`${themeMode === 'dark' ? 'text-gray-400' : 'text-gray-600'} mb-4`}>Senior Web Developer and Technology Writer with over 8 years of experience in building scalable web applications. Passionate about sharing knowledge and helping developers stay current with the latest trends and best practices.</p>
                             <div className="flex items-center space-x-4">
                                 <button className="text-blue-600 hover:text-blue-700 cursor-pointer">
                                     <i className="ri-twitter-line mr-1"></i>Follow on Twitter

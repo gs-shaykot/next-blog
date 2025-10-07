@@ -25,3 +25,34 @@ export async function GET(req, { params }) {
         return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
     }
 }
+
+export async function PATCH(req, { params }) {
+    try {
+        const { id } = params;
+
+        const client = await clientPromise;
+        const postsCollection = client.db("next_Blog").collection("blogs");
+
+        if (!ObjectId.isValid(id)) {
+            return NextResponse.json({ message: "Invalid post ID" }, { status: 400 });
+        }
+ 
+        const updatedPost = await postsCollection.findOneAndUpdate(
+            { _id: new ObjectId(id) },
+            { $inc: { totalViews: 1 } },
+            { returnDocument: "after" }  
+        );
+
+        if (!updatedPost.value) {
+            return NextResponse.json({ message: "Post not found" }, { status: 404 });
+        }
+
+        return NextResponse.json(
+            { message: "View count updated", post: updatedPost.value },
+            { status: 200 }
+        );
+    } catch (err) {
+        console.error("Error updating totalViews:", err);
+        return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
+    }
+}
