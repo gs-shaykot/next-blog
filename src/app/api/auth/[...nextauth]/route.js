@@ -3,8 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import clientPromise from "../../../../../lib/mongo";
 import { verifyPass } from "../../../../../utils/hash";
-
-// explain the code sequentially. which part is for what, what authorize do, specifically the callbacks part.
+ 
 export const authOptions = {
     providers: [
         GoogleProvider({

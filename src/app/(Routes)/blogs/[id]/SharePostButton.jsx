@@ -10,13 +10,11 @@ export default function SharePostButton({ id, postTitle }) {
     const [copied, setCopied] = useState(false);
 
     const handleShare = async () => {
-        try {
-            // 1. Copy link to clipboard
+        try { 
             await navigator.clipboard.writeText(window.location.href);
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
-
-            // 2. Log share activity to backend (if logged in)
+ 
             if (userEmail) {
                 await axios.post("/api/share", {
                     userEmail,

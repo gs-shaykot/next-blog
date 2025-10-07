@@ -15,14 +15,12 @@ export default function ProfileBanner({ userDtl }) {
           className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-indigo-600/80 to-purple-600/80" />
-
-        {/* Name centered on banner */}
+ 
         <div className="absolute inset-0 flex items-center flex-col justify-center">
           <h1 className="text-3xl md:text-4xl font-bold text-white">{userDtl?.name || "User Name"}</h1>
         </div>
       </div>
-
-      {/* Profile Details Section */}
+ 
       <div className={`${themeMode === 'dark' ? 'bg-gray-800 !text-gray-400' : 'bg-white text-gray-600'} px-6 md:px-10 py-6 relative z-10`}>
         <div className="flex flex-col md:flex-row gap-6">
           {/* Profile Image */}
@@ -50,8 +48,7 @@ export default function ProfileBanner({ userDtl }) {
             <p className="text-sm leading-relaxed mb-4 max-w-3xl">
               Passionate about technology, innovation, and storytelling. I write about the latest trends in AI, web development, and digital transformation. Always exploring new ways to craft compelling narratives that inspire and educate.
             </p>
-
-            {/* Badges */}
+ 
             <div className="flex flex-wrap gap-2">
               <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs rounded-full font-medium">
                 Technology

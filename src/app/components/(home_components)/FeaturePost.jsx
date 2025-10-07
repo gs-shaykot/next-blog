@@ -56,8 +56,7 @@ export default function FeaturedPost(featurePosts) {
                                     {post.category}
                                 </span>
                             </div>
-
-                            {/* Card Content */}
+ 
                             <div className="p-5 flex flex-col gap-4">
                                 {/* Author */}
                                 <div className="flex items-center gap-3">
@@ -82,13 +81,11 @@ export default function FeaturedPost(featurePosts) {
                                 >
                                     {post.title}
                                 </h2>
-
-                                {/* Short Content */}
+ 
                                 <p className="text-black-300 whitespace-pre-line">
                                     {removeMd(post.content).slice(0, 120)}...
                                 </p>
-
-                                {/* Footer */}
+ 
                                 <div className="flex justify-between items-center text-sm text-gray-500 mt-3">
                                     <div className="flex items-center gap-2">
                                         <span>👍 {post.totalLikes}</span>

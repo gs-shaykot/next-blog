@@ -1,6 +1,5 @@
-import { NextResponse } from "next/server"; 
-import { ObjectId } from "mongodb";
-import clientPromise from "../../../../lib/mongo";
+import clientPromise from "lib/mongo";
+import { NextResponse } from "next/server";
 
 export async function GET() {
     try {
@@ -9,26 +8,44 @@ export async function GET() {
 
         const postsCollection = db.collection("blogs");
         const usersCollection = db.collection("users");
-
-        // 1️.Total Posts
+        const analyticsCollection = db.collection("analytics_parcentage");
+ 
         const totalPosts = await postsCollection.countDocuments();
 
-        // 2️.Total Views
         const viewsAgg = await postsCollection
             .aggregate([{ $group: { _id: null, totalViews: { $sum: "$totalViews" } } }])
             .toArray();
         const totalViews = viewsAgg[0]?.totalViews || 0;
 
-        // 3️.Total Likes
         const likesAgg = await postsCollection
             .aggregate([{ $group: { _id: null, totalLikes: { $sum: "$totalLikes" } } }])
             .toArray();
         const totalLikes = likesAgg[0]?.totalLikes || 0;
 
-        // 4️.Total Users
         const totalUsers = await usersCollection.countDocuments();
+ 
+        const snapshots = await analyticsCollection
+            .find()
+            .sort({ month: -1 })
+            .limit(2)
+            .toArray();
 
-        // 5. POPULAR CATEGORIES 
+        const [currentMonth, previousMonth] = snapshots;
+
+        const calcPercentChange = (current, previous) =>
+            previous ? ((current - previous) / previous) * 100 : 0;
+
+        const cards = {
+            totalPosts,
+            totalPostsPercent: calcPercentChange(totalPosts, previousMonth?.totalPosts),
+            totalViews,
+            totalViewsPercent: calcPercentChange(totalViews, previousMonth?.totalViews),
+            totalLikes,
+            totalLikesPercent: calcPercentChange(totalLikes, previousMonth?.totalLikes),
+            totalUsers,
+            totalUsersPercent: calcPercentChange(totalUsers, previousMonth?.totalUsers),
+        };
+ 
         const popularCategories = await postsCollection
             .aggregate([
                 {
@@ -49,8 +66,7 @@ export async function GET() {
             totalLikes: cat.totalLikes,
             postCount: cat.postCount,
         }));
-
-        // 6. RECENT POSTS 
+ 
         const recentPosts = await postsCollection
             .find({})
             .sort({ posted_date: -1 })
@@ -61,7 +77,7 @@ export async function GET() {
                 category: 1,
                 posted_date: 1,
                 post_image: 1,
-                totalLikes: 1, 
+                totalLikes: 1,
             })
             .toArray();
 
@@ -69,19 +85,13 @@ export async function GET() {
             {
                 success: true,
                 data: {
-                    cards: {
-                        totalPosts,
-                        totalViews,
-                        totalLikes,
-                        totalUsers,
-                    },
+                    cards,
                     popularCategories: categories,
                     recentPosts,
                 },
             },
             { status: 200 }
         );
-
     } catch (error) {
         console.error("Analytics API Error:", error);
         return NextResponse.json(

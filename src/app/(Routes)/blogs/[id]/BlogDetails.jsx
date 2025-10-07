@@ -30,8 +30,7 @@ export default function BlogDetails({ post }) {
     return (
         <div className={`${themeMode === "dark" ? "bg-gray-900 !text-white" : "bg-white !text-black"}`}>
             <div className="max-w-4xl mx-auto mt-18 p-6">
-
-                {/* Breadcrumb */}
+ 
                 <div className="text-sm text-gray-500 font-semibold py-5">
                     Home / Blog / <span className={`${themeMode === "dark" ? "!text-gray-400" : "! text-gray-600"}`}>{post.category}</span>
                 </div>

@@ -29,8 +29,7 @@ export default function page() {
                                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Send Us a Message</h2>
                                 <p className="text-lg text-gray-600">Fill out the form below and we'll get back to you as soon as possible</p>
                             </div>
-
-                            {/* Form Structure */}
+ 
                             <form id="contact-form" className="space-y-6" >
 
                                 {/* Name and Email Inputs */}
@@ -58,8 +57,7 @@ export default function page() {
                                         />
                                     </div>
                                 </div>
-
-                                {/* Subject Select */}
+ 
                                 <div>
                                     <label htmlFor="subject" className="block text-sm font-semibold text-gray-700 mb-2">Subject *</label>
                                     <select

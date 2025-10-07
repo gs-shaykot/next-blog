@@ -20,7 +20,7 @@ export default function AdminDashboardPage() {
     };
     fetchAnalytics();
   }, []);
-
+  console.log(allAnalysis)
   const formatNumber = (num) => {
     if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`;
     if (num >= 1000) return `${(num / 1000).toFixed(1)}K`;
@@ -86,8 +86,7 @@ export default function AdminDashboardPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-7xl mx-auto">  
-        {/* Stats Cards */}
+      <div className="max-w-7xl mx-auto">   
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {/* Total Posts Card */}
           <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 text-white shadow-lg">
@@ -123,7 +122,7 @@ export default function AdminDashboardPage() {
             </p>
           </div>
 
-          {/* Comments/Likes Card */}
+          {/* Likes Card */}
           <div className="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl p-6 text-white shadow-lg">
             <div className="flex justify-between items-start mb-4">
               <div>
@@ -157,8 +156,7 @@ export default function AdminDashboardPage() {
             </p>
           </div>
         </div>
-
-        {/* Popular Categories and Recent Activity */}
+ 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {/* Popular Categories */}
           <div className="bg-white rounded-2xl p-6 shadow">

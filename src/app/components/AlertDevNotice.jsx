@@ -4,8 +4,7 @@ import { useEffect } from "react";
 import Swal from "sweetalert2";
 
 export default function AlertDevNotice() {
-    useEffect(() => {
-        // check if alert was already shown
+    useEffect(() => { 
         const hasShown = sessionStorage.getItem("devNoticeShown");
 
         if (!hasShown) {
@@ -15,8 +14,7 @@ export default function AlertDevNotice() {
                 icon: "info",
                 confirmButtonText: "Okay, got it!",
                 confirmButtonColor: "#2563eb",
-            }).then(() => {
-                // mark as shown
+            }).then(() => { 
                 sessionStorage.setItem("devNoticeShown", "true");
             });
         }

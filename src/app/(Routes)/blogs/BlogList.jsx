@@ -92,8 +92,7 @@ export default function BlogList({ initialPosts, initialTotalPages }) {
                     : "bg-white text-black"
                     } flex justify-center py-8 gap-2`}
             >
-                <div className="join">
-                    {/* Prev */}
+                <div className="join"> 
                     <button
                         onClick={() => setPage((p) => Math.max(p - 1, 1))}
                         disabled={page === 1}
@@ -101,8 +100,7 @@ export default function BlogList({ initialPosts, initialTotalPages }) {
                     >
                         «
                     </button>
-
-                    {/* Page Numbers */}
+ 
                     {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
                         <button
                             key={num}
@@ -117,8 +115,7 @@ export default function BlogList({ initialPosts, initialTotalPages }) {
                             {num}
                         </button>
                     ))}
-
-                    {/* Next */}
+ 
                     <button
                         onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
                         disabled={page === totalPages}

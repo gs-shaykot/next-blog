@@ -69,15 +69,13 @@ const navItems = [
 export function AppSidebar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { data: session } = useSession();
-  console.log(session.user)
+  const { data: session } = useSession(); 
   const user = {
     name: session?.user?.name || "Admin User",
     email: session?.user?.email || "admin@example.com",
     avatar: session?.user?.image || "/default-avatar.png",
   };
-
-  // Get initials for avatar fallback
+ 
   const getInitials = (name) => {
     return name
       .split(" ")

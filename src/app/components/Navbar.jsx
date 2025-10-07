@@ -1,4 +1,4 @@
-// fix the pacifico font not applying to the logo text.
+
 "use client"
 import { Pacifico } from 'next/font/google';
 import Image from 'next/image';
@@ -167,7 +167,7 @@ export default function Navbar() {
                                     tabIndex={0}
                                     className={`menu menu-sm dropdown-content  ${themeMode === "dark" ? "bg-gray-900 !text-white" : "bg-white !text-black"} rounded-box z-1 mt-3 w-52 p-2 shadow`}
                                 >
-                                    <li><Link href={`${userDtl?.role === 'admin' ? '/AdminDashboard':'/UserDashboard'}`}>Dashboard</Link></li>
+                                    <li><Link href={`${userDtl?.role === 'admin' ? '/AdminDashboard' : '/UserDashboard'}`}>Dashboard</Link></li>
                                     <li><Link href="/settings">Settings</Link></li>
                                     <li>
                                         <button onClick={() => signOut({ callbackUrl: "/" })}>Sign out</button>
@@ -197,7 +197,6 @@ export default function Navbar() {
                             </div>
                         )}
                         <label className="swap swap-rotate">
-                            {/* this hidden checkbox controls the state */}
                             <input type="checkbox" className="theme-controller" value="synthwave" />
 
                             {/* sun icon */}

@@ -6,12 +6,10 @@ export default function ProfileSidebar() {
 
   const themeMode = useSelector((mode) => mode.themeToggle.mode);
   return (
-    <div>
-      {/* Statistics */}
+    <div> 
       <div className={`${themeMode === 'dark' ? 'bg-gray-800 text-gray-400' : 'bg-white'} mb-4 rounded-xl shadow p-5 relative group`}>
         <h3 className="text-lg font-semibold mb-4">Statistics</h3>
-
-        {/* Tooltip */}
+ 
         <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
           <div className="relative">
             <div className="bg-gray-800 text-white text-xs px-3 py-2 rounded-lg whitespace-nowrap shadow-lg">
@@ -63,8 +61,7 @@ export default function ProfileSidebar() {
           </div>
         </div>
       </div>
-
-      {/* Achievements */}
+ 
       <div className={`${themeMode === 'dark' ? 'bg-gray-800 text-gray-400' : 'bg-white'} mb-4 rounded-xl shadow p-5 relative group`}>
         <h3 className="text-lg font-semibold mb-4">Achievements</h3>
 
@@ -110,12 +107,10 @@ export default function ProfileSidebar() {
           </div>
         </div>
       </div>
-
-      {/* Quick Actions */}
+ 
       <div className={`${themeMode === 'dark' ? 'bg-gray-800 text-gray-400' : 'bg-white'} mb-4 rounded-xl shadow p-5 relative group`}>
         <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
-
-        {/* Tooltip */}
+ 
         <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
           <div className="relative">
             <div className="bg-gray-800 text-white text-xs px-3 py-2 rounded-lg whitespace-nowrap shadow-lg">

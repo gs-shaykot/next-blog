@@ -14,7 +14,7 @@ export default function AIContentCreator() {
   const [loadingArticle, setLoadingArticle] = useState(false);
   const [loadingImage, setLoadingImage] = useState(false);
 
-  // Generate Article
+ 
   const handleGenerateArticle = async () => {
     if (!articleTitle || !tone || !length) return alert('Please fill all fields');
     setLoadingArticle(true);
@@ -34,11 +34,11 @@ export default function AIContentCreator() {
     setLoadingArticle(false);
   };
 
-  // Generate Image with Pollinations.ai
+ 
   const handleGenerateImage = async () => {
     if (!imagePrompt || !imageStyle || !aspectRatio) return alert('Please fill all fields');
     setLoadingImage(true);
-    setImageResult(''); // Clear previous image
+    setImageResult(''); 
 
     try {
       const res = await fetch('/api/ai/image', {
@@ -67,8 +67,7 @@ export default function AIContentCreator() {
     }
     setLoadingImage(false);
   };
-
-  // Download generated image
+ 
   const handleDownloadImage = () => {
     if (!imageResult) return;
     const link = document.createElement('a');

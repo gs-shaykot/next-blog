@@ -35,7 +35,7 @@ export default function page() {
       delay: '300ms',
     },
     {
-      icon: FaSeedling, // Replaces ri-plant-line (Growth/Seedling)
+      icon: FaSeedling, 
       title: 'Growth',
       description: 'We are committed to continuous learning and helping our community grow personally and professionally.',
       colorGradient: 'from-green-500 to-teal-500',
@@ -71,7 +71,7 @@ export default function page() {
       name: 'Sarah Johnson',
       title: 'Founder & Editor-in-Chief',
       bio: 'Award-winning journalist with 10+ years in digital media. Passionate about storytelling and community building.',
-      image: '/p1.jpg', // Path from /public folder
+      image: '/p1.jpg', 
       email: 'sarah@blogcraft.com',
       twitter: '#',
       linkedin: '#',
@@ -81,7 +81,7 @@ export default function page() {
       name: 'Marcus Chen',
       title: 'Technology Editor',
       bio: 'Former software engineer turned tech writer. Specializes in emerging technologies and developer culture.',
-      image: '/p2.jpg', // Path from /public folder
+      image: '/p2.jpg', 
       email: 'marcus@blogcraft.com',
       twitter: '#',
       linkedin: '#',
@@ -91,7 +91,7 @@ export default function page() {
       name: 'Elena Rodriguez',
       title: 'Design & Lifestyle Editor',
       bio: 'Creative director with expertise in visual design and lifestyle trends. Brings artistic perspective to every story.',
-      image: '/p3.jpg', // Path from /public folder
+      image: '/p3.jpg', 
       email: 'elena@blogcraft.com',
       twitter: '#',
       linkedin: '#',
@@ -101,7 +101,7 @@ export default function page() {
       name: 'David Thompson',
       title: 'Business & Strategy Editor',
       bio: 'MBA and former startup founder. Covers entrepreneurship, business strategy, and market trends.',
-      image: '/p4.jpg', // Path from /public folder
+      image: '/p4.jpg', 
       email: 'david@blogcraft.com',
       twitter: '#',
       linkedin: '#',
@@ -221,13 +221,10 @@ export default function page() {
                   className={`group text-center transform hover:scale-105 transition-all duration-500`}
                   style={{ animationDelay: value.delay }}
                 >
-                  <div className={`${themeMode === 'dark' ? '!bg-gray-800 !text-white' : 'bg-white'} rounded-3xl shadow-xl p-8 hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-blue-200 relative overflow-hidden`}>
-                    {/* Hover Background Effect */}
+                  <div className={`${themeMode === 'dark' ? '!bg-gray-800 !text-white' : 'bg-white'} rounded-3xl shadow-xl p-8 hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-blue-200 relative overflow-hidden`}> 
                     <div className={`${themeMode === 'dark' ? '' : 'absolute inset-0 bg-gradient-to-br from-blue-50 /50 via-white to-purple-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300'}`}></div>
-                    <div className="relative z-10">
-                      {/* Icon Container */}
-                      <div className={`w-20 h-20 bg-gradient-to-r ${value.colorGradient} rounded-2xl mx-auto mb-6 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300 shadow-lg`}>
-                        {/* React Icon Component Replacement */}
+                    <div className="relative z-10"> 
+                      <div className={`w-20 h-20 bg-gradient-to-r ${value.colorGradient} rounded-2xl mx-auto mb-6 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300 shadow-lg`}> 
                         <value.icon className="text-white text-3xl" />
                       </div>
                       {/* Content */}
@@ -285,10 +282,9 @@ export default function page() {
                           <a href={member.twitter} className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all">
                           </a>
                           <a href={member.linkedin} className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all">
-                          </a>
-                          {/* Mail Icon */}
+                          </a> 
                           <a href={`mailto:${member.email}`} className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all">
-                            <FaEnvelope /> {/* Replaces ri-mail-line */}
+                            <FaEnvelope />  
                           </a>
                         </div>
                       </div>
@@ -357,12 +353,11 @@ export default function page() {
                 <img
                   alt="Our Story"
                   className="w-full h-full object-cover object-top"
-                  src='/aboutPP.jpg' // Path to the image in the /public folder
+                  src='/aboutPP.jpg' 
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-blue-600/20 via-transparent to-transparent"></div>
               </div>
-
-              {/* Decorative Blobs */}
+ 
               <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full opacity-20"></div>
               <div className="absolute -top-6 -left-6 w-24 h-24 bg-gradient-to-r from-pink-600 to-red-600 rounded-full opacity-20"></div>
             </div>

@@ -13,10 +13,10 @@ export default function CategoryFilter({ categories, selected, onSelect }) {
           onClick={() => onSelect(cat)}
           className={`btn rounded-2xl shadow-none
             ${selected === cat
-              ? "bg-blue-600 text-white" // Active state (always wins)
+              ? "bg-blue-600 text-white"  
               : themeMode === "dark"
-                ? "bg-[#16202C] text-white" // Dark mode default
-                : "bg-white text-black border border-gray-200" // Light mode default
+                ? "bg-[#16202C] text-white" 
+                : "bg-white text-black border border-gray-200" 
             }
   `}
         >
