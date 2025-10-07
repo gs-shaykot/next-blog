@@ -135,7 +135,7 @@ export default function AdminDashboardPage() {
           <div className="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl p-6 text-white shadow-lg">
             <div className="flex justify-between items-start mb-4">
               <div>
-                <p className="text-indigo-100 text-sm mb-1">Comments</p>
+                <p className="text-indigo-100 text-sm mb-1">Likes</p>
                 <h2 className="text-4xl font-bold">{formatNumber(cards.totalLikes)}</h2>
               </div>
               <div className="bg-white bg-opacity-20 p-3 rounded-lg">
