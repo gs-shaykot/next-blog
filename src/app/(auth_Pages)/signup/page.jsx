@@ -9,8 +9,12 @@ import Link from "next/link";
 import axios from "axios";
 import { signIn } from 'next-auth/react';
 import { redirect, useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
+import { refetchAnalytics } from "lib/useAnalyticsQuery";
 
 export default function Page() {
+  const queryClient = useQueryClient();
+
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const [isShow, setIsShow] = useState(false);
   const [isConfirm, setIsConfirm] = useState(false);
@@ -43,6 +47,7 @@ export default function Page() {
       };
       const res = await axios.post("/api/register", userData);
       if (res.status === 201) {
+        await refetchAnalytics(queryClient);
         router.push('/login');
       }
       setMessage(res.data.message);

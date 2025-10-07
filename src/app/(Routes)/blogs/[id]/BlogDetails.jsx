@@ -7,8 +7,12 @@ import SavePostButton from "./SavePostButton";
 import SharePostButton from "@/app/(Routes)/blogs/[id]/SharePostButton";
 import { useSelector } from "react-redux";
 import LikePostButton from '@/app/(Routes)/blogs/[id]/LikePostButton';
+import { useQueryClient } from '@tanstack/react-query';
+import { refetchAnalytics } from 'lib/useAnalyticsQuery';
 
 export default function BlogDetails({ post }) {
+
+    const queryClient = useQueryClient();
 
     const themeMode = useSelector((mode) => mode.themeToggle.mode)
     useEffect(() => {
@@ -19,6 +23,9 @@ export default function BlogDetails({ post }) {
                 await fetch(`/api/posts/${post._id}`, {
                     method: "PATCH",
                 });
+
+                await refetchAnalytics(queryClient);
+                
             } catch (error) {
                 console.error("Error incrementing view count:", error);
             }
@@ -30,7 +37,7 @@ export default function BlogDetails({ post }) {
     return (
         <div className={`${themeMode === "dark" ? "bg-gray-900 !text-white" : "bg-white !text-black"}`}>
             <div className="max-w-4xl mx-auto mt-18 p-6">
- 
+
                 <div className="text-sm text-gray-500 font-semibold py-5">
                     Home / Blog / <span className={`${themeMode === "dark" ? "!text-gray-400" : "! text-gray-600"}`}>{post.category}</span>
                 </div>
