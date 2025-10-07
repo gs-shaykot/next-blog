@@ -338,12 +338,9 @@ export default function page() {
                   Today, we continue to evolve, embracing new technologies and platforms while staying true to our core mission: creating content that matters.
                 </p>
               </div>
-
-              {/* Button using the Link component */}
+ 
               <div className="mt-8">
-                <Link href='/blogs' data-discover="true">
-                  {/* Note: In modern Next.js/React Router, the button is often placed directly inside Link/a, 
-                    or the Link/a tag wraps the button. The structure here is adjusted to be valid JSX. */}
+                <Link href='/blogs' > 
                   <button
                     type="button"
                     className="inline-flex items-center justify-center font-medium transition-all duration-200 cursor-pointer whitespace-nowrap rounded-lg text-white px-6 py-3 text-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 duration-300 focus:ring-4 focus:ring-blue-300"
@@ -354,8 +351,7 @@ export default function page() {
                 </Link>
               </div>
             </div>
-
-            {/* Right Column: Image and Decorative Elements */}
+ 
             <div className="relative">
               <div className="relative overflow-hidden rounded-3xl shadow-2xl">
                 <img

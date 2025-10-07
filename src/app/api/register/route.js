@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import clientPromise from "../../../../lib/mongo";
 import { hashPass } from "../../../../utils/hash";
+import { ObjectId } from "mongodb";
 
 const client = await clientPromise
 export async function POST(req) {
@@ -19,6 +20,13 @@ export async function POST(req) {
         const hashed = await hashPass(password);
         const data = { fullname, email, password: hashed, photoUrl, likedPosts: [], savedPosts: [], role: "user" };
         const res = await usersCollection.insertOne(data);
+        await client.db("next_Blog").collection("activities").insertOne({
+            type: "register",
+            fullname,
+            userEmail: email,
+            timestamp: new Date(),
+        });
+
         return NextResponse.json(
             { message: "User saved to DB successfully" },
             { status: 201 }
@@ -35,7 +43,7 @@ export async function PATCH(req) {
     try {
         const { email, postId, isLiked, isSaved } = await req.json();
 
-        const usersCollection = await client.db("next_Blog").collection("users"); 
+        const usersCollection = await client.db("next_Blog").collection("users");
         let updateOp = {};
 
         if (isLiked !== undefined) {
@@ -51,6 +59,17 @@ export async function PATCH(req) {
         }
 
         const result = await usersCollection.updateOne({ email }, updateOp);
+
+        if (isLiked) {
+            const post = await client.db("next_Blog").collection("blogs").findOne({ _id: new ObjectId(postId) });
+            await client.db("next_Blog").collection("activities").insertOne({
+                type: "like",
+                userEmail: email,
+                postId,
+                postTitle: post.title,
+                timestamp: new Date(),
+            });
+        }
 
         return NextResponse.json(
             { success: true, modifiedCount: result.modifiedCount },

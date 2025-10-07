@@ -57,7 +57,7 @@ export default function BlogDetails({ post }) {
 
                         <SavePostButton id={post._id} />
 
-                        <SharePostButton />
+                        <SharePostButton id={post._id} postTitle={post.title}/>
                     </div>
                 </div>
 

@@ -1,27 +1,39 @@
-"use client"
-import React, { useState } from 'react'
-import { FaShareAlt } from 'react-icons/fa'
+"use client";
+import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { FaShareAlt } from "react-icons/fa";
+import axios from "axios";
 
-export default function SharePostButton() {
-
-    const [copied, setCopied] = useState(false)
+export default function SharePostButton({ id, postTitle }) {
+    const { data: session } = useSession();
+    const userEmail = session?.user?.email;
+    const [copied, setCopied] = useState(false);
 
     const handleShare = async () => {
         try {
-            await navigator.clipboard.writeText(window.location.href)
-            setCopied(true)
+            // 1. Copy link to clipboard
+            await navigator.clipboard.writeText(window.location.href);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
 
-            setTimeout(() => setCopied(false), 2000)
+            // 2. Log share activity to backend (if logged in)
+            if (userEmail) {
+                await axios.post("/api/share", {
+                    userEmail,
+                    postId: id,
+                    postTitle,
+                });
+            }
         } catch (err) {
-            console.error("Failed to copy link:", err)
+            console.error("Failed to copy/share link:", err);
         }
-    }
+    };
 
     return (
         <div className="relative">
             <button
                 onClick={handleShare}
-                className="flex justify-center items-center gap-2 cursor-pointer hover:text-blue-600"
+                className="flex justify-center items-center gap-2 cursor-pointer hover:text-blue-600 transition-colors"
             >
                 <FaShareAlt /> Share
             </button>
@@ -32,5 +44,5 @@ export default function SharePostButton() {
                 </span>
             )}
         </div>
-    )
+    );
 }

@@ -26,13 +26,13 @@ export const authOptions = {
 
                 const isValid = await verifyPass(credentials.password, user.password);
                 if (!isValid) return null;
- 
-                return { 
-                    id: user._id.toString(), 
-                    email: user.email, 
-                    name: user.fullname, 
-                    image: user.photoUrl, 
-                    role: user.role 
+
+                return {
+                    id: user._id.toString(),
+                    email: user.email,
+                    name: user.fullname,
+                    image: user.photoUrl,
+                    role: user.role
                 };
             },
         }),
@@ -43,14 +43,17 @@ export const authOptions = {
     pages: {
         signIn: "/login",
     },
-    callbacks: { 
+    callbacks: {
         async signIn({ user, account }) {
             const client = await clientPromise;
-            const usersCollection = client.db("next_Blog").collection("users");
+            const db = client.db("next_Blog");
 
+            const usersCollection = db.collection("users");
+            const activitiesCollection = db.collection("activities");
+ 
             const existingUser = await usersCollection.findOne({ email: user.email });
 
-            if (!existingUser) {
+            if (!existingUser) { 
                 const newUser = {
                     fullname: user.name,
                     email: user.email,
@@ -59,17 +62,28 @@ export const authOptions = {
                     likedPosts: [],
                     savedPosts: [],
                     role: "user",
+                    createdAt: new Date(),
                 };
-                await usersCollection.insertOne(newUser);
-            }
 
+                await usersCollection.insertOne(newUser);
+ 
+                await activitiesCollection.insertOne({
+                    type: "register",
+                    userEmail: user.email,
+                    userName: user.name,
+                    photoUrl: user.image,
+                    timestamp: new Date(),
+                    provider: account.provider, 
+                });
+            }
+ 
             return true;
         },
- 
+
         async jwt({ token, user }) {
-            if (user) { 
+            if (user) {
                 token.role = user.role || token.role;
-            } else if (!token.role) { 
+            } else if (!token.role) {
                 const client = await clientPromise;
                 const usersCollection = client.db("next_Blog").collection("users");
                 const dbUser = await usersCollection.findOne({ email: token.email });
