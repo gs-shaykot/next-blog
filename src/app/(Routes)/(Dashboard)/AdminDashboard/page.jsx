@@ -86,15 +86,7 @@ export default function AdminDashboardPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-          <button className="px-4 py-2 border border-red-300 rounded-lg text-red-600 hover:bg-red-50 transition">
-            Logout
-          </button>
-        </div>
-
+      <div className="max-w-7xl mx-auto">  
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {/* Total Posts Card */}
