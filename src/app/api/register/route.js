@@ -21,7 +21,7 @@ export async function POST(req) {
         const data = { fullname, email, password: hashed, photoUrl, likedPosts: [], savedPosts: [], role: "user" };
         const res = await usersCollection.insertOne(data);
         await client.db("next_Blog").collection("activities").insertOne({
-            type: "register",
+            type: "registered",
             fullname,
             userEmail: email,
             timestamp: new Date(),
@@ -63,7 +63,7 @@ export async function PATCH(req) {
         if (isLiked) {
             const post = await client.db("next_Blog").collection("blogs").findOne({ _id: new ObjectId(postId) });
             await client.db("next_Blog").collection("activities").insertOne({
-                type: "like",
+                type: "liked",
                 userEmail: email,
                 postId,
                 postTitle: post.title,

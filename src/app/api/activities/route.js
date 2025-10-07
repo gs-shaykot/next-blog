@@ -1,16 +1,26 @@
 import clientPromise from "lib/mongo";
 import { NextResponse } from "next/server";
 
-const client = await clientPromise;
-const activitiesCollection = await client.db("next_Blog").collection("activities");
-
 export async function GET(req) {
     try {
-        const result = await activitiesCollection.find({}).toArray()
+        const client = await clientPromise;
+        const activitiesCollection = client.db("next_Blog").collection("activities");
 
-        return NextResponse.json(result, { status: 200 });
-    }
-    catch (err) {
-        return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+        const data = await activitiesCollection
+            .find({})
+            .sort({ timestamp: -1 })
+            .limit(4)
+            .toArray();
+
+        return NextResponse.json(
+            data,
+            { status: 200 }
+        );
+    } catch (err) {
+        console.error("Error fetching activities:", err);
+        return NextResponse.json(
+            { success: false, message: "Internal server error" },
+            { status: 500 }
+        );
     }
 }

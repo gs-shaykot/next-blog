@@ -7,8 +7,7 @@ import SavePostButton from "./SavePostButton";
 import SharePostButton from "@/app/(Routes)/blogs/[id]/SharePostButton";
 import { useSelector } from "react-redux";
 import LikePostButton from '@/app/(Routes)/blogs/[id]/LikePostButton'; 
-import { refetchAnalytics } from 'lib/useAnalyticsQuery';
-import { queryClient } from 'lib/reactQueryClient';
+import { refetchAnalytics } from 'lib/useAnalyticsQuery'; 
 
 export default function BlogDetails({ post }) { 
 
@@ -20,10 +19,7 @@ export default function BlogDetails({ post }) {
             try {
                 await fetch(`/api/posts/${post._id}`, {
                     method: "PATCH",
-                });
-
-                await refetchAnalytics(queryClient);
-                
+                }); 
             } catch (error) {
                 console.error("Error incrementing view count:", error);
             }

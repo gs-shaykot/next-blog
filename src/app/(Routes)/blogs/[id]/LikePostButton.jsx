@@ -4,10 +4,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useSession } from "next-auth/react";
-import { usePathname, useRouter } from "next/navigation";
-import { refetchAnalytics } from "lib/useAnalyticsQuery";
-import { queryClient } from "lib/reactQueryClient";
-import { useQueryClient } from "@tanstack/react-query";
+import { usePathname, useRouter } from "next/navigation"; 
 
 export default function LikePostButton({ postId, initialLikes }) {
 

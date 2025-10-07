@@ -30,7 +30,7 @@ export async function GET() {
             .limit(2)
             .toArray();
 
-        const [currentMonth, previousMonth] = snapshots;
+        const [previousMonth] = snapshots;
         
         const calcPercentChange = (current, previous) =>
             previous ? ((current - previous) / previous) * 100 : 0;

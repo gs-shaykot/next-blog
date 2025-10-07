@@ -1,10 +1,10 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { useRouter, usePathname } from "next/navigation";
-import { useEffect } from "react";
-import { AppSidebar } from "./Sidebar";
+import { useEffect } from "react"; 
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
+import { AppSidebar } from "@/app/(Routes)/(Dashboard)/AdminDashboard/(components)/Sidebar";
 
 export default function AdminDashboardLayout({ children }) {
   const { data: session, status } = useSession();

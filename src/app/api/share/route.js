@@ -16,7 +16,7 @@ export async function POST(req) {
         }
 
         await db.collection("activities").insertOne({
-            type: "share",
+            type: "shared",
             userEmail,
             postId,
             postTitle,

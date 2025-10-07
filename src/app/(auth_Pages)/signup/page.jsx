@@ -9,8 +9,7 @@ import Link from "next/link";
 import axios from "axios";
 import { signIn } from 'next-auth/react';
 import { redirect, useRouter } from "next/navigation"; 
-import { refetchAnalytics } from "lib/useAnalyticsQuery";
-import { queryClient } from "lib/reactQueryClient";
+import { refetchAnalytics } from "lib/useAnalyticsQuery"; 
 
 export default function Page() { 
 
@@ -45,8 +44,7 @@ export default function Page() {
         photoUrl: imageLink,
       };
       const res = await axios.post("/api/register", userData);
-      if (res.status === 201) {
-        await refetchAnalytics(queryClient);
+      if (res.status === 201) { 
         router.push('/login');
       }
       setMessage(res.data.message);
