@@ -3,8 +3,7 @@ import clientPromise from '../../../../lib/mongo';
 import { getPaginatedPosts } from '../../../../lib/posts';
 import { ObjectId } from 'mongodb';
 
-const client = await clientPromise
-const db = client.db("next_Blog")
+const client = await clientPromise 
 const postsCollection = await client.db("next_Blog").collection("blogs");
 
 export async function POST(req) {

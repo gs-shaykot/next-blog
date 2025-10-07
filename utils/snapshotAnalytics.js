@@ -1,7 +1,5 @@
 import clientPromise from "lib/mongo";
-
-
-
+ 
 export default async function snapshotAnalytics() {
     try {
         const client = await clientPromise;
@@ -12,7 +10,7 @@ export default async function snapshotAnalytics() {
         const analyticsCollection = db.collection("analytics_parcentage");
 
         const totalPosts = await postsCollection.countDocuments();
-
+        
         const totalViewsAgg = await postsCollection
             .aggregate([{ $group: { _id: null, totalViews: { $sum: "$totalViews" } } }])
             .toArray();
