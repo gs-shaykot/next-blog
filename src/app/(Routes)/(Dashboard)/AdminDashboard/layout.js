@@ -2,7 +2,9 @@
 import { useSession } from "next-auth/react";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect } from "react";
-import Sidebar from "./Sidebar";
+import { AppSidebar } from "./Sidebar";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { Separator } from "@/components/ui/separator";
 
 export default function AdminDashboardLayout({ children }) {
   const { data: session, status } = useSession();
@@ -33,17 +35,23 @@ export default function AdminDashboardLayout({ children }) {
 
   if (session?.user?.role === "admin") {
     return (
-      <div className="flex min-h-screen">
-        {/* Sidebar (sticky) */}
-        <div className="w-64 sticky top-0 h-screen bg-white shadow-md">
-          <Sidebar />
+      <SidebarProvider>
+        <div className="flex min-h-screen w-full">
+          <AppSidebar />
+          <SidebarInset>
+            <header className="sticky top-0 z-10 flex h-14 shrink-0 items-center gap-2 border-b bg-background px-4">
+              <SidebarTrigger />
+              <Separator orientation="vertical" className="h-6" />
+              <div className="flex items-center gap-2">
+                <span className="font-semibold">Admin Dashboard</span>
+              </div>
+            </header>
+            <main className="flex-1 p-6 bg-gray-50">
+              {children}
+            </main>
+          </SidebarInset>
         </div>
-
-        {/* Main Content */}
-        <div className="flex-1 p-6 bg-gray-50 overflow-y-auto">
-          {children}
-        </div>
-      </div>
+      </SidebarProvider>
     );
   }
 

@@ -1,116 +1,105 @@
 "use client";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import {
-  RiDashboardLine,
-  RiArticleLine,
-  RiAddLine,
-  RiRobotLine,
-  RiUserLine,
-  RiMenuLine,
-  RiArrowLeftSLine,
-  RiArrowRightSLine
-} from "react-icons/ri";
-import { useState } from "react";
 
-const links = [
-  { href: "/AdminDashboard", label: "Dashboard", icon: RiDashboardLine },
-  { href: "/AdminDashboard/posts", label: "All Posts", icon: RiArticleLine },
-  { href: "/AdminDashboard/create", label: "Create Post", icon: RiAddLine },
-  { href: "/AdminDashboard/ai", label: "AI Content", icon: RiRobotLine },
-  { href: "/AdminDashboard/users", label: "All Users", icon: RiUserLine },
+import * as React from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import {
+  Bot,
+  SquarePen,
+  FileText,
+  Users,
+  LayoutDashboard,
+  ChevronRight,
+} from "lucide-react";
+
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarHeader,
+  SidebarFooter,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+
+const navItems = [
+  {
+    title: "Dashboard",
+    url: "/AdminDashboard",
+    icon: LayoutDashboard,
+  },
+  {
+    title: "AI",
+    url: "/AdminDashboard/ai",
+    icon: Bot,
+  },
+  {
+    title: "Create",
+    url: "/AdminDashboard/create",
+    icon: SquarePen,
+  },
+  {
+    title: "Posts",
+    url: "/AdminDashboard/posts",
+    icon: FileText,
+  },
+  {
+    title: "Users",
+    url: "/AdminDashboard/users",
+    icon: Users,
+  },
 ];
 
-export default function Sidebar({ children }) {
+export function AppSidebar() {
   const pathname = usePathname();
-  const [collapsed, setCollapsed] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      {/* Sidebar */}
-      <aside
-        className={`
-          fixed lg:sticky top-0 left-0 h-screen bg-white border-r border-gray-200 
-          transition-all duration-300 ease-in-out z-40
-          ${collapsed ? "lg:w-52" : "lg:w-64"}
-          ${mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
-        `}
-      >
-        {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200">
-          {!collapsed && (
-            <h2 className="text-xl font-bold text-gray-800">Admin Panel</h2>
-          )}
-          <button
-            onClick={() => setCollapsed(!collapsed)}
-            className="hidden lg:flex items-center justify-center w-8 h-8 rounded-lg hover:bg-gray-100 transition-colors"
-            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-          >
-            {collapsed ? (
-              <RiArrowRightSLine className="w-5 h-5" />
-            ) : (
-              <RiArrowLeftSLine className="w-5 h-5" />
-            )}
-          </button>
+    <Sidebar>
+      <SidebarHeader>
+        <div className="flex items-center gap-2 px-4 py-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-white font-bold">
+            A
+          </div>
+          <div>
+            <p className="text-sm font-semibold">Admin Panel</p>
+            <p className="text-xs text-muted-foreground">Manage your site</p>
+          </div>
         </div>
-
-        {/* Navigation */}
-        <nav className="p-4 space-y-2">
-          {links.map((link) => {
-            const isActive = pathname === link.href;
-            const Icon = link.icon;
-            
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileOpen(false)}
-                className={`
-                  flex items-center px-4 py-3 rounded-lg transition-all duration-200
-                  ${collapsed ? "justify-center" : ""}
-                  ${
-                    isActive
-                      ? "bg-blue-600 text-white shadow-sm"
-                      : "text-gray-700 hover:bg-gray-100"
-                  }
-                `}
-                aria-label={collapsed ? link.label : undefined}
-                title={collapsed ? link.label : undefined}
-              >
-                <Icon className={`w-5 h-5 flex-shrink-0 ${!collapsed && "mr-3"}`} />
-                {!collapsed && <span className="font-medium">{link.label}</span>}
-              </Link>
-            );
-          })}
-        </nav>
-      </aside>
-
-      {/* Mobile overlay */}
-      {mobileOpen && (
-        <div
-          className="fixed inset-0 z-30 lg:hidden"
-          onClick={() => setMobileOpen(false)}
-          aria-hidden="true"
-        />
-      )}
-
-      {/* Main content */}
-      <div className="flex-1 flex flex-col min-h-screen">
-        {/* Mobile header */}
-        <header className="lg:hidden sticky top-0 z-20 bg-white border-b border-gray-200 p-4">
-          <button
-            onClick={() => setMobileOpen(true)}
-            className="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100 transition-colors"
-            aria-label="Open menu"
-          >
-            <RiMenuLine className="w-6 h-6" />
-          </button>
-        </header>
-
-        {/* Page content */}
-        <main className="flex-1 p-6 lg:p-8">{children}</main>
-      </div>
-    </div>
+      </SidebarHeader>
+      
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {navItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={pathname === item.url}
+                    tooltip={item.title}
+                  >
+                    <Link href={item.url}>
+                      <item.icon className="h-4 w-4" />
+                      <span>{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+      
+      <SidebarFooter>
+        <div className="px-4 py-2 text-xs text-muted-foreground">
+          © 2025 Admin Dashboard
+        </div>
+      </SidebarFooter>
+    </Sidebar>
   );
 }
