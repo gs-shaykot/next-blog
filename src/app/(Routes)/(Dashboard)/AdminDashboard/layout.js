@@ -1,29 +1,25 @@
 "use client";
-
-import Sidebar from "@/app/(Routes)/(profile)/Sidebar";
 import { useSession } from "next-auth/react";
 import { useRouter, usePathname } from "next/navigation";
-import { useEffect } from "react"; 
+import { useEffect } from "react";
+import Sidebar from "./Sidebar";
 
-export default function AdminDashboard() {
+export default function AdminDashboardLayout({ children }) {
   const { data: session, status } = useSession();
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
-    if (status === "loading") return; 
-
+    if (status === "loading") return;
     if (status === "unauthenticated") {
-      router.push("/login"); 
+      router.push("/login");
       return;
     }
-
-    // if user exists but not an admin
     if (session?.user?.role !== "admin") {
-      router.push("/unauthorized");  
+      router.push("/unauthorized");
     }
   }, [status, session, router, pathname]);
- 
+
   if (status === "loading") {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -34,15 +30,22 @@ export default function AdminDashboard() {
       </div>
     );
   }
- 
+
   if (session?.user?.role === "admin") {
     return (
-      <div className="grid grid-cols-12 gap-4">
-        <Sidebar />
-        {/* other admin content here */}
+      <div className="flex min-h-screen">
+        {/* Sidebar (sticky) */}
+        <div className="w-64 sticky top-0 h-screen bg-white shadow-md">
+          <Sidebar />
+        </div>
+
+        {/* Main Content */}
+        <div className="flex-1 p-6 bg-gray-50 overflow-y-auto">
+          {children}
+        </div>
       </div>
     );
   }
 
-  return null;  
+  return null;
 }

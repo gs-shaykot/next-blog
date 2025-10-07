@@ -1,0 +1,35 @@
+i have made a fresh AI based blog website...i have some dummy blog posts..in the /dashboard/admin route i want to show analytics. i am not sure how will do this, but here are my thoughts. you read my plan & than refine it in detail.
+card_1: total posts: i will count the posts using post aggreagation countDocuments() method.
+card_2: total views: there will be an attribute in the /api/posts named totalViews, whenever anyone click on a single posts /blogs/[id], i will patch to totalViews+=1, & then again using post aggreagation i will count each post's totalViews & will return the total views.
+card_3:total likes instead of comments(from the image), i have totalLikes attribute in /api/posts, so using post aggreagation we will count all the totalLikes from all posts.
+card_4: total users: we will count the total user using countDocuments in /api/users.
+
+--> Popular Categories: i have cateogory attribute in /api/posts. we will count the totalLikes according to each category & will show in the dashboard.
+--> Recent Activity: when someone like the posts, share the post we will keep the track in a api, also when someone creates account we will save this in the api. 
+
+--> Recent Posts: Fetch from the /api/posts by sorting with posted_date
+here what my /api/posts look like:
+{
+  "posts": [
+    {
+      "_id": "68dee7c91c063e493d2b24da",
+      "isFeatured": true,
+      "category": "Technology",
+      "title": "Building Scalable React Applications",
+      "subtitle": "A detailed guide on Building Scalable React Applications",
+      "author": "Jafrin",
+      "posted_date": "2024-10-03",
+      "totalLikes": 266,
+      "post_image": "https://images.unsplash.com/photo-1521791136064-7986c2920216",
+      "content": "Building scalable React applications requires careful planning and architectural decisions from the very beginning. As your application grows, maintaining code quality and performance becomes increasingly challenging without proper structure.\n\nThe foundation of a scalable React application starts.
+      "hashtags": [
+        "#React",
+        "#JavaScript",
+        "#WebDevelopment",
+        "#FrontendDev"
+      ]
+    } 
+  ]  
+
+& don't need Traffic Sources & User Engagement section.
+
