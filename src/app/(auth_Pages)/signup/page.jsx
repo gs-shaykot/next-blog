@@ -24,27 +24,17 @@ export default function Page() {
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      const file = data.photo[0];
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("upload_preset", process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET);
-
-      const Img_Res = await axios.post(
-        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
-        formData
-      );
-
-      const imageLink = Img_Res.data.secure_url;
-
       const { fullname, email, password } = data;
-      const userData = { fullname, email, password, photoUrl: imageLink };
+      const userData = { fullname, email, password, photoUrl: "https://res.cloudinary.com/dloasaxt1/image/upload/v1759951379/User_Avatar_abmwcj.png" };
 
       const res = await axios.post("/api/register", userData);
+      setLoading(false);
       if (res.status === 201) router.push('/login');
       setMessage(res.data.message);
-    } catch (err) {
+    }
+    catch (err) {
       setMessage(err.response?.data?.message || "Error");
-    } finally { setLoading(false); }
+    }
   };
 
   const bgPage = themeMode === "dark" ? "bg-gray-900" : "bg-gradient-to-br from-gray-50 via-white to-blue-50";
@@ -74,7 +64,7 @@ export default function Page() {
             <input
               type="text"
               placeholder="Enter your Full Name"
-              className={`input input-bordered w-full ${inputClass}`}
+              className={`border border-gray-300 input w-full ${inputClass}`}
               {...register("fullname", { required: "Full Name is required" })}
             />
             {errors.fullname && <p className="text-red-500">{errors.fullname.message}</p>}
@@ -88,7 +78,7 @@ export default function Page() {
             <input
               type="email"
               placeholder="john@example.com"
-              className={`input input-bordered w-full ${inputClass}`}
+              className={`input border border-gray-300 w-full ${inputClass}`}
               {...register("email", {
                 required: "Email is required",
                 pattern: { value: /^[^@]+@[^@]+\.[^@]+$/, message: "Enter a valid email" },
@@ -106,7 +96,7 @@ export default function Page() {
               <input
                 type={isShow ? "text" : "password"}
                 placeholder="Create a strong password"
-                className={`input input-bordered w-full pr-10 ${inputClass}`}
+                className={`input border border-gray-300 w-full pr-10 ${inputClass}`}
                 {...register("password", { required: true, minLength: 6 })}
               />
               <button type="button" onClick={() => setIsShow(!isShow)} className="absolute z-10 right-3 top-1/2 -translate-y-1/2 text-gray-500">
@@ -125,7 +115,7 @@ export default function Page() {
               <input
                 type={isConfirm ? "text" : "password"}
                 placeholder="Confirm password"
-                className={`input input-bordered w-full pr-10 ${inputClass}`}
+                className={`input border border-gray-300 w-full pr-10 ${inputClass}`}
                 {...register("confirmPassword", {
                   required: "Please confirm your password",
                   validate: (value) => value === watch("password") || "Passwords do not match",
@@ -138,20 +128,6 @@ export default function Page() {
             </div>
           </div>
 
-          {/* Upload Photo */}
-          <div>
-            <label className="label">
-              <span className={`label-text ${textSecondary}`}>Upload Photo</span>
-            </label>
-            <input
-              type="file"
-              className={`file-input file-input-bordered w-full ${inputClass}`}
-              accept="image/*"
-              {...register("photo", { required: "Profile photo is necessary" })}
-            />
-            {errors.photo && <p className="text-red-500">{errors.photo.message}</p>}
-          </div>
-
           {/* Submit */}
           <button
             disabled={loading}
@@ -161,15 +137,15 @@ export default function Page() {
             {loading ? "Signing up..." : "Sign Up"}
           </button>
 
-          <div className="divider">Or sign up with</div>
+          <div className={`${themeMode === 'dark' ? 'text-gray-300' : 'text-primary'} divider`}>Or sign up with</div>
 
-          <button onClick={() => signIn("google", { callbackUrl: "/" })} type="button" className="btn btn-outline w-full">
+          <button onClick={() => signIn("google", { callbackUrl: "/" })} type="button" className={`${themeMode === 'dark' ? 'text-white hover:bg-gray-900 hover:shadow-none' : 'text-primary'} btn-outline btn border-2 border-blue-400 w-full`}>
             <AiFillGooglePlusCircle className="text-[#ff5059] text-xl" /> Google
           </button>
 
           <div className={`text-center text-sm mt-2 ${textSecondary}`}>
             Already have an account?{" "}
-            <Link href="/login" className="text-primary hover:underline">
+            <Link href="/login" className={`${themeMode === 'dark' ? 'text-gray-300' : 'text-primary'} hover:underline`}>
               Sign in here
             </Link>
           </div>

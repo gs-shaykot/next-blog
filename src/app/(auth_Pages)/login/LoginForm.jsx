@@ -14,7 +14,7 @@ export default function LoginForm() {
   const [isShow, setIsShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const searchParams = useSearchParams(); 
+  const searchParams = useSearchParams();
   const themeMode = useSelector((state) => state.themeToggle.mode);
 
   const rebackUrl = searchParams.get("callbackUrl") || "/";
@@ -54,7 +54,7 @@ export default function LoginForm() {
             <input
               type="email"
               placeholder="john@example.com"
-              className={`input input-bordered w-full ${themeMode === "dark" ? "bg-gray-800 text-gray-400 border-gray-700" : ""}`}
+              className={`input border border-gray-300 w-full ${themeMode === "dark" ? "bg-gray-800 text-gray-400 border-gray-700" : ""}`}
               {...register("email", {
                 required: "Email is required",
                 pattern: { value: /^[^@]+@[^@]+\.[^@]+$/, message: "Enter a valid email" },
@@ -72,7 +72,7 @@ export default function LoginForm() {
               <input
                 type={isShow ? "text" : "password"}
                 placeholder="Create a strong password"
-                className={`input input-bordered w-full pr-10 ${themeMode === "dark" ? "bg-gray-800 text-gray-400 border-gray-700" : ""}`}
+                className={`input border border-gray-300 w-full pr-10 ${themeMode === "dark" ? "bg-gray-800 text-gray-400 border-gray-700" : ""}`}
                 {...register("password", { required: true, minLength: 6 })}
               />
               <button
@@ -95,19 +95,19 @@ export default function LoginForm() {
             {loading ? "Logging in..." : "Log In"}
           </button>
 
-          <div className="divider">Or Log in with</div>
+          <div className={`${themeMode === 'dark' ? 'text-gray-300' : 'text-primary'} divider`}>Or Log in with</div>
 
           <button
             onClick={() => signIn("google", { callbackUrl: "/" })}
             type="button"
-            className="btn btn-outline w-full"
+            className={`${themeMode === 'dark' ? 'text-white hover:bg-gray-900 hover:shadow-none' : 'text-primary'} btn-outline btn border-2 border-blue-400 w-full`}
           >
             <AiFillGooglePlusCircle className="text-[#ff5059] text-xl" /> Google
           </button>
 
           <div className={`text-center text-sm mt-2 ${textSecondary}`}>
             Don't have an account?{" "}
-            <Link href="/signup" className="text-primary hover:underline">
+            <Link href="/signup" className={`${themeMode === 'dark' ? 'text-gray-300' : 'text-primary'} hover:underline`}>
               Register here
             </Link>
           </div>

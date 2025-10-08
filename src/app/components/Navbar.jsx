@@ -28,7 +28,6 @@ export default function Navbar() {
         const links = [
             { href: "/", label: "Home" },
             { href: "/blogs", label: "Blogs" },
-            { href: "/categories", label: "Categories" },
             { href: "/about", label: "About" },
             { href: "/contact", label: "Contact" },
         ];
@@ -73,23 +72,16 @@ export default function Navbar() {
                 <div className="!max-w-7xl mx-auto navbar">
                     <div className="navbar-start">
                         <div className="dropdown lg:hidden">
-                            <div tabIndex={0} role="button" className="btn btn-ghost">
+                            <div tabIndex={0} role="button" className=" p-3 rounded hover:bg-gray-700 hover:shadow-none hover:border-none mr-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
                                 </svg>
                             </div>
                             <ul
                                 tabIndex={0}
-                                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 p-2 shadow w-52"
+                                className={`menu menu-sm dropdown-content ${themeMode === 'dark' ? 'bg-gray-900' : 'bg-base-100'} rounded-box z-10 mt-3 p-2 shadow w-52`}
                             >
                                 <NavItems />
-
-                                <li className="lg:hidden w-full">
-                                    <label className="input input-sm rounded-lg mb-2 w-full flex items-center">
-                                        <CiSearch className="text-lg mr-2" />
-                                        <input className="flex-1 bg-transparent outline-none" type="search" required placeholder="Search" />
-                                    </label>
-                                </li>
 
                                 {!userDtl && (
                                     <>
@@ -117,7 +109,6 @@ export default function Navbar() {
                             </ul>
                         </div>
 
-
                         <Link href="/" className="flex text-2xl">
                             <Image
                                 width={30}
@@ -127,7 +118,9 @@ export default function Navbar() {
                             />
                             <span className={`${pacifico.className}`}>BlogCraft</span>
                         </Link>
+                    </div>
 
+                    <div className="navbar-center hidden lg:flex">
                         <div className="hidden lg:flex ml-10">
                             <ul className="menu menu-horizontal px-1">
                                 <NavItems />
@@ -136,21 +129,6 @@ export default function Navbar() {
                     </div>
 
                     <div className="navbar-end flex gap-2">
-                        <label
-                            className={`input rounded-lg mr-2 hidden lg:flex ${themeMode === "dark" ? "bg-gray-800 !text-white" : "bg-white !text-black"
-                                }`}
-                        >
-                            <CiSearch className="text-lg" />
-                            <input
-                                type="search"
-                                required
-                                placeholder="Search"
-                                className={`bg-transparent outline-none ${themeMode === "dark" ? "placeholder-gray-400" : "placeholder-gray-600"
-                                    }`}
-                            />
-                        </label>
-
-
                         {userDtl ? (
                             <div className="dropdown dropdown-end mt-1">
                                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
@@ -167,8 +145,8 @@ export default function Navbar() {
                                     tabIndex={0}
                                     className={`menu menu-sm dropdown-content  ${themeMode === "dark" ? "bg-gray-900 !text-white" : "bg-white !text-black"} rounded-box z-1 mt-3 w-52 p-2 shadow`}
                                 >
+                                    <li><span>{userDtl.name}</span></li>
                                     <li><Link href={`${userDtl?.role === 'admin' ? '/AdminDashboard' : '/UserDashboard'}`}>Dashboard</Link></li>
-                                    <li><Link href="/settings">Settings</Link></li>
                                     <li>
                                         <button onClick={() => signOut({ callbackUrl: "/" })}>Sign out</button>
                                     </li>
