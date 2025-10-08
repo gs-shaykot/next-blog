@@ -3,7 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import clientPromise from "../../../../../lib/mongo";
 import { verifyPass } from "../../../../../utils/hash";
- 
+
 export const authOptions = {
     providers: [
         GoogleProvider({
@@ -49,10 +49,10 @@ export const authOptions = {
 
             const usersCollection = db.collection("users");
             const activitiesCollection = db.collection("activities");
- 
+
             const existingUser = await usersCollection.findOne({ email: user.email });
 
-            if (!existingUser) { 
+            if (!existingUser) {
                 const newUser = {
                     fullname: user.name,
                     email: user.email,
@@ -64,35 +64,46 @@ export const authOptions = {
                     createdAt: new Date(),
                 };
 
-                await usersCollection.insertOne(newUser);
- 
+                const result = await usersCollection.insertOne(newUser);
+                user.id = result.insertedId.toString();
+
                 await activitiesCollection.insertOne({
                     type: "register",
                     userEmail: user.email,
                     userName: user.name,
                     photoUrl: user.image,
                     timestamp: new Date(),
-                    provider: account.provider, 
+                    provider: account.provider,
                 });
+            } else {
+                user.id = existingUser._id.toString();
             }
- 
+
             return true;
         },
 
-        async jwt({ token, user }) {
+        async jwt({ token, user, trigger }) {
             if (user) {
-                token.role = user.role || token.role;
-            } else if (!token.role) {
+                token.id = user.id;
+                token.role = user.role;
+            }
+
+            if (!token.id || !token.role) {
                 const client = await clientPromise;
                 const usersCollection = client.db("next_Blog").collection("users");
                 const dbUser = await usersCollection.findOne({ email: token.email });
-                token.role = dbUser?.role || "user";
+                if (dbUser) {
+                    token.id = dbUser._id.toString();
+                    token.role = dbUser.role || "user";
+                }
             }
+
             return token;
         },
 
         async session({ session, token }) {
-            if (token) {
+            if (session?.user) {
+                session.user.id = token.id;
                 session.user.role = token.role;
             }
             return session;

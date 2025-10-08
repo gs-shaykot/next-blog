@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { ObjectId } from "mongodb";
+import { ObjectId } from "mongodb"; 
 import clientPromise from "lib/mongo";
- 
+
 export async function GET(req) {
     try {
         const client = await clientPromise;
@@ -38,6 +38,25 @@ export async function DELETE(req) {
 
     } catch (error) {
         console.error("DELETE /api/register error:", error);
+        return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+    }
+}
+
+export async function PATCH(req) {
+    try {
+        const { id, ...updateFields } = await req.json();
+
+        const client = await clientPromise;
+        const usersCollection = client.db("next_Blog").collection("users");
+        const result = await usersCollection.updateOne(
+            { _id: new ObjectId(id) },
+            { $set: updateFields }
+        )
+        return NextResponse.json(
+            { success: true, modifiedCount: result.modifiedCount },
+            { status: 200 }
+        )
+    } catch (error) {
         return NextResponse.json({ message: "Internal server error" }, { status: 500 });
     }
 }

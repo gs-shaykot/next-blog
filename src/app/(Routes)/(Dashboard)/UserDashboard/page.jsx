@@ -23,7 +23,7 @@ export default function UserDashboard() {
         }
     }, [status, pathname, router]);
 
-    const userDtl = session?.user;
+    const userDtl = session?.user; 
     const userEmail = session?.user?.email;
 
     const themeMode = useSelector((mode) => mode.themeToggle.mode);
