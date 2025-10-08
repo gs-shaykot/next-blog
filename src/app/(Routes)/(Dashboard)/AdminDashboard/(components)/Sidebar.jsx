@@ -92,16 +92,7 @@ export function AppSidebar() {
 
   return (
     <Sidebar>
-      <SidebarHeader>
-        <div className="flex items-center gap-2 px-4 py-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-white font-bold">
-            A
-          </div>
-          <div>
-            <p className="text-sm font-semibold">Admin Panel</p>
-            <p className="text-xs text-muted-foreground">Manage your site</p>
-          </div>
-        </div>
+      <SidebarHeader> 
       </SidebarHeader>
 
       <SidebarContent>
@@ -114,6 +105,7 @@ export function AppSidebar() {
                   <SidebarMenuButton
                     asChild
                     isActive={pathname === item.url}
+                    className='text-lg py-5'
                     tooltip={item.title}
                   >
                     <Link href={item.url}>
