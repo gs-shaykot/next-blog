@@ -1,16 +1,17 @@
+// make a post table with neccessary fields, this table is for admin dashboard which will show all posts. there should post.title, post.category, post.totalLikes, and a edit & delete button. the table should responsive. 
+
 "use client"
-import BlogCards from '@/app/(Routes)/blogs/BlogCards';
-import CategoryFilter from '@/app/(Routes)/blogs/CategoryFilter';
-import React, { useState, useEffect } from 'react';
-import { CiSearch } from 'react-icons/ci';
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
+import { CiSearch } from 'react-icons/ci';
+import CategoryFilter from '@/app/(Routes)/blogs/CategoryFilter';
+import BlogTable from '@/app/(Routes)/(Dashboard)/AdminDashboard/posts/BlogTable';
 
-
-export default function BlogList({ initialPosts, initialTotalPages }) {
-    const [posts, setPosts] = useState(initialPosts);
+export default function AllBlogs({ AllPosts, allTotalPages }) {
+    const [posts, setPosts] = useState(AllPosts);
     const [category, setCategory] = useState("All");
     const [page, setPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(initialTotalPages);
+    const [totalPages, setTotalPages] = useState(allTotalPages);
     const [searchTerm, setSearchTerm] = useState("");
 
     const categories = ["All", "Technology", "Design", "Business", "Lifestyle", "Travel"];
@@ -33,20 +34,9 @@ export default function BlogList({ initialPosts, initialTotalPages }) {
         post.excerpt?.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+
     return (
-
-        <div className='pt-16 mt-2'>
-            {/* top banner */}
-            <div className='py-20 bg-gradient-to-r from-blue-600 to-slate-700 flex flex-col justify-center items-center'>
-                <h2
-                    className={`text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-white via-blue-400 to-gray-300 bg-clip-text text-transparent mb-5`}
-                >
-                    Explore Categories
-                </h2>
-                <p className='text-xl text-blue-100 max-w-3xl text-center'>Discover insightful articles, expert opinions, and creative stories from our community of writers</p>
-            </div>
-
-            {/* Search + Category Filter */}
+        <div>
             <div className={`max-w-7xl mx-auto ${themeMode === "dark" ? "bg-[#16202C] !text-white" : "bg-gray-100 !text-black"} flex flex-col md:flex-row justify-between items-center gap-4 p-10`}>
                 {/* Search Bar */}
                 <label
@@ -78,16 +68,31 @@ export default function BlogList({ initialPosts, initialTotalPages }) {
                 />
             </div>
 
-            {/* Posts Grid */}
-            <div className={`max-w-7xl mx-auto ${themeMode === "dark" ? "bg-gray-900 !text-white" : "bg-white !text-black"} place-items-center grid md:grid-cols-3 gap-4 pt-6`}>
+            {/* Posts table */}
+            <div className={`max-w-7xl mx-auto ${themeMode === "dark" ? "bg-gray-900 !text-white" : "bg-white !text-black"} pt-6 overflow-x-auto rounded-lg`}>
                 {searchedPost.length > 0 ? (
-                    searchedPost.map((post) => <BlogCards key={post._id} post={post} />)
+                    <table className="min-w-full border border-gray-300 text-sm text-left">
+                        <thead className={`${themeMode === "dark" ? "bg-gray-800 text-gray-200" : "bg-gray-100 text-gray-700"}`}>
+                            <tr>
+                                <th className="py-3 px-4 border-b">Title</th>
+                                <th className="py-3 px-4 border-b text-center">Likes</th>
+                                <th className="py-3 px-4 border-b text-center">Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {searchedPost.map((post) => (
+                                <BlogTable key={post._id} post={post} themeMode={themeMode} />
+                            ))}
+                        </tbody>
+                    </table>
                 ) : (
-                    <p className="col-span-3 text-center text-gray-500">No articles found.</p>
+                    <p className="text-center text-gray-500 py-10">No articles found.</p>
                 )}
             </div>
 
-            {/* pagination */}
+
+            {/* Pagination */}
             <div
                 className={`${themeMode === "dark"
                     ? "bg-gray-900 text-white"
@@ -127,8 +132,6 @@ export default function BlogList({ initialPosts, initialTotalPages }) {
                     </button>
                 </div>
             </div>
-
-
         </div>
-    );
+    )
 }

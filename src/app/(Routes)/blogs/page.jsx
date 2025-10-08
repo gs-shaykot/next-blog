@@ -1,7 +1,6 @@
 
 export const dynamic = "force-dynamic";
-import BlogList from '@/app/(Routes)/blogs/BlogList';
-import axios from 'axios'
+import BlogList from '@/app/(Routes)/blogs/BlogList'; 
 import React from 'react'
 import { getPaginatedPosts } from '../../../../lib/posts';
 

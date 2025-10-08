@@ -1,7 +1,14 @@
+import AllBlogs from '@/app/(Routes)/(Dashboard)/AdminDashboard/posts/AllBlogs';
+import { getPaginatedPosts } from 'lib/posts';
 import React from 'react'
 
-export default function page() {
+export default async function page() {
+
+  const { posts, totalPages } = await getPaginatedPosts(6, 1);
+
   return (
-    <div>all posts will be shown here</div>
+    <div>
+      <AllBlogs AllPosts={posts} allTotalPages={totalPages} />
+    </div>
   )
 }
