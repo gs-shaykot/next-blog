@@ -6,10 +6,10 @@ import { FaXTwitter, FaFacebookF, FaLinkedinIn } from "react-icons/fa6";
 import SavePostButton from "./SavePostButton";
 import SharePostButton from "@/app/(Routes)/blogs/[id]/SharePostButton";
 import { useSelector } from "react-redux";
-import LikePostButton from '@/app/(Routes)/blogs/[id]/LikePostButton'; 
-import { refetchAnalytics } from 'lib/useAnalyticsQuery'; 
+import LikePostButton from '@/app/(Routes)/blogs/[id]/LikePostButton';
+import { refetchAnalytics } from 'lib/useAnalyticsQuery';
 
-export default function BlogDetails({ post }) { 
+export default function BlogDetails({ post }) {
 
     const themeMode = useSelector((mode) => mode.themeToggle.mode)
     useEffect(() => {
@@ -19,7 +19,7 @@ export default function BlogDetails({ post }) {
             try {
                 await fetch(`/api/posts/${post._id}`, {
                     method: "PATCH",
-                }); 
+                });
             } catch (error) {
                 console.error("Error incrementing view count:", error);
             }
@@ -88,18 +88,17 @@ export default function BlogDetails({ post }) {
                 </div>
 
                 {/* Blog Content */}
-                <article className="prose prose-lg max-w-none mt-8">
-                    {post.content.split("\n").map((para, idx) => (
-                        <p key={idx}>{para}</p>
-                    ))}
-                </article>
+                <article
+                    className="prose prose-lg max-w-none mt-8 prose-img:rounded-xl prose-headings:font-semibold prose-a:text-blue-600 hover:prose-a:underline"
+                    dangerouslySetInnerHTML={{ __html: post.content }}
+                ></article>
 
                 {/* Hashtags */}
                 <div className="my-6 flex flex-wrap gap-2">
                     {post.hashtags.map((tag, idx) => (
                         <span
                             key={idx}
-                            className={`px-3 py-1 text-xs ${themeMode === 'dark' ? 'bg-gray-800 text-gray-400' : 'bg-gray-200 text-gray-700'}  rounded-full`}
+                            className={`px-3 py-1 text-xs ${themeMode === 'dark' ? 'bg-gray-800 text-gray-400' : 'bg-blue-200'}  rounded-full`}
                         >
                             {tag}
                         </span>

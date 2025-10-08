@@ -27,7 +27,6 @@ export default function CreatePage() {
     uploader: { insertImageAsBase64URI: true },
   };
 
-  // 🔁 Convert Markdown-like AI content (##, ###, etc.) to HTML for Jodit
   const formatAIContent = (text) => {
     if (!text) return "";
     return text
@@ -58,10 +57,13 @@ export default function CreatePage() {
     }
   }, [content, imageUrl]);
 
-  // 🧠 Helper: Extract first <img> from content (if user inserted one)
   const extractFirstImage = (html) => {
     const match = html.match(/<img[^>]+src="([^">]+)"/);
     return match ? match[1] : "";
+  };
+
+  const removeFirstImageBlock = (html) => {
+    return html.replace(/<div[^>]*>\s*<img[^>]+>\s*<\/div>|<img[^>]+>/i, '');
   };
 
   const handleSubmit = async (e) => {
@@ -71,6 +73,8 @@ export default function CreatePage() {
       Swal.fire("Missing Fields", "Please fill in both title and content.", "warning");
       return;
     }
+
+    const cleanedContent = removeFirstImageBlock(Jodcontent);
 
     const image =
       postImage || extractFirstImage(Jodcontent) ||
@@ -91,10 +95,10 @@ export default function CreatePage() {
       totalLikes: 0,
       totalViews: 0,
       post_image: image,
-      content: Jodcontent,
+      content: cleanedContent,
       hashtags: formattedHashtags,
     };
-    
+
     try {
       const res = await axios.post("/api/posts", newPost);
       if (res.data.success) {
@@ -102,8 +106,7 @@ export default function CreatePage() {
         setPostTitle("");
         setJodContent("");
         setHashtags("");
-      }
-      else {
+      } else {
         Swal.fire("Error", "Failed to publish post.", "error");
       }
     } catch (err) {
@@ -111,6 +114,7 @@ export default function CreatePage() {
       Swal.fire("Error", "Something went wrong while publishing.", "error");
     }
   };
+
 
   return (
     <div className="p-6 space-y-6">
