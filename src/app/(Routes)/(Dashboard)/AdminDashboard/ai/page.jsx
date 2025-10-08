@@ -5,13 +5,20 @@ import { Roboto } from 'next/font/google';
 import { BsFeather } from "react-icons/bs";
 import { FaImage } from "react-icons/fa";
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setEditorData } from '@/app/Redux/editorSlice';
+import { useRouter } from 'next/navigation';
 
 const roboto = Roboto({
     subsets: ['bold'],
     weight: ['600'],
 });
 
+
 export default function AIContentCreator() {
+    const dispatch = useDispatch();
+    const router = useRouter();
+
     const [articleTitle, setArticleTitle] = useState('');
     const [tone, setTone] = useState('');
     const [length, setLength] = useState('');
@@ -25,8 +32,7 @@ export default function AIContentCreator() {
     const [loadingImage, setLoadingImage] = useState(false);
     const [uploading, setUploading] = useState(false);
     const [cloudinaryUrl, setCloudinaryUrl] = useState(null);
-    
-    console.log(cloudinaryUrl)
+
 
     const handleGenerateArticle = async () => {
         if (!articleTitle || !tone || !length) return alert('Please fill all fields');
@@ -121,6 +127,14 @@ export default function AIContentCreator() {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+    };
+
+    const handleTransfer = () => {
+        dispatch(setEditorData({
+            content: articleResult,
+            imageUrl: cloudinaryUrl
+        }));
+        router.push("/AdminDashboard/create");
     };
 
     return (
@@ -247,16 +261,18 @@ export default function AIContentCreator() {
                                     {uploading ? "Uploading..." : "Upload to Cloudinary"}
                                 </button>
                             </div>
-                            <button
-                                type="button"
-                                className="w-full font-medium transition-all duration-200 cursor-pointer whitespace-nowrap rounded  border-2 border-blue-600 text-blue-600 bg-blue-600 text-white py-1.5 mt-4"
-                            >
-                                Transfer into Editor
-                            </button>
                         </div>
                     )}
+
+                    <button
+                        onClick={handleTransfer}
+                        type="button"
+                        className="w-full font-medium transition-all duration-200 cursor-pointer whitespace-nowrap rounded  border-2 border-blue-600 text-blue-600 bg-blue-600 text-white py-1.5 mt-4"
+                    >
+                        Transfer into Editor
+                    </button>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
