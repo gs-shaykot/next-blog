@@ -1,5 +1,7 @@
 import Image from 'next/image'
+import Link from 'next/link';
 import React from 'react'
+import { FaExternalLinkAlt } from "react-icons/fa";
 
 export default function RecentPosts({ recentPosts }) {
     return (
@@ -24,12 +26,12 @@ export default function RecentPosts({ recentPosts }) {
                             </div>
                         </div>
                         <div className="flex items-center space-x-3">
-                            <button className="text-gray-500 hover:text-blue-500">
-                                ✏️
-                            </button>
-                            <button className="text-gray-500 hover:text-red-500">
-                                🗑️
-                            </button>
+                            <Link href={`/blogs/${post._id}`}>
+                                <button className="text-gray-500 hover:text-blue-500 cursor-pointer">
+                                    <FaExternalLinkAlt />
+                                </button>
+                            </Link>
+
                         </div>
                     </div>
                 ))}
