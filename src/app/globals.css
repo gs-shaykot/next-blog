@@ -4,8 +4,12 @@
 @custom-variant dark (&:is(.dark *));
 @plugin "daisyui";
 
+@theme {
+    --color-hoverTxt: #1fa5f2;
+}
+
 .menu :where(li:not(.menu-title, .disabled) > :not(ul, details, .menu-title):not(.menu-active, :active, .btn):hover, li:not(.menu-title, .disabled) > details > summary:not(.menu-title):not(.menu-active, :active, .btn):hover) {
-    color: #2563eb;
+    color: #1fa5f2;
     background-color: transparent;
 }
 
@@ -13,7 +17,7 @@
 .menu :where(li)> :not(ul, .menu-title, details, .btn).menu-active,
 .menu :where(li)>details>summary:active {
     background-color: transparent !important;
-    color: #2563eb;
+    color: #1fa5f2;
 }
 
 .input:focus,
@@ -183,10 +187,11 @@
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+    * {
+        @apply border-border outline-ring/50;
     }
-  body {
-    @apply bg-background text-foreground;
+
+    body {
+        @apply bg-background text-foreground;
     }
 }

@@ -61,7 +61,7 @@ export default function LatestPosts({ latestPosts }) {
                         </div>
 
                         <div className="card-body !pt-2">
-                            <h2 className="card-title text-lg md:text-xl group-hover:text-blue-700">{post.title}</h2>
+                            <h2 className="card-title text-lg md:text-xl group-hover:text-hoverTxt">{post.title}</h2>
                             <p className="text-gray-600 whitespace-pre-line">
                                 {removeMd(post.content).slice(0, 80)}...
                             </p>

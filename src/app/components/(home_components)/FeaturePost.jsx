@@ -77,7 +77,7 @@ export default function FeaturedPost(featurePosts) {
 
                                 {/* Title */}
                                 <h2
-                                    className={`font-semibold group-hover:text-blue-700 ${index === 0 ? "text-2xl" : "text-lg"}`}
+                                    className={`font-semibold group-hover:text-hoverTxt ${index === 0 ? "text-2xl" : "text-lg"}`}
                                 >
                                     {post.title}
                                 </h2>
@@ -92,7 +92,7 @@ export default function FeaturedPost(featurePosts) {
                                         <span>💬 28</span>
                                     </div>
 
-                                    <Link href={`/blogs/${post._id}`} className="px-2 py-1 rounded-md group-hover:bg-blue-100 group-active:bg-blue-100 group-hover:text-[#2563eb] bg-transparent border-0 shadow-none text-gray-600">
+                                    <Link href={`/blogs/${post._id}`} className="px-2 py-1 rounded-md group-hover:bg-blue-100 group-active:bg-blue-100 group-hover:text-black bg-transparent border-0 shadow-none text-gray-600">
                                         Read More →
                                     </Link>
                                 </div>

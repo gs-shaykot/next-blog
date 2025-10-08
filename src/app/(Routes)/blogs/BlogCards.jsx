@@ -58,7 +58,7 @@ export default function BlogCards({ post }) {
       <div className="flex flex-col justify-between h-[260px] px-4 py-3">
         {/* Title & Content */}
         <div>
-          <h2 className="card-title text-lg md:text-xl group-hover:text-blue-700 line-clamp-2 leading-snug">
+          <h2 className="card-title text-lg md:text-xl group-hover:text-hoverTxt line-clamp-2 leading-snug">
             {post.title}
           </h2>
           <p className="text-gray-600 dark:text-gray-300 text-sm mt-2 line-clamp-3">
