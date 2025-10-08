@@ -10,8 +10,7 @@ export async function POST(req) {
         if (!title || !tone || !length) {
             return NextResponse.json({ message: 'Missing required fields.' }, { status: 400 });
         }
-
-        // Modified prompt and systemInstruction as required
+ 
         const prompt = `
                     Write a comprehensive and well-structured blog post about "${title}".
                     The blog must begin with a creative and clear title related to "${title}" at the very top.

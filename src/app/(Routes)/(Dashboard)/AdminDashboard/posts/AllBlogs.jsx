@@ -1,5 +1,3 @@
-// make a post table with neccessary fields, this table is for admin dashboard which will show all posts. there should post.title, post.category, post.totalLikes, and a edit & delete button. the table should responsive. 
-
 "use client"
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';

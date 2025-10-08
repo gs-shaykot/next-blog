@@ -106,3 +106,20 @@ export async function GET(req) {
         );
     }
 }
+ 
+export async function DELETE(req) {
+    try {
+        const { searchParams } = new URL(req.url)
+        const id = searchParams.get("id")
+
+        const usersCollection = await client.db("next_Blog").collection("users");
+        const result = await usersCollection.deleteOne({ _id: new ObjectId(id) });
+        return NextResponse.json(
+            { success: true, deletedCount: result.deletedCount },
+            { status: 200 }
+        )
+    }
+    catch (error) {
+        return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+    }
+}
