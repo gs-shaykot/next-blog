@@ -62,8 +62,7 @@ export default function page() {
                             </div>
 
                             <form id="contact-form" className="space-y-6" >
-
-                                {/* Name and Email Inputs */}
+ 
                                 <div className="grid md:grid-cols-2 gap-6">
                                     <div>
                                         <label htmlFor="name" className={`${themeMode === 'dark' ? 'text-gray-400' : 'text-gray-700'} block text-sm font-semibold mb-2`}>Full Name *</label>
@@ -107,8 +106,7 @@ export default function page() {
                                         <option value="Other">Other</option>
                                     </select>
                                 </div>
-
-                                {/* Message Textarea */}
+ 
                                 <div>
                                     <label htmlFor="message" className={`${themeMode === 'dark' ? 'text-gray-400' : 'text-gray-700'} block text-sm font-semibold mb-2`}>Message *</label>
                                     <textarea
@@ -122,8 +120,7 @@ export default function page() {
                                     ></textarea>
                                     <div className="text-right text-sm text-gray-500 mt-1">0/500 characters</div>
                                 </div>
-
-                                {/* Submit Button */}
+ 
                                 <div className="pt-4">
                                     <button
                                         type="submit"
