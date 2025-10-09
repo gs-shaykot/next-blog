@@ -21,6 +21,7 @@ export default function LatestPosts({ latestPosts }) {
                         >
                             Latest Articles
                         </h2>
+                        
                         <div className="h-1 w-36 bg-gradient-to-r from-blue-600 to-indigo-700 mx-auto rounded-full animate-pulse">
                         </div>
                     </div>
