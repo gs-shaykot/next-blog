@@ -35,7 +35,7 @@ export default function BlogList({ initialPosts, initialTotalPages }) {
 
     return (
 
-        <div className='pt-16 mt-2'>
+        <div className={` ${themeMode === "dark" ? "bg-gray-900" : "bg-white"} pt-16 mt-2`}>
             {/* top banner */}
             <div className='py-20 bg-gradient-to-r from-blue-600 to-slate-700 flex flex-col justify-center items-center'>
                 <h2
@@ -79,7 +79,7 @@ export default function BlogList({ initialPosts, initialTotalPages }) {
             </div>
 
             {/* Posts Grid */}
-            <div className={`max-w-7xl mx-auto ${themeMode === "dark" ? "bg-gray-900 !text-white" : "bg-white !text-black"} place-items-center grid md:grid-cols-3 gap-4 pt-6`}>
+            <div className={`max-w-7xl mx-auto ${themeMode === "dark" ? "!text-white" : "!text-black"} place-items-center grid md:grid-cols-3 gap-4 pt-6`}>
                 {searchedPost.length > 0 ? (
                     searchedPost.map((post) => <BlogCards key={post._id} post={post} />)
                 ) : (
