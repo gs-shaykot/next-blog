@@ -273,8 +273,7 @@ export default function AIContentCreator() {
                             </div>
                         </div>
                     )}
-
-                    {/*Show Transfer Button Only When Data Exists */}
+ 
                     {(articleResult || imageResult) && (
                         <button
                             onClick={handleTransfer}

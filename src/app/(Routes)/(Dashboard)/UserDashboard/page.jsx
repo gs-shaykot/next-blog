@@ -23,7 +23,7 @@ export default function UserDashboard() {
         }
     }, [status, pathname, router]);
 
-    const userDtl = session?.user; 
+    const userDtl = session?.user;
     const userEmail = session?.user?.email;
 
     const themeMode = useSelector((mode) => mode.themeToggle.mode);
@@ -78,7 +78,7 @@ export default function UserDashboard() {
 
     return (
         <div className={`min-h-screen mt-18 ${themeMode === 'dark' ? 'bg-gray-900 text-gray-400' : 'bg-gray-50 text-gray-800'}`}>
-            <ProfileBanner userDtl={userDtl} />
+            <ProfileBanner />
 
             <div className="flex flex-col lg:flex-row gap-6 mt-6 px-4 md:px-6 lg:px-10 pb-10">
                 {/* Sidebar */}

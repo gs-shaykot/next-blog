@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { ObjectId } from "mongodb"; 
+import { ObjectId } from "mongodb";
 import clientPromise from "lib/mongo";
 
 export async function GET(req) {
@@ -44,8 +44,7 @@ export async function DELETE(req) {
 
 export async function PATCH(req) {
     try {
-        const { id, ...updateFields } = await req.json();
-
+        const { id, ...updateFields } = await req.json(); 
         const client = await clientPromise;
         const usersCollection = client.db("next_Blog").collection("users");
         const result = await usersCollection.updateOne(

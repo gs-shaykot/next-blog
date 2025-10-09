@@ -5,10 +5,12 @@ import { Camera } from "lucide-react";
 import { useRef, useState } from "react";
 import axios from "axios";
 import { FaCamera } from "react-icons/fa";
+import { useSession } from "next-auth/react";
 
-export default function ProfileBanner({ userDtl }) {
+export default function ProfileBanner() {
+  const { data: session, update } = useSession();
+  const userDtl = session?.user;
   const themeMode = useSelector((mode) => mode.themeToggle.mode);
-  console.log(userDtl)
   const [name, setName] = useState(userDtl?.name || "");
   const [isEditing, setIsEditing] = useState(false);
   const [photo, setPhoto] = useState(userDtl?.image || "/defaultUser.jpg");
@@ -37,19 +39,18 @@ export default function ProfileBanner({ userDtl }) {
       const imageLink = Img_Res.data.secure_url;
       setPhoto(imageLink);
 
-      // Update photo in DB
       await axios.patch("/api/users", {
         id: userDtl.id,
         photoUrl: imageLink,
       });
-    } catch (error) {
-      console.error("Image upload failed:", error);
-      alert("Failed to upload image");
-    } finally {
+      await update();
       setLoading(false);
     }
+    catch (error) {
+      console.error("Image upload failed:", error);
+      alert("Failed to upload image");
+    }
   };
-
 
   const handleNameSave = async () => {
     if (!name.trim()) return alert("Name cannot be empty!");
@@ -59,12 +60,14 @@ export default function ProfileBanner({ userDtl }) {
         id: userDtl.id,
         fullname: name,
       });
+      await update();
       setIsEditing(false);
-    } catch (error) {
+      setLoading(false);
+
+    }
+    catch (error) {
       console.error("Failed to update name:", error);
       alert("Failed to update name");
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -72,7 +75,6 @@ export default function ProfileBanner({ userDtl }) {
     <div className="relative w-full z-2">
       {/* Banner */}
       <div className="relative w-full h-48 md:h-56">
-        {/* make the camera icon near the Image */}
         <div className="relative w-full h-48 md:h-56">
           <Image
             src="/profileBg.jpg"
@@ -100,7 +102,7 @@ export default function ProfileBanner({ userDtl }) {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="px-3 py-1 rounded-md text-gray-800 focus:outline-none"
+                className="input border border-gray-300 px-3 py-1 rounded-md text-gray-800 focus:outline-none"
               />
               <button
                 onClick={handleNameSave}
@@ -122,7 +124,6 @@ export default function ProfileBanner({ userDtl }) {
         </div>
       </div>
 
-      {/* Bottom Section */}
       <div
         className={`${themeMode === "dark"
           ? "bg-gray-800 text-gray-400"

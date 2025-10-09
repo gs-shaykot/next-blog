@@ -10,10 +10,8 @@ const editorSlice = createSlice({
     initialState,
     reducers: {
         setEditorData: (state, action) => {
-            state.content = action.payload.content;
-            console.log(action.payload.content)
-            state.imageUrl = action.payload.imageUrl;
-            console.log(action.payload.imageUrl)
+            state.content = action.payload.content; 
+            state.imageUrl = action.payload.imageUrl; 
         },
         clearEditorData: (state) => {
             state.content = "";

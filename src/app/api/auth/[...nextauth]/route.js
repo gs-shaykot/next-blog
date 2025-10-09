@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import clientPromise from "../../../../../lib/mongo";
 import { verifyPass } from "../../../../../utils/hash";
 
+
 export const authOptions = {
     providers: [
         GoogleProvider({
@@ -19,10 +20,8 @@ export const authOptions = {
             async authorize(credentials) {
                 const client = await clientPromise;
                 const usersCollection = client.db("next_Blog").collection("users");
-
                 const user = await usersCollection.findOne({ email: credentials.email });
                 if (!user) return null;
-
                 const isValid = await verifyPass(credentials.password, user.password);
                 if (!isValid) return null;
 
@@ -82,10 +81,24 @@ export const authOptions = {
             return true;
         },
 
-        async jwt({ token, user, trigger }) {
+        async jwt({ token, user, trigger, session }) {
             if (user) {
                 token.id = user.id;
                 token.role = user.role;
+
+            }
+
+            if (trigger === "update") {
+                const client = await clientPromise;
+                const usersCollection = client.db("next_Blog").collection("users");
+                const dbUser = await usersCollection.findOne({ email: token.email });
+
+                if (dbUser) {
+                    token.id = dbUser._id.toString();
+                    token.role = dbUser.role || "user";
+                    token.name = dbUser.fullname;
+                    token.picture = dbUser.photoUrl;
+                }
             }
 
             if (!token.id || !token.role) {
@@ -105,6 +118,7 @@ export const authOptions = {
             if (session?.user) {
                 session.user.id = token.id;
                 session.user.role = token.role;
+                session.user.bio = token.bio
             }
             return session;
         },
