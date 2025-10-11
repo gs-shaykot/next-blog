@@ -1,23 +1,17 @@
 "use client"
-
 import * as React from "react"
 import {
-  AudioWaveform,
   BookOpen,
   Bot,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
+  House,
+  Newspaper,
+  Users,
   SquareTerminal,
 } from "lucide-react"
-
 import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
 import { NavUser } from "@/components/nav-user"
 import { TeamSwitcher } from "@/components/team-switcher"
+
 import {
   Sidebar,
   SidebarContent,
@@ -25,152 +19,75 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar"
- 
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
-  navMain: [
-    {
-      title: "Playground",
-      url: "#",
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        {
-          title: "History",
-          url: "#",
-        },
-        {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
-}
+import { useSession } from "next-auth/react"
+import { usePathname } from "next/navigation"
 
-export function AppSidebar({
-  ...props
-}) {
+export function AppSidebar(props) {
+  const { data: session } = useSession()
+  const user = session?.user || {} // avoid undefined
+  const imagePath = '/feather-pen.png';
+
+  const pathname = usePathname()
+
+  const data = {
+    user: {
+      name: user.name || "Guest",
+      email: user.email || "No email",
+      avatar: user.image || "/default-avatar.png",
+    },
+    teams: [
+      {
+        name: "BlogCrafts",
+        logo: imagePath,
+      },
+    ],
+    navMain: [
+      {
+        title: "Dashboard",
+        url: "/AdminDashboard",
+        icon: SquareTerminal,
+        isActive: true,
+      },
+      {
+        title: "AI Generate",
+        url: "/AdminDashboard/ai_content_generate",
+        icon: Bot,
+      },
+      {
+        title: "Create Post",
+        url: "/AdminDashboard/create_post",
+        icon: BookOpen,
+      },
+      {
+        title: "All Posts",
+        url: "/AdminDashboard/all_posts",
+        icon: Newspaper,
+      },
+      {
+        title: "All Users",
+        url: "/AdminDashboard/all_users",
+        icon: Users,
+      },
+      {
+        title: "Home",
+        url: "/",
+        icon: House,
+      },
+    ],
+  }
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        <NavMain items={data.navMain} activePath={pathname} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  );
+  )
 }

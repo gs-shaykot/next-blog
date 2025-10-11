@@ -19,7 +19,7 @@ const pacifico = Pacifico({
 });
 
 export default function Navbar() {
-    const pathname = usePathname();
+    const pathname = usePathname(); 
     const { data: session } = useSession();
     const userDtl = session?.user;
     const themeMode = useSelector((mode) => mode.themeToggle.mode);
@@ -61,7 +61,7 @@ export default function Navbar() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    if (!pathname.includes('AdminDashboard')) {
+    if (!pathname.includes('AdminDashboard') && !pathname.includes('dashboard')) {
         return (
             <div
                 className={`fixed top-0 left-0 w-full z-50 py-1 transition-all duration-300 ${themeMode === "dark"

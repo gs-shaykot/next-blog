@@ -12,7 +12,7 @@ export default function AdminDashboard() {
     const { data: activities } = useActivityQuery();
     if (isLoading) return <p className="text-center mt-10">Loading analytics...</p>;
 
-    const { cards, popularCategories, recentPosts } = data.data || {};
+    const { cards, popularCategories, recentPosts } = data?.data || {};
 
     const cardItems = [
         {

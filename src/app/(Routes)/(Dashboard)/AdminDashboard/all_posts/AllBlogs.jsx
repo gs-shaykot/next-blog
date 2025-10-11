@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { CiSearch } from 'react-icons/ci';
 import CategoryFilter from '@/app/(Routes)/blogs/CategoryFilter';
-import BlogTable from '@/app/(Routes)/(Dashboard)/AdminDashboard/posts/BlogTable';
+import BlogTable from '@/app/(Routes)/(Dashboard)/AdminDashboard/all_posts/BlogTable';
 
 export default function AllBlogs({ AllPosts, allTotalPages }) {
     const [posts, setPosts] = useState(AllPosts);
@@ -34,7 +34,7 @@ export default function AllBlogs({ AllPosts, allTotalPages }) {
 
 
     return (
-        <div>
+        <div className='bg-white rounded'>
             <div className={`max-w-7xl mx-auto ${themeMode === "dark" ? "bg-[#16202C] !text-white" : "bg-gray-100 !text-black"} flex flex-col md:flex-row justify-between items-center gap-4 p-10`}>
                 {/* Search Bar */}
                 <label

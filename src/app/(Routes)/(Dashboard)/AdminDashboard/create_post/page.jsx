@@ -18,6 +18,7 @@ export default function CreatePage() {
   const [category, setCategory] = useState("Technology");
   const [hashtags, setHashtags] = useState("");
   const [postImage, setPostImage] = useState("");
+  const [is_Featured, setIsFeatured] = useState(false);
 
   const config = {
     readonly: false,
@@ -87,7 +88,7 @@ export default function CreatePage() {
       .map((tag) => (tag.startsWith("#") ? tag : `#${tag}`));
 
     const newPost = {
-      isFeatured: false,
+      isFeatured: is_Featured,
       category,
       title: postTitle,
       subtitle: `A detailed guide on ${postTitle}`,
@@ -117,7 +118,7 @@ export default function CreatePage() {
 
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 space-y-6 bg-white rounded">
       <h1 className="text-2xl font-semibold mb-4">📝 Create New Post</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -133,21 +134,35 @@ export default function CreatePage() {
             required
           />
         </div>
+        <div className="flex justify-between items-center w-full gap-4">
+          {/* Category */}
+          <div className="w-1/2">
+            <label className="block font-medium mb-2">Category</label>
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              {["Technology", "Design", "Business", "Lifestyle", "Travel"].map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        {/* Category */}
-        <div>
-          <label className="block font-medium mb-2">Category</label>
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            {["Technology", "Design", "Business", "Lifestyle", "Travel"].map((cat) => (
-              <option key={cat} value={cat}>
-                {cat}
-              </option>
-            ))}
-          </select>
+          {/* Featured */}
+          <div className="w-1/2">
+            <label className="block font-medium mb-2">Featured</label>
+            <select
+              value={is_Featured}
+              onChange={(e) => setIsFeatured(e.target.value)}
+              className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
         </div>
 
         {/* Hashtags */}

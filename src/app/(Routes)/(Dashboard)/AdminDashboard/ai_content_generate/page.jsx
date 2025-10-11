@@ -139,7 +139,7 @@ export default function AIContentCreator() {
     };
 
     return (
-        <div>
+        <div className='rounded'>
             {/* Header */}
             <div className='border-b border-gray-600 bg-white p-6'>
                 <div className='flex items-center gap-2 mb-3'>
@@ -203,7 +203,7 @@ export default function AIContentCreator() {
                     <div className='flex items-center gap-2 mb-3'>
                         <FaImage className='w-6 h-6 text-green-600' />
                         <h2 className={`${roboto.className} text-xl font-bold`}>
-                            Generate Article Image <span className='text-xs text-gray-600'>(Free tier limit may apply)</span>
+                            Generate Article Image <span className='text-xs text-gray-600'>(Free tier limit may apply. Try again if fail)</span>
                         </h2>
                     </div>
 

@@ -6,7 +6,7 @@ import {
   ChevronsUpDown,
   CreditCard,
   LogOut,
-  Sparkles,
+  UserRoundPen,
 } from "lucide-react"
 
 import {
@@ -29,9 +29,11 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import Link from "next/link"
+import { signOut } from "next-auth/react"
 
 export function NavUser({
-  user
+  user, activePath
 }) {
   const { isMobile } = useSidebar()
 
@@ -72,13 +74,18 @@ export function NavUser({
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Sparkles />
-                Upgrade to Pro
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
+
+            <Link href='/UserDashboard'>
+              <DropdownMenuGroup>
+                <DropdownMenuItem className="cursor-pointer">
+                  <UserRoundPen />
+                  Edit Profile
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+            </Link>
+
             <DropdownMenuSeparator />
+
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <BadgeCheck />
@@ -93,11 +100,16 @@ export function NavUser({
                 Notifications
               </DropdownMenuItem>
             </DropdownMenuGroup>
+
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <LogOut />
-              Log out
-            </DropdownMenuItem>
+
+            <button onClick={() => signOut({ callbackUrl: "/" })}>
+              <DropdownMenuItem className="cursor-pointer">
+                <LogOut />
+                Log out
+              </DropdownMenuItem>
+            </button>
+
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>

@@ -1,4 +1,4 @@
-import AllBlogs from '@/app/(Routes)/(Dashboard)/AdminDashboard/posts/AllBlogs';
+import AllBlogs from '@/app/(Routes)/(Dashboard)/AdminDashboard/all_posts/AllBlogs';
 import { getPaginatedPosts } from 'lib/posts';
 import React from 'react'
 
