@@ -24,7 +24,7 @@ import { usePathname } from "next/navigation"
 
 export function AppSidebar(props) {
   const { data: session } = useSession()
-  const user = session?.user || {} // avoid undefined
+  const user = session?.user || {} 
   const imagePath = '/feather-pen.png';
 
   const pathname = usePathname()
