@@ -19,13 +19,15 @@ import {
 } from "@/components/ui/sidebar"
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSelector } from "react-redux";
 
 export function NavMain({ items }) {
   const pathname = usePathname();
+  const themeMode = useSelector((mode) => mode.themeToggle.mode);
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
+      <SidebarGroupLabel className={`${themeMode === 'dark' ? '!text-gray-300' : '!text-gray-900'}`}>Admin Options:</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => {
           const isActive = pathname === item.url;
@@ -40,10 +42,10 @@ export function NavMain({ items }) {
                 <Link href={item.url}>
                   <SidebarMenuButton
                     tooltip={item.title}
-                    className={`cursor-pointer flex items-center gap-2 
+                    className={`cursor-pointer flex items-center gap-2
                       ${isActive
-                        ? "bg-blue-600 text-white hover:bg-blue-700 hover:text-white"
-                        : "hover:bg-gray-100 text-gray-800"
+                        ? "bg-blue-600 !text-white hover:bg-blue-700 hover:text-black"
+                        : ` ${themeMode === 'dark' ? 'hover:bg-gray-600 !text-white' : 'hover:bg-gray-100 text-gray-900'}`
                       }`}
                   >
                     {item.icon && <item.icon className="h-4 w-4" />}

@@ -21,13 +21,16 @@ import {
 } from "@/components/ui/sidebar"
 import { useSession } from "next-auth/react"
 import { usePathname } from "next/navigation"
+import { useSelector } from "react-redux"
+ 
 
 export function AppSidebar(props) {
   const { data: session } = useSession()
-  const user = session?.user || {} 
+  const user = session?.user || {}
   const imagePath = '/feather-pen.png';
 
   const pathname = usePathname()
+  const themeMode = useSelector((mode) => mode.themeToggle.mode);
 
   const data = {
     user: {
@@ -77,7 +80,7 @@ export function AppSidebar(props) {
   }
 
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar className={`${themeMode === 'dark' ? '!bg-gray-800 !text-white' : 'bg-white text-black'}`} collapsible="icon" {...props}>
       <SidebarHeader>
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader>

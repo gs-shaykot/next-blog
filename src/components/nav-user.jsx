@@ -31,11 +31,13 @@ import {
 } from "@/components/ui/sidebar"
 import Link from "next/link"
 import { signOut } from "next-auth/react"
+import { useSelector } from "react-redux"
 
 export function NavUser({
   user, activePath
 }) {
   const { isMobile } = useSidebar()
+  const themeMode = useSelector((mode) => mode.themeToggle.mode);
 
   return (
     <SidebarMenu>
@@ -44,12 +46,12 @@ export function NavUser({
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
+              className={`${themeMode === 'dark' ? 'data-[state=open]:bg-gray-700 hover:bg-gray-700 hover:text-white data-[state=open]:text-gray-100' : 'data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'}`}>
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={user.avatar} alt={user.name} />
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
               </Avatar>
-              <div className="grid flex-1 text-left text-sm leading-tight">
+              <div className="grid flex-1 text-left text-sm leading-tight ">
                 <span className="truncate font-medium">{user.name}</span>
                 <span className="truncate text-xs">{user.email}</span>
               </div>
@@ -57,7 +59,7 @@ export function NavUser({
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
+            className={`${themeMode === 'dark' ? 'bg-gray-700 text-white' : ''} w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg`}
             side={isMobile ? "bottom" : "right"}
             align="end"
             sideOffset={4}>
