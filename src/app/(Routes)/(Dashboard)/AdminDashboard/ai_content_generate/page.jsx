@@ -5,7 +5,7 @@ import { Roboto } from 'next/font/google';
 import { BsFeather } from "react-icons/bs";
 import { FaImage } from "react-icons/fa";
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setEditorData } from '@/app/Redux/editorSlice';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
@@ -32,7 +32,9 @@ export default function AIContentCreator() {
     const [loadingImage, setLoadingImage] = useState(false);
     const [uploading, setUploading] = useState(false);
     const [cloudinaryUrl, setCloudinaryUrl] = useState(null);
- 
+
+    const themeMode = useSelector((mode) => mode.themeToggle.mode);
+
     const handleGenerateArticle = async () => {
         if (!articleTitle || !tone || !length)
             return Swal.fire('Missing Fields', 'Please fill all fields.', 'warning');
@@ -58,7 +60,7 @@ export default function AIContentCreator() {
             setLoadingArticle(false);
         }
     };
- 
+
     const handleGenerateImage = async () => {
         if (!imagePrompt || !imageStyle || !aspectRatio)
             return Swal.fire('Missing Fields', 'Please fill all fields.', 'warning');
@@ -89,7 +91,7 @@ export default function AIContentCreator() {
             setLoadingImage(false);
         }
     };
- 
+
     const handleUploadToCloudinary = async () => {
         if (!imageResult)
             return Swal.fire('No Image', 'No image to upload!', 'warning');
@@ -117,7 +119,7 @@ export default function AIContentCreator() {
             setUploading(false);
         }
     };
- 
+
     const handleDownloadImage = () => {
         if (!imageResult) return;
         const link = document.createElement('a');
@@ -127,7 +129,7 @@ export default function AIContentCreator() {
         link.click();
         document.body.removeChild(link);
     };
- 
+
     const handleTransfer = () => {
         dispatch(setEditorData({
             content: articleResult,
@@ -139,9 +141,9 @@ export default function AIContentCreator() {
     };
 
     return (
-        <div className='rounded'>
+        <div className={`${themeMode === 'dark' ? 'bg-gray-700 !text-white' : ''}  rounded`}>
             {/* Header */}
-            <div className='border-b border-gray-600 bg-white p-6'>
+            <div className='border-b border-gray-600 p-6'>
                 <div className='flex items-center gap-2 mb-3'>
                     <BrainCircuit className='w-8 h-8 text-blue-600' />
                     <h2 className={`${roboto.className} text-2xl font-bold`}>AI Content Creation</h2>
@@ -149,7 +151,7 @@ export default function AIContentCreator() {
                 <p className='text-gray-700'>Generate blog content and images using AI</p>
             </div>
 
-            <div className='w-full mx-auto space-y-12 bg-white p-6'>
+            <div className='w-full mx-auto space-y-12 p-6'>
                 {/* Article Section */}
                 <div className='border rounded-lg p-6 shadow-sm w-11/12 mx-auto'>
                     <div className='flex items-center gap-2 mb-3'>
@@ -165,14 +167,14 @@ export default function AIContentCreator() {
                         className='w-full border rounded px-3 py-2 mb-3'
                     />
                     <div className='flex gap-3 mb-3'>
-                        <select value={tone} onChange={(e) => setTone(e.target.value)} className='flex-1 border rounded px-3 py-2'>
+                        <select value={tone} onChange={(e) => setTone(e.target.value)} className={`${themeMode === 'dark' ? 'bg-gray-900' : ''} flex-1 border rounded px-3 py-2`}>
                             <option value=''>Select tone</option>
                             <option value='professional'>Professional</option>
                             <option value='academic'>Academic</option>
                             <option value='creative'>Creative</option>
                             <option value='casual'>Casual</option>
                         </select>
-                        <select value={length} onChange={(e) => setLength(e.target.value)} className='flex-1 border rounded px-3 py-2'>
+                        <select value={length} onChange={(e) => setLength(e.target.value)} className={`${themeMode === 'dark' ? 'bg-gray-900' : ''} flex-1 border rounded px-3 py-2`}>
                             <option value=''>Article length</option>
                             <option value={200}>200 words</option>
                             <option value={500}>500 words</option>
@@ -215,7 +217,7 @@ export default function AIContentCreator() {
                         className='w-full border rounded px-3 py-2 mb-3'
                     />
                     <div className='flex gap-3 mb-3'>
-                        <select value={imageStyle} onChange={(e) => setImageStyle(e.target.value)} className='flex-1 border rounded px-3 py-2'>
+                        <select value={imageStyle} onChange={(e) => setImageStyle(e.target.value)} className={`${themeMode === 'dark' ? 'bg-gray-900' : ''} flex-1 border rounded px-3 py-2`}>
                             <option value=''>Image style</option>
                             <option value='photorealistic'>Photorealistic</option>
                             <option value='illustration'>Illustration</option>
@@ -225,7 +227,7 @@ export default function AIContentCreator() {
                             <option value='anime'>Anime</option>
                             <option value='digital art'>Digital Art</option>
                         </select>
-                        <select value={aspectRatio} onChange={(e) => setAspectRatio(e.target.value)} className='flex-1 border rounded px-3 py-2'>
+                        <select value={aspectRatio} onChange={(e) => setAspectRatio(e.target.value)} className={`${themeMode === 'dark' ? 'bg-gray-900' : ''} flex-1 border rounded px-3 py-2`}>
                             <option value=''>Aspect ratio</option>
                             <option value='1:1'>1:1 (Square)</option>
                             <option value='16:9'>16:9 (Landscape)</option>
@@ -273,7 +275,7 @@ export default function AIContentCreator() {
                             </div>
                         </div>
                     )}
- 
+
                     {(articleResult || imageResult) && (
                         <button
                             onClick={handleTransfer}

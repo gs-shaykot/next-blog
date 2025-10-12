@@ -1,12 +1,11 @@
 "use client";
-
 import React, { useState, useRef, useEffect } from "react";
 import dynamic from "next/dynamic";
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useSession } from "next-auth/react";
-import { useSelector } from "react-redux";
+import { useSelector } from "react-redux"; 
 
 export default function CreatePage() {
   const { data: session } = useSession();
@@ -20,6 +19,7 @@ export default function CreatePage() {
   const [postImage, setPostImage] = useState("");
   const [is_Featured, setIsFeatured] = useState(false);
 
+  const themeMode = useSelector((mode) => mode.themeToggle.mode);
   const config = {
     readonly: false,
     placeholder: "Start writing your content here...",
@@ -118,7 +118,7 @@ export default function CreatePage() {
 
 
   return (
-    <div className="p-6 space-y-6 bg-white rounded">
+    <div className={`p-6 space-y-6 ${themeMode === 'dark' ? 'bg-gray-900' : 'bg-white'}  rounded`}>
       <h1 className="text-2xl font-semibold mb-4">📝 Create New Post</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -144,7 +144,7 @@ export default function CreatePage() {
               className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               {["Technology", "Design", "Business", "Lifestyle", "Travel"].map((cat) => (
-                <option key={cat} value={cat}>
+                <option key={cat} value={cat} className={`${themeMode === 'dark' ? 'bg-gray-900' : ''}`}>
                   {cat}
                 </option>
               ))}
@@ -159,8 +159,8 @@ export default function CreatePage() {
               onChange={(e) => setIsFeatured(e.target.value)}
               className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
+              <option className={`${themeMode === 'dark' ? 'bg-gray-900' : ''}`} value="yes">Yes</option>
+              <option className={`${themeMode === 'dark' ? 'bg-gray-900' : ''}`} value="no">No</option>
             </select>
           </div>
         </div>
@@ -183,9 +183,13 @@ export default function CreatePage() {
           <JoditEditor
             ref={editor}
             value={Jodcontent}
-            config={config}
+            config={{
+              ...config,
+              theme: themeMode === 'dark' ? 'dark' : 'default',
+            }}
             onBlur={(newContent) => setJodContent(newContent)}
           />
+
         </div>
 
         <button

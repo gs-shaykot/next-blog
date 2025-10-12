@@ -1,9 +1,13 @@
 import React from 'react'
 import { FaThumbsUp } from 'react-icons/fa'
+import { useSelector } from 'react-redux';
 
 export default function PopularCategory({ popularCategories }) {
+
+    const themeMode = useSelector((mode) => mode.themeToggle.mode);
+
     return (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm ">
+        <div className={`${themeMode === 'dark' ? 'bg-gray-700 !text-white' : 'bg-white'} rounded-xl shadow-sm`}>
             <div className='border-b border-gray-600'>
                 <h2 className="font-semibold text-lg p-3">Popular Categories</h2>
             </div>
@@ -31,7 +35,7 @@ export default function PopularCategory({ popularCategories }) {
                                 <p className="text-xs text-gray-500">{cat.postCount} posts</p>
                             </div>
                         </div>
-                        <div className="text-right flex justify-center items-center gap-1 text-green-700">
+                        <div className="text-right flex justify-center items-center gap-1 text-green-500">
                             <FaThumbsUp />
                             <p className="text-sm font-semibold">
                                 {cat.totalLikes.toLocaleString()}

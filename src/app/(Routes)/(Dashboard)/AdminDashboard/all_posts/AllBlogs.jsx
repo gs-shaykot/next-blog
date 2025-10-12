@@ -34,7 +34,7 @@ export default function AllBlogs({ AllPosts, allTotalPages }) {
 
 
     return (
-        <div className='bg-white rounded'>
+        <div className={`${themeMode === 'dark' ? 'bg-gray-900' : 'bg-white'} rounded`}>
             <div className={`max-w-7xl mx-auto ${themeMode === "dark" ? "bg-[#16202C] !text-white" : "bg-gray-100 !text-black"} flex flex-col md:flex-row justify-between items-center gap-4 p-10`}>
                 {/* Search Bar */}
                 <label

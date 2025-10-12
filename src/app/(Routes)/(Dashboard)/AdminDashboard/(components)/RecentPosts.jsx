@@ -2,10 +2,14 @@ import Image from 'next/image'
 import Link from 'next/link';
 import React from 'react'
 import { FaExternalLinkAlt } from "react-icons/fa";
+import { useSelector } from 'react-redux';
 
 export default function RecentPosts({ recentPosts }) {
+
+  const themeMode = useSelector((mode) => mode.themeToggle.mode);
+
     return (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
+        <div className={`${themeMode === 'dark' ? 'bg-gray-700 !text-white' : 'bg-white'} rounded-xl shadow-sm p-6`}>
             <h2 className="font-semibold text-lg mb-4">Recent Posts</h2>
             <div className="space-y-4">
                 {recentPosts?.map((post) => (
@@ -20,7 +24,7 @@ export default function RecentPosts({ recentPosts }) {
                             />
                             <div>
                                 <h3 className="font-medium">{post.title}</h3>
-                                <p className="text-xs text-gray-500">
+                                <p className={`${themeMode === 'dark' ? 'text-gray-300' : 'text-gray-500'} text-xs`}>
                                     {post.posted_date} · {post.category}
                                 </p>
                             </div>
