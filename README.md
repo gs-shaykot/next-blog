@@ -36,9 +36,9 @@ Here’s how to generate an AI-powered article inside **BlogCraft**:
    - The **title** into the **Title field** of your article editor.  
    - The **hashtags** into the **Tags/Hashtags field**.
 5. Make any **manual edits or refinements** as needed.  
-6. Finally, click **“Publish”** or **“Save as Draft”**.
+6. Finally, click **“Publish”**.
 
-> 💡 *Tip:* AI outputs are fully editable — you can tweak tone, length, or structure before publishing.
+> 💡 *Tip:* AI outputs are fully editable — you can tweak tone, length, or structure using jodit editor before publishing.
 
 ---
 
@@ -50,8 +50,7 @@ Here’s how to generate an AI-powered article inside **BlogCraft**:
 ### 👥 User Roles
 | Role | Capabilities |
 |------|---------------|
-| **Admin** | Manage users, approve & publish content, access analytics |
-| **Moderator** | Edit & approve AI-generated articles |
+| **Admin** | Manage users, approve & publish content, access analytics | 
 | **Reader** | Browse, like, comment, and share posts |
 
 ### 🔐 Authentication
@@ -77,8 +76,7 @@ Here’s how to generate an AI-powered article inside **BlogCraft**:
 - **Backend**: Node.js + Express  
 - **Rendering**: SSR + CSR hybrid (Next.js)  
 - **Deployment**: Vercel (frontend + backend)  
-- **Security**: JWT, CSRF/XSS protection  
-- **Performance Goal**: 50K+ monthly active users
+- **Security**: JWT, CSRF/XSS protection   
 
 ---
 
@@ -99,8 +97,7 @@ Here’s how to generate an AI-powered article inside **BlogCraft**:
 ## 🔮 Future Enhancements
 - SEO-optimized title & keyword suggestions  
 - Graph-based analytics dashboard  
-- Monetization options (ads, premium posts)  
-- PWA support for offline reading  
+- Monetization options (ads, premium posts)   
 
 ---
 
@@ -117,7 +114,7 @@ Here’s how to generate an AI-powered article inside **BlogCraft**:
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/BlogCraft.git
+git clone https://github.com/gs-shaykot/next-blog.git
 
 # Move into the project folder
 cd BlogCraft
@@ -126,7 +123,7 @@ cd BlogCraft
 npm install
 
 # Set up environment variables
-cp .env.example .env.local
+setup .env.local
 
 # Run development server
 npm run dev
