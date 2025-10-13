@@ -19,6 +19,29 @@ Admins and moderators can generate, refine, and publish articles and images effo
 - Create visually engaging thumbnails via **Pollinations.ai**.  
 - Edit or refine AI-generated drafts manually.
 
+---
+
+### 🧾 Guide: Generating an AI Article
+
+Here’s how to generate an AI-powered article inside **BlogCraft**:
+
+1. **Go to the “Generate Article” Section** in your admin or moderator dashboard.  
+2. **Enter a prompt or topic idea** — for example:  
+   > _“Write a blog about the future of AI-driven education.”_
+3. **Click on “Generate with AI”** — the system will use **Gemini 2.5 Flash** to produce:
+   - 🏷 **Title** → Appears **at the top** of the AI response.  
+   - 📜 **Full Article** → Displayed **in the middle section**.  
+   - 🔖 **Hashtags** → Shown **at the bottom**.
+4. **Copy and paste**:
+   - The **title** into the **Title field** of your article editor.  
+   - The **hashtags** into the **Tags/Hashtags field**.
+5. Make any **manual edits or refinements** as needed.  
+6. Finally, click **“Publish”** or **“Save as Draft”**.
+
+> 💡 *Tip:* AI outputs are fully editable — you can tweak tone, length, or structure before publishing.
+
+---
+
 ### 📰 Blog Management
 - Create, preview, edit, and publish posts.  
 - Categorize and tag blogs with advanced filters.  
@@ -27,7 +50,8 @@ Admins and moderators can generate, refine, and publish articles and images effo
 ### 👥 User Roles
 | Role | Capabilities |
 |------|---------------|
-| **Admin** | Manage users, approve & publish content, access analytics | 
+| **Admin** | Manage users, approve & publish content, access analytics |
+| **Moderator** | Edit & approve AI-generated articles |
 | **Reader** | Browse, like, comment, and share posts |
 
 ### 🔐 Authentication
@@ -75,7 +99,8 @@ Admins and moderators can generate, refine, and publish articles and images effo
 ## 🔮 Future Enhancements
 - SEO-optimized title & keyword suggestions  
 - Graph-based analytics dashboard  
-- Monetization options (ads, premium posts)   
+- Monetization options (ads, premium posts)  
+- PWA support for offline reading  
 
 ---
 
@@ -88,11 +113,20 @@ Admins and moderators can generate, refine, and publish articles and images effo
 
 ---
 
-## 🧑‍💻 Developer Notes
+## ⚙️ Installation
 
-This project is developed as a **personal experimental platform** for testing AI-assisted blog automation.  
-Every feature is designed with **scalability, clarity, and modularity** in mind.
+```bash
+# Clone the repository
+git clone https://github.com/your-username/BlogCraft.git
 
----
+# Move into the project folder
+cd BlogCraft
 
-## ⚙️ Inst
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env.local
+
+# Run development server
+npm run dev
