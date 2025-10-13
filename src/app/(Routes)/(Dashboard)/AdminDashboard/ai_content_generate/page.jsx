@@ -166,7 +166,7 @@ export default function AIContentCreator() {
                         onChange={(e) => setArticleTitle(e.target.value)}
                         className='w-full border rounded px-3 py-2 mb-3'
                     />
-                    <div className='flex gap-3 mb-3'>
+                    <div className='flex gap-3 mb-3 flex-wrap'>
                         <select value={tone} onChange={(e) => setTone(e.target.value)} className={`${themeMode === 'dark' ? 'bg-gray-900' : ''} flex-1 border rounded px-3 py-2`}>
                             <option value=''>Select tone</option>
                             <option value='professional'>Professional</option>
@@ -205,7 +205,7 @@ export default function AIContentCreator() {
                     <div className='flex items-center gap-2 mb-3'>
                         <FaImage className='w-6 h-6 text-green-600' />
                         <h2 className={`${roboto.className} text-xl font-bold`}>
-                            Generate Article Image <span className='text-xs text-gray-600'>(Free tier limit may apply. Try again if fail)</span>
+                            Generate Article Image <span className={`${themeMode === 'dark' ? ' text-gray-300' : ' text-gray-600'} text-xs`}>(Free tier limit may apply. Try again if fail)</span>
                         </h2>
                     </div>
 
@@ -216,7 +216,7 @@ export default function AIContentCreator() {
                         onChange={(e) => setImagePrompt(e.target.value)}
                         className='w-full border rounded px-3 py-2 mb-3'
                     />
-                    <div className='flex gap-3 mb-3'>
+                    <div className='flex gap-3 mb-3 flex-wrap'>
                         <select value={imageStyle} onChange={(e) => setImageStyle(e.target.value)} className={`${themeMode === 'dark' ? 'bg-gray-900' : ''} flex-1 border rounded px-3 py-2`}>
                             <option value=''>Image style</option>
                             <option value='photorealistic'>Photorealistic</option>
@@ -287,6 +287,6 @@ export default function AIContentCreator() {
                     )}
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
