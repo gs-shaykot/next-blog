@@ -75,8 +75,7 @@ Admins and moderators can generate, refine, and publish articles and images effo
 ## 🔮 Future Enhancements
 - SEO-optimized title & keyword suggestions  
 - Graph-based analytics dashboard  
-- Monetization options (ads, premium posts)  
-- PWA support for offline reading  
+- Monetization options (ads, premium posts)   
 
 ---
 
